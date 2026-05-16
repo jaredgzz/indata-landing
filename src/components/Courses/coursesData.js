@@ -1,0 +1,8 @@
+export const coursesData = [
+  { title: 'Power BI',                desc: 'Domina la visualización de datos y crea reportes que impulsan decisiones.',                         logoText: 'PBI', logoBg: '#F2C811',              logoColor: '#000',     tag: 'Análisis',      tagColor: '#2563EB' },
+  { title: 'Python',                  desc: 'Desde cero hasta análisis de datos, automatización y machine learning.',                             logoText: 'Py',  logoBg: '#3776AB',              logoColor: '#FFD43B',  tag: 'Programación',  tagColor: '#7C3AED' },
+  { title: 'Databricks',             desc: 'Procesamiento masivo con Apache Spark y arquitecturas lakehouse en la nube.',                          logoText: 'DBX', logoBg: '#FF3621',              logoColor: '#fff',     tag: 'Big Data',      tagColor: '#EF4444' },
+  { title: 'Azure',                   desc: 'Servicios de datos e IA en la nube de Microsoft: Synapse, ADF, Azure ML.',                           logoText: 'AZ',  logoBg: '#0089D6',              logoColor: '#fff',     tag: 'Cloud',         tagColor: '#0089D6' },
+  { title: 'IA Aplicada',             desc: 'Implementa modelos de inteligencia artificial en proyectos empresariales reales.',                    logoText: 'IA',  logoBg: 'rgba(124,58,237,0.25)', logoColor: '#A78BFA', tag: 'Avanzado',      tagColor: '#7C3AED' },
+  { title: 'Automatización con LLMs', desc: 'Integra modelos de lenguaje como GPT y Claude en flujos de trabajo de negocio.',                     logoText: 'LLM', logoBg: 'rgba(0,209,178,0.15)', logoColor: '#00D1B2', tag: 'IA Generativa', tagColor: '#00D1B2' },
+]

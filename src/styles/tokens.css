@@ -1,0 +1,36 @@
+:root {
+  --bg-primary:      #0D1117;
+  --bg-hero:         #080C18;
+  --bg-alt:          #0A0F18;
+  --bg-footer:       #070B10;
+  --bg-card:         #111827;
+  --bg-nav:          rgba(8, 12, 24, 0.75);
+  --bg-nav-scrolled: rgba(8, 12, 24, 0.95);
+
+  --color-blue:   #2563EB;
+  --color-purple: #7C3AED;
+  --color-teal:   #00D1B2;
+
+  --text-primary:   #F5F7FA;
+  --text-secondary: #8B9BB4;
+  --text-muted:     #5A6A82;
+  --text-nav:       #9AAFC8;
+  --text-link:      #B4C0D3;
+
+  --grad-primary: linear-gradient(135deg, #2563EB, #7C3AED);
+  --grad-accent:  linear-gradient(135deg, #2563EB, #00D1B2);
+
+  --font-base: 'Manrope', system-ui, sans-serif;
+
+  --section-padding: 100px 40px;
+  --max-width: 1200px;
+  --card-radius: 16px;
+  --card-bg: #111827;
+  --card-border: rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 768px) {
+  :root {
+    --section-padding: 64px 20px;
+  }
+}

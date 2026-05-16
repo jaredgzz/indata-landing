@@ -1,0 +1,263 @@
+.contact-cta {
+  padding: var(--section-padding);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.06), rgba(124, 58, 237, 0.06));
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.contact-cta__inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── Header ─────────────────────────────────── */
+
+.contact-cta__header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.contact-cta__eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-teal);
+  margin-bottom: 16px;
+}
+
+.contact-cta__title {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+
+.contact-cta__subtitle {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* ── Form ────────────────────────────────────── */
+
+.contact-cta__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-cta__form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.contact-cta__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact-cta__label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+}
+
+.contact-cta__required {
+  color: var(--color-teal);
+}
+
+.contact-cta__input,
+.contact-cta__select,
+.contact-cta__textarea {
+  font-family: var(--font-base);
+  font-size: 14px;
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 10px;
+  padding: 12px 16px;
+  outline: none;
+  transition: border-color 200ms ease, background 200ms ease, box-shadow 200ms ease;
+  width: 100%;
+}
+
+.contact-cta__select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238B9BB4' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+.contact-cta__select option {
+  background: #1A2236;
+  color: var(--text-primary);
+}
+
+.contact-cta__textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.contact-cta__input::placeholder,
+.contact-cta__textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.contact-cta__input:focus,
+.contact-cta__select:focus,
+.contact-cta__textarea:focus {
+  border-color: rgba(37, 99, 235, 0.5);
+  background: rgba(37, 99, 235, 0.05);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.contact-cta__input:disabled,
+.contact-cta__select:disabled,
+.contact-cta__textarea:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Submit button ───────────────────────────── */
+
+.contact-cta__submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 32px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #2563EB, #7C3AED);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--font-base);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4);
+  transition: opacity 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+  align-self: flex-start;
+}
+
+.contact-cta__submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(37, 99, 235, 0.5);
+}
+
+.contact-cta__submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* ── Spinner ─────────────────────────────────── */
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.contact-cta__spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+/* ── Error ───────────────────────────────────── */
+
+.contact-cta__error {
+  font-size: 13px;
+  color: #F87171;
+  background: rgba(248, 113, 113, 0.08);
+  border: 1px solid rgba(248, 113, 113, 0.2);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+/* ── Success state ───────────────────────────── */
+
+.contact-cta__success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 48px 24px;
+  background: rgba(0, 209, 178, 0.05);
+  border: 1px solid rgba(0, 209, 178, 0.15);
+  border-radius: 16px;
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.contact-cta__success-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(0, 209, 178, 0.10);
+  border: 1px solid rgba(0, 209, 178, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.contact-cta__success-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.contact-cta__success-text {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 360px;
+  margin-bottom: 28px;
+}
+
+.contact-cta__success-reset {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-teal);
+  background: transparent;
+  border: 1px solid rgba(0, 209, 178, 0.25);
+  border-radius: 8px;
+  padding: 8px 20px;
+  cursor: pointer;
+  font-family: var(--font-base);
+  transition: background 200ms ease, border-color 200ms ease;
+}
+
+.contact-cta__success-reset:hover {
+  background: rgba(0, 209, 178, 0.08);
+  border-color: rgba(0, 209, 178, 0.4);
+}
+
+/* ── Responsive ──────────────────────────────── */
+
+@media (max-width: 640px) {
+  .contact-cta__form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-cta__submit {
+    align-self: stretch;
+    justify-content: center;
+  }
+
+  .contact-cta__header {
+    margin-bottom: 36px;
+  }
+}
