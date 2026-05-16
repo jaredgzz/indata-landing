@@ -1,4 +1,5 @@
 import { useAnimateIn } from '../../hooks/useAnimateIn'
+import SectionHeader from '../SectionHeader/SectionHeader'
 import ServiceCard from './ServiceCard'
 import { servicesData } from './servicesData.jsx'
 import './Services.css'
@@ -13,11 +14,12 @@ export default function Services() {
         ref={headerRef}
         className={`services__header${headerVisible ? ' animate-in' : ''}`}
       >
-        <div className="services__eyebrow">SERVICIOS</div>
-        <h2 className="services__title">Soluciones que impulsan tu negocio</h2>
-        <p className="services__subtitle">
-          Aplicamos tecnología, datos e inteligencia para resolver problemas reales y generar valor medible.
-        </p>
+        <SectionHeader
+          eyebrow="SERVICIOS"
+          title="Soluciones que impulsan tu negocio"
+          subtitle="Aplicamos tecnología, datos e inteligencia para resolver problemas reales y generar valor medible."
+          accentColor="var(--color-blue)"
+        />
       </div>
       <div ref={gridRef} className="services__grid">
         {servicesData.map((s, i) => (

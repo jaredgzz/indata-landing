@@ -1,4 +1,5 @@
 import WaveCanvas from './WaveCanvas'
+import { scrollTo } from '../../lib/scrollTo'
 import './Hero.css'
 
 const stats = [
@@ -61,10 +62,10 @@ export default function Hero() {
           Soluciones de datos, inteligencia artificial y automatización para empresas modernas.
         </p>
         <div className="hero__ctas">
-          <button className="hero__cta-primary" onClick={() => document.getElementById('servicios')?.scrollIntoView({ behavior: 'smooth' })}>
+          <button className="hero__cta-primary" onClick={() => scrollTo('servicios')}>
             Explorar servicios →
           </button>
-          <button className="hero__cta-secondary" onClick={() => document.getElementById('proyectos')?.scrollIntoView({ behavior: 'smooth' })}>
+          <button className="hero__cta-secondary" onClick={() => scrollTo('proyectos')}>
             Ver proyectos
           </button>
         </div>

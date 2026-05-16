@@ -1,18 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import LogoIcon from './LogoIcon'
+import { navLinks } from '../../lib/data'
+import { scrollTo } from '../../lib/scrollTo'
 import './Nav.css'
-
-const links = [
-  { label: 'Inicio',    id: 'inicio' },
-  { label: 'Servicios', id: 'servicios' },
-  { label: 'Cursos',    id: 'cursos' },
-  { label: 'Proyectos', id: 'proyectos' },
-  { label: 'Sobre mí',  id: 'sobre' },
-  { label: 'Contacto',  id: 'contacto' },
-]
 
 export default function Nav({ activeSection }) {
   const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const menuRef = useRef(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -20,8 +15,22 @@ export default function Nav({ activeSection }) {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Close menu on outside click
+  useEffect(() => {
+    if (!menuOpen) return
+    const onPointerDown = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setMenuOpen(false)
+      }
+    }
+    document.addEventListener('pointerdown', onPointerDown)
+    return () => document.removeEventListener('pointerdown', onPointerDown)
+  }, [menuOpen])
+
+  const handleLinkClick = () => setMenuOpen(false)
+
   return (
-    <nav className={`nav${scrolled ? ' nav--scrolled' : ''}`}>
+    <nav className={`nav${scrolled ? ' nav--scrolled' : ''}`} ref={menuRef}>
       <div className="nav__brand">
         <LogoIcon />
         <div className="nav__brand-text">
@@ -31,7 +40,7 @@ export default function Nav({ activeSection }) {
       </div>
 
       <div className="nav__links">
-        {links.map(({ label, id }) => (
+        {navLinks.map(({ label, id }) => (
           <a
             key={id}
             href={`#${id}`}
@@ -40,9 +49,44 @@ export default function Nav({ activeSection }) {
         ))}
       </div>
 
-      <button className="nav__cta" onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}>
+      <button className="nav__cta nav__cta--desktop" onClick={() => scrollTo('contacto')}>
         Hablemos
       </button>
+
+      {/* Hamburger toggle — mobile only */}
+      <button
+        className={`nav__hamburger${menuOpen ? ' nav__hamburger--open' : ''}`}
+        onClick={() => setMenuOpen((prev) => !prev)}
+        aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+        aria-expanded={menuOpen}
+      >
+        <span />
+        <span />
+        <span />
+      </button>
+
+      {/* Mobile drawer */}
+      {menuOpen && (
+        <div className="nav__mobile-menu">
+          {navLinks.map(({ label, id }) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              className={`nav__mobile-link${activeSection === id ? ' nav__mobile-link--active' : ''}`}
+              onClick={handleLinkClick}
+            >{label}</a>
+          ))}
+          <button
+            className="nav__cta nav__cta--mobile"
+            onClick={() => {
+              setMenuOpen(false)
+              scrollTo('contacto')
+            }}
+          >
+            Hablemos
+          </button>
+        </div>
+      )}
     </nav>
   )
 }

@@ -49,22 +49,15 @@
   color: var(--text-muted);
 }
 
-.about__eyebrow {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-blue);
-  margin-bottom: 12px;
+/* Override SectionHeader default bottom margin — About header flows directly into bio */
+.about__section-header {
+  margin-bottom: 18px;
 }
 
-.about__title {
+/* Keep the title line-height consistent with the About layout */
+.about__section-header .section-header__title {
   font-size: clamp(26px, 3vw, 38px);
-  font-weight: 800;
-  color: var(--text-primary);
-  letter-spacing: -0.02em;
   line-height: 1.2;
-  margin-bottom: 18px;
 }
 
 .about__bio {

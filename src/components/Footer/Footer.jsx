@@ -1,14 +1,7 @@
 import LogoIcon from '../Nav/LogoIcon'
+import { navLinks } from '../../lib/data'
+import { scrollTo } from '../../lib/scrollTo'
 import './Footer.css'
-
-const navLinks = [
-  { label: 'Inicio',     href: '#inicio' },
-  { label: 'Servicios',  href: '#servicios' },
-  { label: 'Cursos',     href: '#cursos' },
-  { label: 'Proyectos',  href: '#proyectos' },
-  { label: 'Sobre mí',   href: '#sobre' },
-  { label: 'Contacto',   href: '#contacto' },
-]
 
 const serviceLinks = [
   { label: 'Inteligencia Artificial', href: '#servicios' },
@@ -105,10 +98,10 @@ export default function Footer() {
         </div>
 
         <div className="footer__bottom">
-          <span className="footer__copyright">© 2025 InDatA — Inteligencia de Datos Aplicada. Todos los derechos reservados.</span>
+          <span className="footer__copyright">© {new Date().getFullYear()} InDatA — Inteligencia de Datos Aplicada. Todos los derechos reservados.</span>
           <button
             className="footer__cta"
-            onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => scrollTo('contacto')}
           >
             Contáctanos →
           </button>

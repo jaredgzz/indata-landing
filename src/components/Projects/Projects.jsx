@@ -1,4 +1,5 @@
 import { useAnimateIn } from '../../hooks/useAnimateIn'
+import SectionHeader from '../SectionHeader/SectionHeader'
 import ProjectCard from './ProjectCard'
 import { projectsData } from './projectsData'
 import './Projects.css'
@@ -13,11 +14,12 @@ export default function Projects() {
         ref={headerRef}
         className={`projects__header${headerVisible ? ' animate-in' : ''}`}
       >
-        <div className="projects__eyebrow">PROYECTOS</div>
-        <h2 className="projects__title">Casos reales, resultados reales</h2>
-        <p className="projects__subtitle">
-          Algunos ejemplos de soluciones que generan impacto para los negocios con datos e inteligencia.
-        </p>
+        <SectionHeader
+          eyebrow="PROYECTOS"
+          title="Casos reales, resultados reales"
+          subtitle="Algunos ejemplos de soluciones que generan impacto para los negocios con datos e inteligencia."
+          accentColor="var(--color-purple)"
+        />
       </div>
       <div ref={gridRef}>
         <div className="projects__grid-top">

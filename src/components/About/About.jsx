@@ -1,11 +1,8 @@
 import { useAnimateIn } from '../../hooks/useAnimateIn'
+import SectionHeader from '../SectionHeader/SectionHeader'
+import { statsData } from '../../lib/data'
+import { scrollTo } from '../../lib/scrollTo'
 import './About.css'
-
-const stats = [
-  { value: '+30', label: 'Proyectos Completados' },
-  { value: '+10', label: 'Empresas Acompañadas' },
-  { value: '+5',  label: 'Años de Experiencia' },
-]
 
 const skills = [
   'Ingeniería de Datos',
@@ -28,8 +25,13 @@ export default function About() {
           </div>
         </div>
         <div>
-          <div className="about__eyebrow">SOBRE MÍ</div>
-          <h2 className="about__title">Ingeniero. Analista. Constructor de soluciones.</h2>
+          <SectionHeader
+            eyebrow="SOBRE MÍ"
+            title="Ingeniero. Analista. Constructor de soluciones."
+            align="left"
+            accentColor="var(--color-blue)"
+            className="about__section-header"
+          />
           <p className="about__bio">
             Apasionado por los datos, la inteligencia artificial y la automatización. Ayudo a empresas a transformar información en ventajas competitivas reales mediante soluciones tecnológicas modernas e innovadoras.
           </p>
@@ -42,14 +44,14 @@ export default function About() {
             ))}
           </ul>
           <div className="about__stats">
-            {stats.map(s => (
+            {statsData.map(s => (
               <div key={s.label}>
                 <div className="about__stat-value">{s.value}</div>
                 <div className="about__stat-label">{s.label}</div>
               </div>
             ))}
           </div>
-          <button className="about__cta" onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}>
+          <button className="about__cta" onClick={() => scrollTo('contacto')}>
             Conoce más sobre mí →
           </button>
         </div>

@@ -16,7 +16,8 @@ export default function WaveCanvas() {
     resize()
     window.addEventListener('resize', resize)
 
-    const particles = Array.from({ length: 120 }, () => ({
+    const particleCount = window.innerWidth < 768 ? 50 : 120
+    const particles = Array.from({ length: particleCount }, () => ({
       x: Math.random(), y: Math.random(),
       vx: (Math.random() - 0.5) * 0.00015,
       vy: (Math.random() - 0.5) * 0.00015,
@@ -142,16 +143,19 @@ export default function WaveCanvas() {
         ctx.globalAlpha = 1
       })
 
+      const threshold = 70
+      const thresholdSq = threshold * threshold
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = (particles[i].x - particles[j].x) * W
           const dy = (particles[i].y - particles[j].y) * H
-          const dist = Math.sqrt(dx * dx + dy * dy)
-          if (dist < 70) {
+          const distSq = dx * dx + dy * dy
+          if (distSq < thresholdSq) {
+            const dist = Math.sqrt(distSq)
             ctx.beginPath()
             ctx.moveTo(particles[i].x * W, particles[i].y * H)
             ctx.lineTo(particles[j].x * W, particles[j].y * H)
-            ctx.strokeStyle = `rgba(37,99,235,${0.12 * (1 - dist / 70)})`
+            ctx.strokeStyle = `rgba(37,99,235,${0.12 * (1 - dist / threshold)})`
             ctx.lineWidth = 0.5
             ctx.stroke()
           }

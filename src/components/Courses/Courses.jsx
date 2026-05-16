@@ -1,4 +1,5 @@
 import { useAnimateIn } from '../../hooks/useAnimateIn'
+import SectionHeader from '../SectionHeader/SectionHeader'
 import CourseCard from './CourseCard'
 import { coursesData } from './coursesData'
 import './Courses.css'
@@ -14,11 +15,12 @@ export default function Courses() {
           ref={headerRef}
           className={`courses__header${headerVisible ? ' animate-in' : ''}`}
         >
-          <div className="courses__eyebrow">CURSOS</div>
-          <h2 className="courses__title">Aprende las habilidades del futuro</h2>
-          <p className="courses__subtitle">
-            Cursos prácticos y aplicados para que puedas implementar tecnología moderna en tu trabajo y negocio.
-          </p>
+          <SectionHeader
+            eyebrow="CURSOS"
+            title="Aprende las habilidades del futuro"
+            subtitle="Cursos prácticos y aplicados para que puedas implementar tecnología moderna en tu trabajo y negocio."
+            accentColor="var(--color-teal)"
+          />
         </div>
         <div ref={gridRef} className="courses__grid">
           {coursesData.map((c, i) => (

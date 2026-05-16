@@ -4,34 +4,9 @@
   margin: 0 auto;
 }
 
+/* SectionHeader handles the eyebrow/title/subtitle — only the wrapper layout lives here */
 .services__header {
   text-align: center;
-  margin-bottom: 56px;
-}
-
-.services__eyebrow {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-blue);
-  margin-bottom: 12px;
-}
-
-.services__title {
-  font-size: clamp(28px, 3vw, 40px);
-  font-weight: 800;
-  color: var(--text-primary);
-  letter-spacing: -0.02em;
-}
-
-.services__subtitle {
-  margin-top: 14px;
-  font-size: 16px;
-  color: var(--text-secondary);
-  max-width: 520px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .services__grid {

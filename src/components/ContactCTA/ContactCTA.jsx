@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { supabase } from '../../lib/supabaseClient'
 import { useAnimateIn } from '../../hooks/useAnimateIn'
+import SectionHeader from '../SectionHeader/SectionHeader'
 import './ContactCTA.css'
 
 const SERVICIOS = [
@@ -64,11 +65,12 @@ export default function ContactCTA() {
       <div ref={ref} className={`contact-cta__inner${visible ? ' animate-in' : ''}`}>
 
         <div className="contact-cta__header">
-          <div className="contact-cta__eyebrow">CONTACTO</div>
-          <h2 className="contact-cta__title">¿Listo para transformar tus datos?</h2>
-          <p className="contact-cta__subtitle">
-            Conversemos sobre cómo podemos ayudar a tu empresa a crecer con datos, IA y automatización.
-          </p>
+          <SectionHeader
+            eyebrow="CONTACTO"
+            title="¿Listo para transformar tus datos?"
+            subtitle="Conversemos sobre cómo podemos ayudar a tu empresa a crecer con datos, IA y automatización."
+            accentColor="var(--color-teal)"
+          />
         </div>
 
         {status === 'success' ? (
