@@ -1,0 +1,235 @@
+/* ── Section wrapper ─────────────────────────────────────── */
+.team-section {
+  padding: 6rem 1.5rem;
+  background: var(--color-bg-primary, #0A0F1E);
+  overflow: hidden;
+}
+
+.team-section__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 45% 55%;
+  gap: 3rem;
+  align-items: center;
+}
+
+/* Prevent code editor from blowing out the grid and breaking mobile media queries */
+.team-section__left,
+.team-section__right {
+  min-width: 0;
+}
+
+/* ── Left column ─────────────────────────────────────────── */
+.team-section__eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #6D28D9;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.team-section__title {
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.team-section__subtitle {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+}
+
+.team-section__profiles {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ── Profile card ────────────────────────────────────────── */
+.profile-card {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  transition: border-color 0.2s;
+}
+
+.profile-card:hover {
+  border-color: rgba(109, 40, 217, 0.4);
+}
+
+.profile-card__avatar {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4F46E5, #7C3AED);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  color: white;
+}
+
+.profile-card__info {
+  flex: 1;
+}
+
+.profile-card__name {
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.15rem;
+}
+
+.profile-card__role {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #818CF8;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 0.15rem;
+}
+
+.profile-card__company {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 0.4rem;
+}
+
+.profile-card__bio {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.5;
+}
+
+/* ── Code Editor ─────────────────────────────────────────── */
+.code-editor {
+  background: #0D1117;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+}
+
+.code-editor__bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.75rem 1rem;
+  background: #161B22;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.code-editor__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.code-editor__dot--red    { background: #FF5F57; }
+.code-editor__dot--yellow { background: #FEBC2E; }
+.code-editor__dot--green  { background: #28C840; }
+
+.code-editor__filename {
+  margin-left: 0.75rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+.code-editor__body {
+  padding: 1.5rem;
+  overflow-x: auto;
+}
+
+.code-editor__pre {
+  margin: 0;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 0.82rem;
+  line-height: 1.8;
+  white-space: pre;
+  color: #EEFFFF;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* Syntax token colors */
+.code-kw   { color: #C792EA; }
+.code-mod  { color: #EEFFFF; }
+.code-cls  { color: #FFCB6B; }
+.code-str  { color: #C3E88D; }
+.code-cmnt { color: #546E7A; font-style: italic; }
+.code-var  { color: #82AAFF; }
+.code-fn   { color: #82AAFF; }
+.code-punc { color: rgba(255, 255, 255, 0.5); }
+
+/* Build status bar */
+.code-editor__status {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: rgba(34, 197, 94, 0.08);
+  border-top: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.code-editor__status-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #22C55E;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.code-editor__status-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #22C55E;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.code-editor__status-text {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #4ADE80;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .team-section__inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  /* Editor below profiles on mobile — left column reads first */
+  .team-section__right {
+    order: 1;
+  }
+
+  .code-editor__body {
+    padding: 1rem;
+  }
+
+  .code-editor__pre {
+    font-size: 0.72rem;
+  }
+}

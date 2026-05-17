@@ -6,7 +6,7 @@ import Hero from './components/Hero/Hero'
 import Services from './components/Services/Services'
 import Courses from './components/Courses/Courses'
 import Projects from './components/Projects/Projects'
-import About from './components/About/About'
+import TeamSection from './components/About/TeamSection'
 import ContactCTA from './components/ContactCTA/ContactCTA'
 import Footer from './components/Footer/Footer'
 import ScrollToTop from './components/ScrollToTop'
@@ -47,7 +47,7 @@ function HomeContent() {
       <Services />
       <Courses />
       <Projects />
-      <About />
+      <TeamSection />
       <ContactCTA />
     </>
   )
