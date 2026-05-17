@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { AnimatePresence } from 'framer-motion'
 import Nav from './components/Nav/Nav'
 import Hero from './components/Hero/Hero'
 import Services from './components/Services/Services'
@@ -10,10 +11,12 @@ import ContactCTA from './components/ContactCTA/ContactCTA'
 import Footer from './components/Footer/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import LangflowDetail from './components/Courses/LangflowDetail'
+import PageTransition from './components/PageTransition'
 
 const SECTIONS = ['inicio', 'servicios', 'cursos', 'proyectos', 'sobre', 'contacto']
 
-function HomePage() {
+// Page-level content only — Nav and Footer are rendered outside AnimatePresence
+function HomeContent() {
   const [activeSection, setActiveSection] = useState('inicio')
 
   useEffect(() => {
@@ -32,6 +35,12 @@ function HomePage() {
 
   return (
     <>
+      {/* activeSection is forwarded up to AppRoutes via a ref-like callback,
+          but since IntersectionObserver state lives here, we pass it down
+          through context or keep Nav colocated. For now Nav is in AppRoutes
+          and receives a static empty string for non-home routes; home scroll
+          highlighting requires Nav inside HomeContent. We keep Nav here only
+          for the home page so intersection observers can control activeSection. */}
       <Nav activeSection={activeSection} />
       <Hero />
       <Services />
@@ -39,16 +48,40 @@ function HomePage() {
       <Projects />
       <About />
       <ContactCTA />
-      <Footer />
     </>
   )
 }
 
-function CourseDetailLayout() {
+function AppRoutes() {
+  const location = useLocation()
+  const isHome = location.pathname === '/'
+
   return (
     <>
-      <Nav activeSection="" />
-      <LangflowDetail />
+      {/* Nav lives outside AnimatePresence on non-home routes so it doesn't fade */}
+      {!isHome && <Nav activeSection="" />}
+
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route
+            path="/"
+            element={
+              <PageTransition>
+                <HomeContent />
+              </PageTransition>
+            }
+          />
+          <Route
+            path="/cursos/langflow"
+            element={
+              <PageTransition>
+                <LangflowDetail />
+              </PageTransition>
+            }
+          />
+        </Routes>
+      </AnimatePresence>
+
       <Footer />
     </>
   )
@@ -58,10 +91,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/cursos/langflow" element={<CourseDetailLayout />} />
-      </Routes>
+      <AppRoutes />
     </BrowserRouter>
   )
 }

@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import SectionHeader from '../SectionHeader/SectionHeader'
+import LangflowLeadForm from './LangflowLeadForm'
 import './LangflowDetail.css'
 
 const TOOLS = ['LangFlow', 'Python', 'OpenAI API', 'Vector Stores', 'APIs externas', 'LangSmith', 'Docker']
@@ -80,6 +82,8 @@ function DownloadIcon() {
 }
 
 export default function LangflowDetail() {
+  const [showForm, setShowForm] = useState(false)
+
   return (
     <main className="langflow-detail">
 
@@ -110,14 +114,13 @@ export default function LangflowDetail() {
             ))}
           </div>
 
-          <a
-            href="/docs/curso-agentes-langflow.pdf"
-            download
+          <button
             className="langflow-detail__cta-btn"
+            onClick={() => setShowForm(true)}
           >
             <DownloadIcon />
             Descargar Programa Completo (PDF)
-          </a>
+          </button>
         </div>
       </section>
 
@@ -191,19 +194,20 @@ export default function LangflowDetail() {
       <section className="langflow-detail__final-cta">
         <div className="langflow-detail__final-cta-inner">
           <h2>¿Listo para construir tu primer agente?</h2>
-          <a
-            href="/docs/curso-agentes-langflow.pdf"
-            download
+          <button
             className="langflow-detail__cta-btn"
+            onClick={() => setShowForm(true)}
           >
             <DownloadIcon />
             Descargar Programa Completo (PDF)
-          </a>
+          </button>
           <p className="langflow-detail__final-cta-note">
             11 horas · Online · Certificado incluido
           </p>
         </div>
       </section>
+
+      <LangflowLeadForm isOpen={showForm} onClose={() => setShowForm(false)} />
 
     </main>
   )
