@@ -12,6 +12,7 @@ import Footer from './components/Footer/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import LangflowDetail from './components/Courses/LangflowDetail'
 import AiEngineerDetail from './components/Courses/AiEngineerDetail'
+import ClaudeMasteryDetail from './components/Courses/ClaudeMasteryDetail'
 import PageTransition from './components/PageTransition'
 
 const SECTIONS = ['inicio', 'servicios', 'cursos', 'proyectos', 'sobre', 'contacto']
@@ -85,6 +86,14 @@ function AppRoutes() {
             element={
               <PageTransition>
                 <AiEngineerDetail />
+              </PageTransition>
+            }
+          />
+          <Route
+            path="/cursos/mastering-claude"
+            element={
+              <PageTransition>
+                <ClaudeMasteryDetail />
               </PageTransition>
             }
           />
