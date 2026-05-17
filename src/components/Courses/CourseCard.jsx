@@ -1,7 +1,8 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import './CourseCard.css'
 
-export default function CourseCard({ title, desc, logoText, logoBg, logoColor, tag, tagColor }) {
+export default function CourseCard({ title, desc, logoText, logoBg, logoColor, tag, tagColor, detailPath }) {
   const [hov, setHov] = useState(false)
 
   return (
@@ -30,7 +31,17 @@ export default function CourseCard({ title, desc, logoText, logoBg, logoColor, t
       </div>
       <h3 className="course-card__title">{title}</h3>
       <p className="course-card__desc">{desc}</p>
-      <div className="course-card__link" style={{ color: tagColor }}>Ver curso →</div>
+      {detailPath ? (
+        <Link
+          to={detailPath}
+          className="course-card__link"
+          style={{ color: tagColor }}
+        >
+          Ver programa →
+        </Link>
+      ) : (
+        <div className="course-card__link" style={{ color: tagColor }}>Ver curso →</div>
+      )}
     </div>
   )
 }

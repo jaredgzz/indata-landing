@@ -1,4 +1,5 @@
 export const coursesData = [
+  { title: 'Agentes con LangFlow',    desc: 'Crea agentes inteligentes con flujos visuales, memoria y APIs. Listos para producción.',              logoText: 'LF',  logoBg: 'rgba(37,99,235,0.20)',  logoColor: '#60A5FA',  tag: 'IA Generativa', tagColor: '#2563EB', detailPath: '/cursos/langflow' },
   { title: 'Power BI',                desc: 'Domina la visualización de datos y crea reportes que impulsan decisiones.',                         logoText: 'PBI', logoBg: '#F2C811',              logoColor: '#000',     tag: 'Análisis',      tagColor: '#2563EB' },
   { title: 'Python',                  desc: 'Desde cero hasta análisis de datos, automatización y machine learning.',                             logoText: 'Py',  logoBg: '#3776AB',              logoColor: '#FFD43B',  tag: 'Programación',  tagColor: '#7C3AED' },
   { title: 'Databricks',             desc: 'Procesamiento masivo con Apache Spark y arquitecturas lakehouse en la nube.',                          logoText: 'DBX', logoBg: '#FF3621',              logoColor: '#fff',     tag: 'Big Data',      tagColor: '#EF4444' },

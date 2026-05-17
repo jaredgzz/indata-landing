@@ -35,9 +35,11 @@ export default function Footer() {
           <div>
             <div className="footer__brand">
               <div className="footer__brand-icon">
-                <LogoIcon width={22} height={22} />
+                <LogoIcon className="footer__logo-icon" />
               </div>
-              <span className="footer__brand-name">InDat<span>A</span></span>
+              <span className="footer__brand-name brand-name">
+                InDat<span className="brand-name__accent">A</span>
+              </span>
             </div>
             <p className="footer__brand-desc">
               Transformamos datos en decisiones inteligentes y llevamos tecnología e inteligencia artificial a tu negocio.

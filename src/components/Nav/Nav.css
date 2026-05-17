@@ -24,6 +24,12 @@
   flex-shrink: 0;
 }
 
+.nav__logo-icon {
+  width: 48px;
+  height: auto;
+  flex-shrink: 0;
+}
+
 .nav__brand-text {
   display: flex;
   flex-direction: column;
@@ -37,11 +43,19 @@
   letter-spacing: -0.01em;
 }
 
-.nav__brand-name span {
-  background: var(--grad-primary);
+/* Wordmark compartido: "InDatA" con la A en gradiente diagonal */
+.brand-name {
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.brand-name__accent {
+  background: linear-gradient(135deg, #4F46E5 0%, #2563EB 50%, #7C3AED 100%);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 .nav__brand-tagline {
