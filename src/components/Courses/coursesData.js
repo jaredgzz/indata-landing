@@ -1,4 +1,5 @@
 export const coursesData = [
+  { title: 'AI Engineer Bootcamp',    desc: 'Ruta certificada de 6 semanas. Domina LLMs, RAG, sistemas multiagente con CrewAI y LangGraph, y despliega en producción.',  logoText: 'AIE', logoBg: 'rgba(79,70,229,0.20)',  logoColor: '#818CF8',  tag: 'Bootcamp',      tagColor: '#4F46E5', detailPath: '/cursos/ai-engineer' },
   { title: 'Agentes con LangFlow',    desc: 'Crea agentes inteligentes con flujos visuales, memoria y APIs. Listos para producción.',              logoText: 'LF',  logoBg: 'rgba(37,99,235,0.20)',  logoColor: '#60A5FA',  tag: 'IA Generativa', tagColor: '#2563EB', detailPath: '/cursos/langflow' },
   { title: 'Power BI',                desc: 'Domina la visualización de datos y crea reportes que impulsan decisiones.',                         logoText: 'PBI', logoBg: '#F2C811',              logoColor: '#000',     tag: 'Análisis',      tagColor: '#2563EB' },
   { title: 'Python',                  desc: 'Desde cero hasta análisis de datos, automatización y machine learning.',                             logoText: 'Py',  logoBg: '#3776AB',              logoColor: '#FFD43B',  tag: 'Programación',  tagColor: '#7C3AED' },

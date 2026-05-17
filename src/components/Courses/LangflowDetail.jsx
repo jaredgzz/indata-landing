@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import SectionHeader from '../SectionHeader/SectionHeader'
-import LangflowLeadForm from './LangflowLeadForm'
+import CourseLeadModal from './CourseLeadModal'
 import './LangflowDetail.css'
 
 const TOOLS = ['LangFlow', 'Python', 'OpenAI API', 'Vector Stores', 'APIs externas', 'LangSmith', 'Docker']
@@ -207,7 +207,14 @@ export default function LangflowDetail() {
         </div>
       </section>
 
-      <LangflowLeadForm isOpen={showForm} onClose={() => setShowForm(false)} />
+      <CourseLeadModal
+        isOpen={showForm}
+        onClose={() => setShowForm(false)}
+        courseName="Agentes con LangFlow"
+        tag="interesado_langflow"
+        pdfPath="/docs/curso-agentes-langflow.pdf"
+        pdfFileName="Programa-Agentes-LangFlow-InDatA.pdf"
+      />
 
     </main>
   )

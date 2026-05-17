@@ -11,6 +11,7 @@ import ContactCTA from './components/ContactCTA/ContactCTA'
 import Footer from './components/Footer/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import LangflowDetail from './components/Courses/LangflowDetail'
+import AiEngineerDetail from './components/Courses/AiEngineerDetail'
 import PageTransition from './components/PageTransition'
 
 const SECTIONS = ['inicio', 'servicios', 'cursos', 'proyectos', 'sobre', 'contacto']
@@ -76,6 +77,14 @@ function AppRoutes() {
             element={
               <PageTransition>
                 <LangflowDetail />
+              </PageTransition>
+            }
+          />
+          <Route
+            path="/cursos/ai-engineer"
+            element={
+              <PageTransition>
+                <AiEngineerDetail />
               </PageTransition>
             }
           />
