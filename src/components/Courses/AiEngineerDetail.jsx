@@ -8,25 +8,25 @@ const TOOLS = ['Python', 'OpenAI', 'LangChain', 'LangGraph', 'LlamaIndex', 'Crew
 const OBJECTIVES = [
   {
     number: '01',
-    text: 'Dominar los fundamentos de LLMs y la arquitectura Transformer (self-attention, embeddings, tokenizacion) y los modelos fundacionales: GPT, Gemini, Claude, LLaMA, Mistral.',
+    text: 'Dominar los fundamentos de LLMs y la arquitectura Transformer (self-attention, embeddings, tokenización) y los modelos fundacionales: GPT, Gemini, Claude, LLaMA, Mistral.',
   },
   {
     number: '02',
-    text: 'Disenar arquitecturas RAG con LlamaIndex, vector databases y tecnicas de retrieval avanzadas para sistemas de IA con contexto empresarial.',
+    text: 'Diseñar arquitecturas RAG con LlamaIndex, vector databases y técnicas de retrieval avanzadas para sistemas de IA con contexto empresarial.',
   },
   {
     number: '03',
-    text: 'Construir sistemas multiagente con CrewAI y LangGraph, orquestando agentes especializados con memoria, herramientas y logica ReAct.',
+    text: 'Construir sistemas multiagente con CrewAI y LangGraph, orquestando agentes especializados con memoria, herramientas y lógica ReAct.',
   },
   {
     number: '04',
-    text: 'Desplegar soluciones de IA en produccion con monitoreo (LangFuse), seguridad, automatizacion low-code (n8n) e infraestructura cloud (GCP).',
+    text: 'Desplegar soluciones de IA en producción con monitoreo (LangFuse), seguridad, automatización low-code (n8n) e infraestructura cloud (GCP).',
   },
 ]
 
 const MODULES = [
   {
-    badge: 'Modulo 01',
+    badge: 'Módulo 01',
     title: 'Fundamentos de IA y Modelos de Lenguaje',
     items: [
       'Conceptos clave de ML & Deep Learning',
@@ -35,61 +35,61 @@ const MODULES = [
     ],
   },
   {
-    badge: 'Modulo 02',
+    badge: 'Módulo 02',
     title: 'Arquitectura LLM y LLMOps',
     items: [
-      'Diseno de soluciones con LLMs',
-      'Patrones de integracion empresarial',
+      'Diseño de soluciones con LLMs',
+      'Patrones de integración empresarial',
       'Fundamentos de LLMOps',
     ],
   },
   {
-    badge: 'Modulo 03',
+    badge: 'Módulo 03',
     title: 'Data Management & Vector Databases',
     items: [
-      'Gestion de datos para IA',
+      'Gestión de datos para IA',
       'Bases vectoriales y embeddings',
-      'Tecnicas de indexacion y busqueda',
+      'Técnicas de indexación y búsqueda',
     ],
   },
   {
-    badge: 'Modulo 04',
+    badge: 'Módulo 04',
     title: 'LlamaIndex & RAG',
     items: [
       'Retrieval Augmented Generation',
-      'LlamaCloud y orquestacion',
+      'LlamaCloud y orquestación',
       'RAG avanzado y multimodal',
     ],
   },
   {
-    badge: 'Modulo 05',
+    badge: 'Módulo 05',
     title: 'CrewAI · Agentic Framework',
     items: [
       'Agentes especializados con CrewAI',
-      'Orquestacion multiagente',
-      'Tools, tareas y delegacion',
+      'Orquestación multiagente',
+      'Tools, tareas y delegación',
     ],
   },
   {
-    badge: 'Modulo 06',
+    badge: 'Módulo 06',
     title: 'Agentic Low-Code con n8n (RAG)',
     items: [
-      'Automatizacion visual con n8n',
+      'Automatización visual con n8n',
       'Workflows con RAG integrado',
-      'Conexion a APIs y webhooks',
+      'Conexión a APIs y webhooks',
     ],
   },
   {
-    badge: 'Modulo 07',
+    badge: 'Módulo 07',
     title: 'LLM Monitoring & Security con LangFuse',
     items: [
       'Tracing y observabilidad de LLMs',
-      'Evaluacion y prompt analytics',
+      'Evaluación y prompt analytics',
       'Seguridad y gobernanza',
     ],
   },
   {
-    badge: 'Modulo 08',
+    badge: 'Módulo 08',
     title: 'Taller · Agente IA de Voz en Real Time',
     items: [
       'Speech-to-text y text-to-speech',
@@ -98,11 +98,11 @@ const MODULES = [
     ],
   },
   {
-    badge: 'Modulo 09',
+    badge: 'Módulo 09',
     title: 'Proyecto Integrador End-to-End',
     items: [
-      'Solucion IA completa con casos reales',
-      'Arquitectura, codigo y despliegue',
+      'Solución IA completa con casos reales',
+      'Arquitectura, código y despliegue',
       'Portafolio profesional listo',
     ],
   },
@@ -116,7 +116,7 @@ const VALUE_PROPS = [
       </svg>
     ),
     title: 'Fortalecimiento',
-    desc: 'de habilidades clave en IA y automatizacion',
+    desc: 'de habilidades clave en IA y automatización',
   },
   {
     icon: (

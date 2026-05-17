@@ -64,7 +64,7 @@ export default function CourseLeadModal({ isOpen, onClose, courseName, tag, pdfP
 
       if (isUnknownColumn) {
         // Fallback: `tag` column not yet created — store value in `service` instead
-        await supabase
+        const { error: fallbackError } = await supabase
           .from('leads')
           .insert([{
             full_name: form.nombre,
@@ -74,14 +74,20 @@ export default function CourseLeadModal({ isOpen, onClose, courseName, tag, pdfP
             state:     'nuevo',
             service:   tag,
           }])
+        triggerDownload()
+        setStatus(fallbackError ? 'error' : 'success')
+        return
       } else {
         console.error('Supabase error:', error)
+        triggerDownload()
+        setStatus('error')
+        return
       }
     }
 
     // Always trigger download regardless of Supabase result — never block the user
     triggerDownload()
-    setStatus(error ? 'error' : 'success')
+    setStatus('success')
   }
 
   return (

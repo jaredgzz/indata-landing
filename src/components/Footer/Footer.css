@@ -130,6 +130,39 @@
   color: var(--text-secondary);
 }
 
+/* ── Contact column ─────────────────────────────────────── */
+.footer__contact {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer__contact-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 200ms ease, transform 200ms ease;
+}
+
+.footer__contact-item svg {
+  color: #818CF8;
+  flex-shrink: 0;
+}
+
+.footer__contact-item:hover {
+  color: var(--text-primary);
+  transform: translateX(2px);
+}
+
+.footer__contact-item--secondary {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
 .footer__bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   padding-top: 24px;

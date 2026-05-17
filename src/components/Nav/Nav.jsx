@@ -89,6 +89,7 @@ export default function Nav({ activeSection }) {
         onClick={() => setMenuOpen((prev) => !prev)}
         aria-label={menuOpen ? 'Cerrar menu' : 'Abrir menu'}
         aria-expanded={menuOpen}
+        aria-controls="nav-mobile-menu"
       >
         <span />
         <span />
@@ -97,7 +98,7 @@ export default function Nav({ activeSection }) {
 
       {/* Mobile drawer */}
       {menuOpen && (
-        <div className="nav__mobile-menu">
+        <div id="nav-mobile-menu" className="nav__mobile-menu">
           {navLinks.map(({ label, id, href }) => (
             isHome ? (
               <a

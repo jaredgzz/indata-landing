@@ -19,6 +19,7 @@ const INITIAL_FORM = {
   nombre: '',
   email: '',
   empresa: '',
+  phone: '',
   servicio: '',
   mensaje: '',
 }
@@ -39,16 +40,35 @@ export default function ContactCTA() {
     setStatus('sending')
     setErrorMsg('')
 
-    const { error } = await supabase
-      .from('leads')
-      .insert([{
-        full_name: form.nombre,
-        email:     form.email,
-        company:   form.empresa || null,
-        service:   form.servicio || null,
-        message:   form.mensaje,
-        state:     'nuevo',
-      }])
+    const payload = {
+      full_name: form.nombre,
+      email:     form.email,
+      company:   form.empresa || null,
+      phone:     form.phone   || null,
+      service:   form.servicio || null,
+      message:   form.mensaje,
+      state:     'nuevo',
+    }
+
+    let { error } = await supabase.from('leads').insert([payload])
+
+    // Fallback: if `message` column doesn't exist yet, append the message into `service`
+    if (error) {
+      const isMessageColMissing =
+        error.code === '42703' ||
+        error.message?.toLowerCase().includes('message')
+
+      if (isMessageColMissing) {
+        const { message: _msg, ...rest } = payload
+        const combined = form.servicio
+          ? `${form.servicio} | ${form.mensaje}`
+          : form.mensaje
+        const retry = await supabase
+          .from('leads')
+          .insert([{ ...rest, service: combined }])
+        error = retry.error
+      }
+    }
 
     if (error) {
       console.error('Supabase error:', error)
@@ -163,6 +183,23 @@ export default function ContactCTA() {
                   ))}
                 </select>
               </div>
+            </div>
+
+            <div className="contact-cta__field">
+              <label className="contact-cta__label" htmlFor="phone">
+                Teléfono
+              </label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                className="contact-cta__input"
+                placeholder="+52 81 2567 0127 (opcional)"
+                value={form.phone}
+                onChange={handleChange}
+                disabled={status === 'sending'}
+                autoComplete="tel"
+              />
             </div>
 
             <div className="contact-cta__field">

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Nav from './components/Nav/Nav'
@@ -10,10 +10,12 @@ import TeamSection from './components/About/TeamSection'
 import ContactCTA from './components/ContactCTA/ContactCTA'
 import Footer from './components/Footer/Footer'
 import ScrollToTop from './components/ScrollToTop'
-import LangflowDetail from './components/Courses/LangflowDetail'
-import AiEngineerDetail from './components/Courses/AiEngineerDetail'
-import ClaudeMasteryDetail from './components/Courses/ClaudeMasteryDetail'
 import PageTransition from './components/PageTransition'
+
+// Course detail pages — lazy loaded to keep the home bundle small
+const LangflowDetail      = lazy(() => import('./components/Courses/LangflowDetail'))
+const AiEngineerDetail    = lazy(() => import('./components/Courses/AiEngineerDetail'))
+const ClaudeMasteryDetail = lazy(() => import('./components/Courses/ClaudeMasteryDetail'))
 
 const SECTIONS = ['inicio', 'servicios', 'cursos', 'proyectos', 'sobre', 'contacto']
 
@@ -64,40 +66,42 @@ function AppRoutes() {
       {!isHome && <Nav activeSection="" />}
 
       <AnimatePresence mode="wait">
-        <Routes location={location} key={location.pathname}>
-          <Route
-            path="/"
-            element={
-              <PageTransition>
-                <HomeContent />
-              </PageTransition>
-            }
-          />
-          <Route
-            path="/cursos/langflow"
-            element={
-              <PageTransition>
-                <LangflowDetail />
-              </PageTransition>
-            }
-          />
-          <Route
-            path="/cursos/ai-engineer"
-            element={
-              <PageTransition>
-                <AiEngineerDetail />
-              </PageTransition>
-            }
-          />
-          <Route
-            path="/cursos/mastering-claude"
-            element={
-              <PageTransition>
-                <ClaudeMasteryDetail />
-              </PageTransition>
-            }
-          />
-        </Routes>
+        <Suspense fallback={<div style={{ minHeight: '60vh' }} />}>
+          <Routes location={location} key={location.pathname}>
+            <Route
+              path="/"
+              element={
+                <PageTransition>
+                  <HomeContent />
+                </PageTransition>
+              }
+            />
+            <Route
+              path="/cursos/langflow"
+              element={
+                <PageTransition>
+                  <LangflowDetail />
+                </PageTransition>
+              }
+            />
+            <Route
+              path="/cursos/ai-engineer"
+              element={
+                <PageTransition>
+                  <AiEngineerDetail />
+                </PageTransition>
+              }
+            />
+            <Route
+              path="/cursos/mastering-claude"
+              element={
+                <PageTransition>
+                  <ClaudeMasteryDetail />
+                </PageTransition>
+              }
+            />
+          </Routes>
+        </Suspense>
       </AnimatePresence>
 
       <Footer />
