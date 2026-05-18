@@ -42,10 +42,6 @@ export default function CourseLeadModal({ isOpen, onClose, courseName, tag, pdfP
     if (!form.nombre || !form.email) return
     setStatus('sending')
 
-    // NOTE: the `tag` column may not exist yet in the Supabase `leads` table.
-    // If you get a "column tag does not exist" error, run this migration:
-    //   ALTER TABLE leads ADD COLUMN tag TEXT;
-    // Until then, we fall back to using `service` to store the tag value.
     const { error } = await supabase
       .from('leads')
       .insert([{
@@ -57,37 +53,11 @@ export default function CourseLeadModal({ isOpen, onClose, courseName, tag, pdfP
         tag:       tag,
       }])
 
-    if (error) {
-      const isUnknownColumn =
-        error.message?.includes('tag') ||
-        error.code === '42703'
-
-      if (isUnknownColumn) {
-        // Fallback: `tag` column not yet created — store value in `service` instead
-        const { error: fallbackError } = await supabase
-          .from('leads')
-          .insert([{
-            full_name: form.nombre,
-            email:     form.email,
-            company:   form.empresa || null,
-            phone:     form.phone   || null,
-            state:     'nuevo',
-            service:   tag,
-          }])
-        triggerDownload()
-        setStatus(fallbackError ? 'error' : 'success')
-        return
-      } else {
-        console.error('Supabase error:', error)
-        triggerDownload()
-        setStatus('error')
-        return
-      }
-    }
+    if (error) console.error('Supabase error:', error)
 
     // Always trigger download regardless of Supabase result — never block the user
     triggerDownload()
-    setStatus('success')
+    setStatus(error ? 'error' : 'success')
   }
 
   return (
@@ -126,7 +96,7 @@ export default function CourseLeadModal({ isOpen, onClose, courseName, tag, pdfP
           Descarga el Programa: {courseName}
         </h2>
         <p className="llf-subtitle">
-          Dejanos tu info y te enviamos el PDF con el programa completo del curso.
+          Déjanos tu info y te enviamos el PDF con el programa completo del curso.
         </p>
 
         {status === 'success' ? (
@@ -136,7 +106,7 @@ export default function CourseLeadModal({ isOpen, onClose, courseName, tag, pdfP
               <polyline points="22 4 12 14.01 9 11.01" />
             </svg>
             <p className="llf-success__text">
-              La descarga inicio automaticamente.
+              La descarga inició automáticamente.
             </p>
           </div>
         ) : (
@@ -196,7 +166,7 @@ export default function CourseLeadModal({ isOpen, onClose, courseName, tag, pdfP
 
             <div className="llf-field">
               <label className="llf-label" htmlFor="llf-phone">
-                Telefono <span className="llf-optional">(opcional)</span>
+                Teléfono <span className="llf-optional">(opcional)</span>
               </label>
               <input
                 id="llf-phone"

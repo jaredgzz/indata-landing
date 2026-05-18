@@ -50,25 +50,7 @@ export default function ContactCTA() {
       state:     'nuevo',
     }
 
-    let { error } = await supabase.from('leads').insert([payload])
-
-    // Fallback: if `message` column doesn't exist yet, append the message into `service`
-    if (error) {
-      const isMessageColMissing =
-        error.code === '42703' ||
-        error.message?.toLowerCase().includes('message')
-
-      if (isMessageColMissing) {
-        const { message: _msg, ...rest } = payload
-        const combined = form.servicio
-          ? `${form.servicio} | ${form.mensaje}`
-          : form.mensaje
-        const retry = await supabase
-          .from('leads')
-          .insert([{ ...rest, service: combined }])
-        error = retry.error
-      }
-    }
+    const { error } = await supabase.from('leads').insert([payload])
 
     if (error) {
       console.error('Supabase error:', error)
