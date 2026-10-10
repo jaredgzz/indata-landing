@@ -52,10 +52,15 @@ test.describe('Home', () => {
 
     const gova = cards.filter({ hasText: 'Gova' })
     await expect(gova.locator('.status-badge')).toHaveText('MVP en validación')
-    await expect(gova.getByText('Ilustración conceptual')).toBeVisible()
+    // Gova: captura real del MVP, rotulada como datos de ejemplo
+    await expect(gova.getByText('Captura del MVP · datos de ejemplo')).toBeVisible()
+    const shot = gova.getByRole('img', { name: /Panel de inicio de Gova/ })
+    await expect(shot).toBeVisible()
+    expect(await shot.evaluate(img => img.naturalWidth)).toBe(1440)
 
     const miga = cards.filter({ hasText: 'Miga' })
     await expect(miga.locator('.status-badge')).toHaveText('En desarrollo')
+    await expect(miga.getByText('Ilustración conceptual')).toBeVisible()
 
     await miga.getByRole('link', { name: /Descubrir Miga/ }).click()
     await expect(page).toHaveURL(/\/productos\/miga$/)
@@ -244,8 +249,14 @@ test.describe('Formulario de contacto', () => {
 
   test('antispam: un envío muy rápido pide confirmación y no se pierde', async ({ page }) => {
     const payloads = await mockLeads(page)
+    await page.clock.install()
     await page.goto('/#contacto')
+    await expect(page.locator('#contacto form')).toBeVisible()
+    const now = await page.evaluate(() => Date.now())
     const form = await fillContactForm(page)
+    // La carga y el llenado pueden tardar más de 3 s bajo carga: se retrasa el reloj
+    // de la página para que el envío cuente como inmediato desde que se mostró el formulario
+    await page.clock.setSystemTime(now - 10_000)
 
     // Envío inmediato (antes del tiempo mínimo): no se rechaza, se pide confirmar
     await form.getByRole('button', { name: /Enviar mensaje/ }).click()

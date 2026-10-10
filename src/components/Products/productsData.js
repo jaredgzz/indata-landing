@@ -6,7 +6,11 @@
  * nextStatus: estado de lo que viene (próxima evolución / visión)
  */
 export const productsData = [
-  { id: 'gova', path: '/productos/gova', status: 'mvp',         nextStatus: 'planned', tone: 'cyan' },
+  {
+    id: 'gova', path: '/productos/gova', status: 'mvp', nextStatus: 'planned', tone: 'cyan',
+    // Captura del MVP (repo GovaCRM, docs/qa/indaxion-desktop.png) con datos de ejemplo
+    screenshot: { src: '/products/gova-panel.png', width: 1440, height: 900 },
+  },
   { id: 'miga', path: '/productos/miga', status: 'development', nextStatus: 'vision',  tone: 'violet' },
 ]
 
