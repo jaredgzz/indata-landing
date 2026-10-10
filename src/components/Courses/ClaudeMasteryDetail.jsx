@@ -142,7 +142,6 @@ export default function ClaudeMasteryDetail() {
           <div className="claude-mastery-detail__stats">
             <span className="claude-mastery-detail__stat-pill">15 Horas</span>
             <span className="claude-mastery-detail__stat-pill">6 Módulos</span>
-            <span className="claude-mastery-detail__stat-pill">Certificado Oficial</span>
           </div>
 
           <p className="claude-mastery-detail__subtitle">

@@ -68,6 +68,15 @@ test.describe('Home', () => {
     }
   })
 
+  test('el menú prioriza Productos antes que Soluciones', async ({ page, isMobile }) => {
+    await page.goto('/')
+    if (isMobile) await page.getByRole('button', { name: 'Abrir menú' }).click()
+    const menu = page.locator(isMobile ? '#nav-mobile-menu' : '.nav__links')
+    await expect(menu.getByRole('link')).toHaveText([
+      'Inicio', 'Productos', 'Soluciones', 'Nosotros', 'InDaxion Open', 'Contacto',
+    ])
+  })
+
   test('el link InDaxion Open lleva a la iniciativa', async ({ page, isMobile }) => {
     await page.goto('/')
     if (isMobile) await page.getByRole('button', { name: 'Abrir menú' }).click()
@@ -103,9 +112,10 @@ test.describe('Páginas de producto', () => {
     await expect(page.locator('#contacto')).toBeInViewport()
   })
 
-  test('un producto inexistente vuelve a la lista de productos', async ({ page }) => {
+  test('un producto inexistente muestra la página 404', async ({ page }) => {
     await page.goto('/productos/no-existe')
-    await expect(page).toHaveURL(/\/#productos$/)
+    await expect(page).toHaveURL(/\/productos\/no-existe$/)
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('No encontramos esta página.')
   })
 })
 
@@ -124,10 +134,29 @@ test.describe('Rutas anteriores', () => {
     })
   }
 
-  test('una ruta desconocida vuelve al inicio', async ({ page }) => {
+  test('una ruta desconocida muestra la página 404 con enlace al inicio', async ({ page }) => {
     await page.goto('/pagina-que-no-existe')
+    await expect(page).toHaveURL(/\/pagina-que-no-existe$/)
+    await expect(page).toHaveTitle('Página no encontrada | InDaxion')
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('No encontramos esta página.')
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex')
+    await expect(page.locator('nav.nav')).toBeVisible()
+    await expect(page.locator('footer')).toBeVisible()
+
+    await page.getByRole('link', { name: /Volver al inicio/ }).click()
     await expect(page).toHaveURL(/\/$/)
-    await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Tecnología inteligente para negocios que quieren crecer.')
+    // Al salir de la 404 se retira el noindex
+    await expect(page.locator('meta[name="robots"]')).toHaveCount(0)
+  })
+
+  test('los cursos no afirman certificaciones oficiales', async ({ page }) => {
+    for (const route of ['/cursos/ai-engineer', '/cursos/mastering-claude', '/cursos/langflow']) {
+      await page.goto(route)
+      await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+      const text = await page.locator('main').innerText()
+      expect(text, route).not.toMatch(/Certificado oficial|Ruta Certificada|Bootcamp Certificado/i)
+    }
   })
 
   test('/open conserva los cursos y sus PDFs', async ({ page, request }) => {
@@ -152,6 +181,8 @@ test.describe('Formulario de contacto', () => {
   test('envía el lead y confirma solo tras guardarse', async ({ page }) => {
     const payloads = await mockLeads(page)
     await page.goto('/#contacto')
+    // Este build guarda leads de verdad (con la red simulada): sin aviso de vista previa
+    await expect(page.locator('.contact-cta__preview')).toHaveCount(0)
     const form = await fillContactForm(page, { interes: 'miga' })
     await page.waitForTimeout(MIN_FILL_MS)
     await form.getByRole('button', { name: /Enviar mensaje/ }).click()
@@ -212,18 +243,29 @@ test.describe('Formulario de contacto', () => {
     expect(payloads).toHaveLength(0)
   })
 
-  test('antispam: el campo trampa o un envío instantáneo no se envían', async ({ page }) => {
+  test('antispam: un envío muy rápido pide confirmación y no se pierde', async ({ page }) => {
     const payloads = await mockLeads(page)
     await page.goto('/#contacto')
     const form = await fillContactForm(page)
 
-    // Envío inmediato (antes del tiempo mínimo)
+    // Envío inmediato (antes del tiempo mínimo): no se rechaza, se pide confirmar
     await form.getByRole('button', { name: /Enviar mensaje/ }).click()
-    await expect(page.getByRole('alert')).toContainText('No pudimos enviar tu mensaje')
+    await expect(form.getByRole('status')).toContainText('confirma el envío')
+    expect(payloads).toHaveLength(0)
 
-    // Campo trampa lleno, ya pasado el tiempo mínimo
-    await page.waitForTimeout(MIN_FILL_MS)
+    // Al confirmar se envía aunque siga siendo rápido
+    await form.getByRole('button', { name: /Confirmar y enviar/ }).click()
+    await expect(page.getByRole('status')).toContainText('¡Mensaje enviado!')
+    expect(payloads).toHaveLength(1)
+  })
+
+  test('antispam: con el campo trampa lleno no se envía nada', async ({ page }) => {
+    const payloads = await mockLeads(page)
+    await page.goto('/#contacto')
+    const form = await fillContactForm(page)
     await form.locator('#hp_field').fill('https://spam.example', { force: true })
+
+    await page.waitForTimeout(MIN_FILL_MS)
     await form.getByRole('button', { name: /Enviar mensaje/ }).click()
     await expect(page.getByRole('alert')).toContainText('No pudimos enviar tu mensaje')
 

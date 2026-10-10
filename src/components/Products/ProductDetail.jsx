@@ -1,7 +1,8 @@
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import StatusBadge from '../StatusBadge/StatusBadge'
 import Icon from '../Icon/Icon'
 import ProductIllustration from './ProductIllustration'
+import NotFound from '../NotFound/NotFound'
 import { getProduct, productsData } from './productsData'
 import { content } from '../../content'
 import './ProductDetail.css'
@@ -11,7 +12,7 @@ const { products } = content
 export default function ProductDetail() {
   const { slug } = useParams()
   const product = getProduct(slug)
-  if (!product) return <Navigate to="/#productos" replace />
+  if (!product) return <NotFound />
 
   const text = products[product.id]
   const { detail } = text

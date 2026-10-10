@@ -2,16 +2,18 @@ import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import LogoIcon from './LogoIcon'
 import { navItems } from '../../lib/data'
+import { productsData } from '../Products/productsData'
 import { scrollTo } from '../../lib/scrollTo'
 import { content } from '../../content'
 import './Nav.css'
 
 const { nav, brand } = content
 
-// Link activo fuera del home, según la ruta
+// Link activo fuera del home, según la ruta (ninguno en la página 404)
 function activeForPath(pathname) {
-  if (pathname.startsWith('/productos')) return 'productos'
-  if (pathname.startsWith('/open') || pathname.startsWith('/cursos')) return 'open'
+  const path = pathname.replace(/\/+$/, '')
+  if (productsData.some(product => product.path === path)) return 'productos'
+  if (path === '/open' || /^\/cursos\/[\w-]+$/.test(path)) return 'open'
   return ''
 }
 

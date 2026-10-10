@@ -20,6 +20,7 @@ const es = {
     gova: 'Gova · Gestión comercial y cotización | InDaxion',
     miga: 'Miga · Contenido y video asistidos por IA | InDaxion',
     open: 'InDaxion Open · Educación abierta y comunidad | InDaxion',
+    notFound: 'Página no encontrada | InDaxion',
   },
 
   common: {
@@ -32,6 +33,16 @@ const es = {
       vision: 'Visión',
       initiative: 'Iniciativa en desarrollo',
     },
+    // Aviso en formularios cuando el sitio es una vista previa (no guarda datos)
+    previewNotice: 'Vista previa: tus datos no se guardarán.',
+  },
+
+  notFound: {
+    eyebrow: 'Error 404',
+    title: 'No encontramos esta página.',
+    text: 'Es posible que el enlace haya cambiado o que la página ya no exista. Puedes volver al inicio o conocer nuestros productos.',
+    home: 'Volver al inicio',
+    products: 'Ver productos',
   },
 
   nav: {
@@ -403,6 +414,17 @@ const es = {
     },
     requiredHint: 'obligatorio',
     submit: 'Enviar mensaje',
+    // Envío muy rápido: no se rechaza, se pide confirmar
+    confirm: {
+      notice: 'Revisa que tus datos sean correctos y confirma el envío.',
+      submit: 'Confirmar y enviar',
+    },
+    // Vista previa (Vercel Preview / desarrollo local): no se envía nada
+    preview: {
+      notice: 'Vista previa: este formulario no envía datos. Puedes probarlo sin crear contactos reales.',
+      successTitle: 'Prueba completada',
+      successText: 'Estás en una vista previa: tu mensaje no se guardó ni se envió.',
+    },
     sending: 'Enviando…',
     errors: {
       required: 'Completa tu nombre, tu correo electrónico y la descripción de lo que necesitas.',

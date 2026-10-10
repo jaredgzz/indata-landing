@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { supabase } from '../../lib/supabaseClient'
+import { saveLead, leadsAreLive } from '../../lib/leads'
 import { useAnimateIn } from '../../hooks/useAnimateIn'
 import { leadInterests, isLeadInterest, leadInterestValue } from '../../lib/leadOptions'
 import SectionHeader from '../SectionHeader/SectionHeader'
@@ -20,7 +20,8 @@ const INITIAL_FORM = {
   hp_field: '', // campo trampa (antispam)
 }
 
-// Un envío más rápido que esto, desde que se mostró el formulario, es de un bot
+// Un envío más rápido que esto, desde que se mostró el formulario, es sospechoso:
+// no se rechaza, solo se pide confirmar (el campo trampa es la señal fuerte)
 const MIN_FILL_MS = 3000
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -32,8 +33,9 @@ export default function ContactCTA() {
     const interes = searchParams.get('interes')
     return { ...INITIAL_FORM, interes: isLeadInterest(interes) ? interes : '' }
   })
-  const [status, setStatus] = useState('idle') // idle | sending | success | error
+  const [status, setStatus] = useState('idle') // idle | confirm | sending | success | error
   const [errorMsg, setErrorMsg] = useState('')
+  const [simulated, setSimulated] = useState(false) // vista previa: no se guardó nada
   const shownAt = useRef(0)
 
   useEffect(() => {
@@ -58,10 +60,15 @@ export default function ContactCTA() {
     if (!nombre || !email || !mensaje) return fail(contact.errors.required)
     if (!EMAIL_RE.test(email)) return fail(contact.errors.email)
 
-    // Antispam: si se llenó el campo trampa o el envío fue casi instantáneo,
-    // no se envía nada y se muestra el mismo error genérico que un fallo real.
-    if (form.hp_field || Date.now() - shownAt.current < MIN_FILL_MS) {
-      return fail(contact.errors.send)
+    // Antispam: con el campo trampa lleno no se envía nada y se muestra
+    // el mismo error genérico que un fallo real.
+    if (form.hp_field) return fail(contact.errors.send)
+
+    // Un envío casi instantáneo no se rechaza: se pide confirmarlo
+    if (status !== 'confirm' && Date.now() - shownAt.current < MIN_FILL_MS) {
+      setStatus('confirm')
+      setErrorMsg('')
+      return
     }
 
     setStatus('sending')
@@ -77,18 +84,14 @@ export default function ContactCTA() {
       state:     'nuevo',
     }
 
-    let error
-    try {
-      ({ error } = await supabase.from('leads').insert([payload]))
-    } catch (err) {
-      error = err
-    }
+    const { error, simulated: wasSimulated } = await saveLead(payload)
 
     if (error) {
       // Solo se confirma el envío si Supabase lo guardó
       console.error('Supabase error:', error)
       fail(contact.errors.send)
     } else {
+      setSimulated(wasSimulated)
       setStatus('success')
       setForm(INITIAL_FORM)
     }
@@ -117,8 +120,12 @@ export default function ContactCTA() {
                 <polyline points="22 4 12 14.01 9 11.01" />
               </svg>
             </div>
-            <h3 className="contact-cta__success-title">{contact.success.title}</h3>
-            <p className="contact-cta__success-text">{contact.success.text}</p>
+            <h3 className="contact-cta__success-title">
+              {simulated ? contact.preview.successTitle : contact.success.title}
+            </h3>
+            <p className="contact-cta__success-text">
+              {simulated ? contact.preview.successText : contact.success.text}
+            </p>
             <button
               className="contact-cta__success-reset"
               onClick={() => setStatus('idle')}
@@ -128,6 +135,10 @@ export default function ContactCTA() {
           </div>
         ) : (
           <form className="contact-cta__form" onSubmit={handleSubmit} noValidate>
+            {!leadsAreLive && (
+              <p className="contact-cta__preview">{contact.preview.notice}</p>
+            )}
+
             <div className="contact-cta__form-row">
               <div className="contact-cta__field">
                 <label className="contact-cta__label" htmlFor="nombre">
@@ -259,6 +270,10 @@ export default function ContactCTA() {
               <p className="contact-cta__error" role="alert">{errorMsg}</p>
             )}
 
+            {status === 'confirm' && (
+              <p className="contact-cta__confirm" role="status">{contact.confirm.notice}</p>
+            )}
+
             <button
               type="submit"
               className="contact-cta__submit"
@@ -270,7 +285,10 @@ export default function ContactCTA() {
                   {contact.sending}
                 </>
               ) : (
-                <>{contact.submit} <span aria-hidden="true">→</span></>
+                <>
+                  {status === 'confirm' ? contact.confirm.submit : contact.submit}
+                  {' '}<span aria-hidden="true">→</span>
+                </>
               )}
             </button>
           </form>

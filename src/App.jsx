@@ -1,5 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, MotionConfig } from 'framer-motion'
 import Nav from './components/Nav/Nav'
 import Hero from './components/Hero/Hero'
@@ -13,6 +13,7 @@ import ContactCTA from './components/ContactCTA/ContactCTA'
 import Footer from './components/Footer/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import PageTransition from './components/PageTransition'
+import NotFound from './components/NotFound/NotFound'
 import { homeSections, legacyHashes } from './lib/data'
 import { content } from './content'
 
@@ -23,11 +24,15 @@ const LangflowDetail      = lazy(() => import('./components/Courses/LangflowDeta
 const AiEngineerDetail    = lazy(() => import('./components/Courses/AiEngineerDetail'))
 const ClaudeMasteryDetail = lazy(() => import('./components/Courses/ClaudeMasteryDetail'))
 
+// Tab title per known route; anything else renders the 404 page
 const PAGE_TITLES = {
-  '/':               content.pages.home,
-  '/productos/gova': content.pages.gova,
-  '/productos/miga': content.pages.miga,
-  '/open':           content.pages.open,
+  '/':                        content.pages.home,
+  '/productos/gova':          content.pages.gova,
+  '/productos/miga':          content.pages.miga,
+  '/open':                    content.pages.open,
+  '/cursos/langflow':         content.pages.home,
+  '/cursos/ai-engineer':      content.pages.home,
+  '/cursos/mastering-claude': content.pages.home,
 }
 
 // Page-level content only — Nav and Footer are rendered outside AnimatePresence
@@ -81,7 +86,8 @@ function AppRoutes() {
   const isHome = location.pathname === '/'
 
   useEffect(() => {
-    document.title = PAGE_TITLES[location.pathname] ?? content.pages.home
+    const path = location.pathname.replace(/\/+$/, '') || '/'
+    document.title = PAGE_TITLES[path] ?? content.pages.notFound
   }, [location.pathname])
 
   return (
@@ -140,8 +146,15 @@ function AppRoutes() {
                 </PageTransition>
               }
             />
-            {/* Unknown routes go home instead of rendering a blank page */}
-            <Route path="*" element={<Navigate to="/" replace />} />
+            {/* Unknown routes: 404 page (old home anchors are redirected in HomeContent) */}
+            <Route
+              path="*"
+              element={
+                <PageTransition>
+                  <NotFound />
+                </PageTransition>
+              }
+            />
           </Routes>
         </Suspense>
       </AnimatePresence>

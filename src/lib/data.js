@@ -10,8 +10,8 @@
  */
 export const navItems = [
   { id: 'inicio' },
-  { id: 'soluciones' },
   { id: 'productos' },
+  { id: 'soluciones' },
   { id: 'nosotros' },
   { id: 'open', to: '/open' },
   { id: 'contacto' },

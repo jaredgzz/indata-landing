@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
-import { supabase } from '../../lib/supabaseClient'
+import { saveLead, leadsAreLive } from '../../lib/leads'
+import { content } from '../../content'
 import './CourseLeadModal.css'
 
 const INITIAL_FORM = { nombre: '', email: '', empresa: '', phone: '' }
@@ -41,16 +42,14 @@ export default function CourseLeadModal({ isOpen, onClose, courseName, tag, pdfP
     if (!form.nombre || !form.email) return
     setStatus('sending')
 
-    const { error } = await supabase
-      .from('leads')
-      .insert([{
-        full_name: form.nombre,
-        email:     form.email,
-        company:   form.empresa || null,
-        phone:     form.phone   || null,
-        state:     'nuevo',
-        tag:       tag,
-      }])
+    const { error } = await saveLead({
+      full_name: form.nombre,
+      email:     form.email,
+      company:   form.empresa || null,
+      phone:     form.phone   || null,
+      state:     'nuevo',
+      tag:       tag,
+    })
 
     if (error) console.error('Supabase error:', error)
 
@@ -179,6 +178,10 @@ export default function CourseLeadModal({ isOpen, onClose, courseName, tag, pdfP
                 autoComplete="tel"
               />
             </div>
+
+            {!leadsAreLive && (
+              <p className="llf-preview">{content.common.previewNotice}</p>
+            )}
 
             {status === 'error' && (
               <p className="llf-error-msg">
