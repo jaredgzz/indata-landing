@@ -9,18 +9,18 @@ export default function ProjectCard({ title, desc, tag, tagColor, tagBg }) {
       onMouseLeave={() => setHov(false)}
       style={{
         background: 'var(--card-bg)',
-        border: `1px solid ${hov ? 'rgba(37,99,235,0.3)' : 'rgba(255,255,255,0.08)'}`,
+        border: `1px solid ${hov ? 'rgba(59,130,246,0.3)' : 'rgba(255,255,255,0.08)'}`,
         borderRadius: 'var(--card-radius)',
         overflow: 'hidden',
         transform: hov ? 'translateY(-4px)' : 'none',
-        boxShadow: hov ? '0 0 28px rgba(37,99,235,0.18)' : '0 2px 12px rgba(0,0,0,0.25)',
+        boxShadow: hov ? '0 0 28px rgba(59,130,246,0.18)' : '0 2px 12px rgba(0,0,0,0.25)',
         transition: 'all 260ms ease-out',
         cursor: 'pointer',
       }}
     >
       <div style={{
         height: 140,
-        background: 'linear-gradient(135deg, #0D1117, #1A2236)',
+        background: 'linear-gradient(135deg, #0B1220, #1A2236)',
         borderBottom: '1px solid rgba(255,255,255,0.06)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         padding: 16, gap: 8, flexWrap: 'wrap',
@@ -30,10 +30,10 @@ export default function ProjectCard({ title, desc, tag, tagColor, tagBg }) {
             width: 14,
             height: h * 0.9 + 'px',
             background: i % 3 === 0
-              ? 'linear-gradient(180deg,#2563EB,#7C3AED)'
+              ? 'linear-gradient(180deg,#3B82F6,#8B5CF6)'
               : i % 3 === 1
-                ? 'rgba(0,209,178,0.6)'
-                : 'rgba(37,99,235,0.4)',
+                ? 'rgba(0,229,255,0.6)'
+                : 'rgba(59,130,246,0.4)',
             borderRadius: '3px 3px 0 0',
             alignSelf: 'flex-end',
           }} />

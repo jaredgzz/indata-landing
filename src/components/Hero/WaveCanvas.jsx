@@ -22,7 +22,7 @@ export default function WaveCanvas() {
       vx: (Math.random() - 0.5) * 0.00015,
       vy: (Math.random() - 0.5) * 0.00015,
       r: Math.random() * 1.8 + 0.4,
-      color: ['#2563EB', '#00D1B2', '#7C3AED', '#60A5FA'][Math.floor(Math.random() * 4)],
+      color: ['#3B82F6', '#00E5FF', '#8B5CF6', '#60A5FA'][Math.floor(Math.random() * 4)],
       alpha: Math.random() * 0.8 + 0.2,
     }))
 
@@ -58,7 +58,7 @@ export default function WaveCanvas() {
       ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.closePath()
       const fillGrad = ctx.createLinearGradient(0, yBase - amplitude, 0, H)
       fillGrad.addColorStop(0, glowColor.replace(/,\s*[\d.]+\)$/, ',0.10)'))
-      fillGrad.addColorStop(1, 'rgba(8,12,24,0)')
+      fillGrad.addColorStop(1, 'rgba(7,13,26,0)')
       ctx.fillStyle = fillGrad
       ctx.globalAlpha = 0.6
       ctx.fill()
@@ -103,7 +103,7 @@ export default function WaveCanvas() {
       const bgGrad = ctx.createRadialGradient(W * 0.7, H * 0.4, 0, W * 0.7, H * 0.4, W * 0.7)
       bgGrad.addColorStop(0, 'rgba(15,28,60,0.6)')
       bgGrad.addColorStop(0.5, 'rgba(10,16,38,0.3)')
-      bgGrad.addColorStop(1, 'rgba(8,12,24,0)')
+      bgGrad.addColorStop(1, 'rgba(7,13,26,0)')
       ctx.fillStyle = bgGrad
       ctx.fillRect(0, 0, W, H)
 
@@ -111,15 +111,15 @@ export default function WaveCanvas() {
 
       ctx.save()
       const pts3 = drawWave(yBase + 20, 55, 0.007, 0.5,
-        [[0, 'rgba(100,40,200,0.7)'], [0.5, 'rgba(124,58,237,0.9)'], [1, 'rgba(80,20,180,0.7)']],
-        'rgba(124,58,237,1)', 0.12, 2)
-      drawVerticalRays(pts3.filter((_, i) => i % 9 === 0), 'rgba(124,58,237,1)', yBase - 10)
+        [[0, 'rgba(100,40,200,0.7)'], [0.5, 'rgba(139,92,246,0.9)'], [1, 'rgba(80,20,180,0.7)']],
+        'rgba(139,92,246,1)', 0.12, 2)
+      drawVerticalRays(pts3.filter((_, i) => i % 9 === 0), 'rgba(139,92,246,1)', yBase - 10)
       ctx.restore()
 
       ctx.save()
       const pts2 = drawWave(yBase - 10, 70, 0.009, 0.7,
-        [[0, 'rgba(37,99,235,0.8)'], [0.4, 'rgba(60,130,255,1)'], [1, 'rgba(37,99,235,0.7)']],
-        'rgba(37,99,235,1)', 0.15, 2.5)
+        [[0, 'rgba(59,130,246,0.8)'], [0.4, 'rgba(60,130,255,1)'], [1, 'rgba(59,130,246,0.7)']],
+        'rgba(59,130,246,1)', 0.15, 2.5)
       drawVerticalRays(pts2.filter((_, i) => i % 7 === 0), 'rgba(96,165,250,1)', yBase - 20)
       ctx.restore()
 
@@ -155,7 +155,7 @@ export default function WaveCanvas() {
             ctx.beginPath()
             ctx.moveTo(particles[i].x * W, particles[i].y * H)
             ctx.lineTo(particles[j].x * W, particles[j].y * H)
-            ctx.strokeStyle = `rgba(37,99,235,${0.12 * (1 - dist / threshold)})`
+            ctx.strokeStyle = `rgba(59,130,246,${0.12 * (1 - dist / threshold)})`
             ctx.lineWidth = 0.5
             ctx.stroke()
           }

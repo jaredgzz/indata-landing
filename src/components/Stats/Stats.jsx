@@ -12,7 +12,7 @@ const items = [
 
 export default function Stats() {
   return (
-    <div className="stats" aria-label="Estadísticas de InDatA">
+    <div className="stats" aria-label="Estadísticas de InDaxion">
       <div className="stats__grid">
         {items.map(item => (
           <div key={item.label} className="stats__item">

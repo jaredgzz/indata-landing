@@ -32,7 +32,7 @@ export default function Footer() {
                 <LogoIcon className="footer__logo-icon" />
               </div>
               <span className="footer__brand-name brand-name">
-                InDat<span className="brand-name__accent">A</span>
+                In<span className="brand-name__accent">D</span>axion
               </span>
             </div>
             <p className="footer__brand-desc">
@@ -113,7 +113,7 @@ export default function Footer() {
         </div>
 
         <div className="footer__bottom">
-          <span className="footer__copyright">© {new Date().getFullYear()} InDatA — Inteligencia de Datos Aplicada. Todos los derechos reservados.</span>
+          <span className="footer__copyright">© {new Date().getFullYear()} InDaxion — Inteligencia · Datos · Acción. Todos los derechos reservados.</span>
           <button
             className="footer__cta"
             onClick={() => scrollTo('contacto')}

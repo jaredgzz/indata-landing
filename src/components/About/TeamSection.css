@@ -72,7 +72,7 @@
   height: 52px;
   flex-shrink: 0;
   border-radius: 50%;
-  background: linear-gradient(135deg, #4F46E5, #7C3AED);
+  background: linear-gradient(135deg, #3B82F6, #8B5CF6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -114,7 +114,7 @@
 
 /* ── Code Editor ─────────────────────────────────────────── */
 .code-editor {
-  background: #0D1117;
+  background: #0B1220;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 14px;
   overflow: hidden;

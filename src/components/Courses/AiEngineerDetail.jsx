@@ -252,7 +252,7 @@ export default function AiEngineerDetail() {
             <div className="instructor-avatar" aria-hidden="true">DG</div>
             <div className="instructor-info">
               <p className="instructor-info__name">David Gonzalez</p>
-              <p className="instructor-info__role">Technical Data Leader · InDatA</p>
+              <p className="instructor-info__role">Technical Data Leader · InDaxion</p>
               <p className="instructor-info__bio">
                 Especialista en Inteligencia Artificial y diseno de soluciones de datos en la nube.
                 Lidera proyectos de integracion, transformacion y analisis en Azure, Databricks y MS Fabric.
@@ -307,7 +307,7 @@ export default function AiEngineerDetail() {
         courseName="AI Engineer Bootcamp"
         tag="interesado_ai_engineer"
         pdfPath="/docs/ai-engineer-bootcamp.pdf"
-        pdfFileName="Programa-AI-Engineer-InDatA.pdf"
+        pdfFileName="Programa-AI-Engineer-InDaxion.pdf"
       />
 
     </main>
