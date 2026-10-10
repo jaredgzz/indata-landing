@@ -73,7 +73,6 @@ export default function Footer() {
             <div className="footer__col-title">{footer.columns.open}</div>
             <div className="footer__links">
               <Link to="/open" className="footer__link">{footer.openLinks.initiative}</Link>
-              <Link to="/open#cursos" className="footer__link">{footer.openLinks.courses}</Link>
             </div>
           </nav>
 

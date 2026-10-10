@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import StatusBadge from '../StatusBadge/StatusBadge'
 import Icon from '../Icon/Icon'
-import Courses from '../Courses/Courses'
 import { openConcepts } from './openData'
 import { content } from '../../content'
 import './Open.css'
@@ -49,8 +48,6 @@ export default function OpenPage() {
           </div>
         </div>
       </section>
-
-      <Courses />
 
       <section className="open-page__cta">
         <div className="open-page__cta-inner">

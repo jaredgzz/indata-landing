@@ -440,7 +440,6 @@ const es = {
     },
     openLinks: {
       initiative: 'La iniciativa',
-      courses: 'Programas publicados',
     },
     whatsapp: 'WhatsApp',
     email: 'Correo electrónico',

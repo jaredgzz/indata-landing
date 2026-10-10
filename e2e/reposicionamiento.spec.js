@@ -123,7 +123,7 @@ test.describe('Páginas de producto', () => {
 
 test.describe('Rutas anteriores', () => {
   const legacy = [
-    ['/#cursos', /\/open#cursos$/, '#cursos'],
+    ['/#cursos', /\/open$/, '.open-page__hero'],
     ['/#servicios', /\/#soluciones$/, '#soluciones'],
     ['/#proyectos', /\/#productos$/, '#productos'],
     ['/#sobre', /\/#nosotros$/, '#nosotros'],
@@ -161,11 +161,10 @@ test.describe('Rutas anteriores', () => {
     }
   })
 
-  test('/open conserva los cursos y sus PDFs', async ({ page, request }) => {
+  test('/open no muestra programas por ahora; rutas y PDFs siguen disponibles', async ({ page, request }) => {
     await page.goto('/open')
-    const links = page.locator('#cursos .course-card__link')
-    await expect(links).toHaveCount(3)
-    await expect(links.nth(0)).toHaveAttribute('href', '/cursos/ai-engineer')
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+    await expect(page.locator('#cursos, .course-card')).toHaveCount(0)
     for (const pdf of ['ai-engineer-bootcamp.pdf', 'claude-design-code.pdf', 'curso-agentes-langflow.pdf']) {
       const res = await request.get(`/docs/${pdf}`)
       expect(res.ok(), pdf).toBeTruthy()

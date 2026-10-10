@@ -39,13 +39,6 @@ test('links del Nav llevan a su sección', async ({ page, isMobile }) => {
   await expect(page.locator('#productos')).toBeInViewport()
 })
 
-test('tarjeta de curso navega al detalle', async ({ page }) => {
-  await page.goto('/open')
-  await page.locator('#cursos .course-card__link[href="/cursos/langflow"]').click()
-  await expect(page).toHaveURL(/\/cursos\/langflow$/)
-  await expect(page.locator('.nav__brand-name')).toHaveText('InDaxion')
-})
-
 test('modal de lead abre, cierra y descarga el PDF con nombre nuevo', async ({ page }) => {
   await page.goto('/cursos/langflow')
   const openModal = () => page.getByRole('button', { name: /Descargar Programa Completo/ }).first().click()

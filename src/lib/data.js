@@ -36,5 +36,5 @@ export const legacyHashes = {
   '#servicios': '/#soluciones',
   '#proyectos': '/#productos',
   '#sobre':     '/#nosotros',
-  '#cursos':    '/open#cursos',
+  '#cursos':    '/open',
 }
