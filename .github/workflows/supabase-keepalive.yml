@@ -1,0 +1,52 @@
+# Keep-alive diario de Supabase
+#
+# Los proyectos gratuitos de Supabase se pausan tras ~7 días sin actividad externa.
+# Este workflow hace una lectura ligera a la tabla auxiliar `public.keepalive`
+# (sin datos personales; el rol anon solo puede leerla) y valida el contenido.
+#
+# Secretos (Settings → Secrets and variables → Actions):
+#   SUPABASE_URL        URL del proyecto (https://<ref>.supabase.co)
+#   SUPABASE_ANON_KEY   anon key pública del proyecto
+#   HEALTHCHECK_URL     (opcional) URL de ping de healthchecks.io u otro servicio
+#                       "dead-man's switch": avisa si el ping NO llega.
+#
+# Importante: GitHub desactiva los workflows programados de repos públicos tras
+# 60 días sin commits. Para reactivarlo: pestaña Actions → "Supabase keep-alive"
+# → Enable workflow. La alerta de HEALTHCHECK_URL detecta este caso.
+
+name: Supabase keep-alive
+
+on:
+  schedule:
+    - cron: '17 12 * * *'   # diario, 12:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    env:
+      HEALTHCHECK_URL: ${{ secrets.HEALTHCHECK_URL }}
+
+    steps:
+      - name: Consultar tabla keepalive
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          body=$(curl --fail-with-body --silent --show-error \
+            --retry 2 --max-time 20 \
+            "${SUPABASE_URL}/rest/v1/keepalive?select=id&limit=1" \
+            -H "apikey: ${SUPABASE_KEY}" \
+            -H "Authorization: Bearer ${SUPABASE_KEY}")
+          echo "Respuesta: ${body}"
+          echo "${body}" | jq -e '.[0].id == 1' > /dev/null \
+            || { echo "::error::keepalive no devolvió id = 1"; exit 1; }
+          echo "Supabase OK"
+
+      - name: Avisar a healthcheck (opcional)
+        if: ${{ env.HEALTHCHECK_URL != '' }}
+        run: curl --fail --silent --show-error --retry 2 --max-time 10 "${HEALTHCHECK_URL}" > /dev/null
