@@ -1,49 +1,12 @@
+import { Link } from 'react-router-dom'
 import WaveCanvas from './WaveCanvas'
+import StatusBadge from '../StatusBadge/StatusBadge'
+import { productsData } from '../Products/productsData'
+import { content } from '../../content'
 import { scrollTo } from '../../lib/scrollTo'
 import './Hero.css'
 
-const stats = [
-  {
-    icon: (
-      <svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="#00E5FF" strokeWidth={1.75} strokeLinecap="round">
-        <line x1={18} y1={20} x2={18} y2={10} />
-        <line x1={12} y1={20} x2={12} y2={4} />
-        <line x1={6} y1={20} x2={6} y2={14} />
-        <polyline points="3,17 6,14 9,17 12,14 15,17 18,10 21,13" />
-      </svg>
-    ),
-    label: '+30 Proyectos', sub: 'Completados',
-  },
-  {
-    icon: (
-      <svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="#3B82F6" strokeWidth={1.75} strokeLinecap="round">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-        <circle cx={9} cy={7} r={4} />
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-      </svg>
-    ),
-    label: '+10 Empresas', sub: 'Acompañadas',
-  },
-  {
-    icon: (
-      <svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" strokeWidth={1.75} strokeLinecap="round">
-        <circle cx={12} cy={12} r={10} />
-        <polyline points="12,6 12,12 16,14" />
-      </svg>
-    ),
-    label: '+5 Años', sub: 'de Experiencia',
-  },
-  {
-    icon: (
-      <svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="#00E5FF" strokeWidth={1.75} strokeLinecap="round">
-        <path d="M12 2a7 7 0 0 1 7 7c0 3.5-2.5 6.5-6 7.4V20h-2v-3.6C7.5 15.5 5 12.5 5 9a7 7 0 0 1 7-7z" />
-        <path d="M9 21h6" />
-      </svg>
-    ),
-    label: 'IA + Datos', sub: 'Automatización',
-  },
-]
+const { hero, products } = content
 
 export default function Hero() {
   return (
@@ -53,32 +16,41 @@ export default function Hero() {
       </div>
       <div className="hero__fade" />
       <div className="hero__content">
-        <h1 className="hero__headline">
-          Transformamos<br />
-          datos en <span className="hero__headline-gradient-blue">decisiones</span><br />
-          <span className="hero__headline-gradient-purple">inteligentes.</span>
-        </h1>
-        <p className="hero__subheadline">
-          Soluciones de datos, inteligencia artificial y automatización para empresas modernas.
+        <p className="hero__eyebrow">
+          <span className="hero__eyebrow-dot" aria-hidden="true" />
+          {hero.eyebrow}
         </p>
+        <h1 className="hero__headline">
+          {hero.title.map(({ text, accent }) => (
+            accent
+              ? <span key={text} className={`hero__headline-gradient-${accent}`}>{text}</span>
+              : text
+          ))}
+        </h1>
+        <p className="hero__subheadline">{hero.description}</p>
         <div className="hero__ctas">
-          <button className="hero__cta-primary" onClick={() => scrollTo('servicios')}>
-            Explorar servicios →
+          <button className="btn btn--primary" onClick={() => scrollTo('productos')}>
+            {hero.primaryCta} <span aria-hidden="true">→</span>
           </button>
-          <button className="hero__cta-secondary" onClick={() => scrollTo('proyectos')}>
-            Ver proyectos
+          <button className="btn btn--secondary" onClick={() => scrollTo('contacto')}>
+            {hero.secondaryCta}
           </button>
         </div>
-        <div className="hero__stats">
-          {stats.map(s => (
-            <div key={s.label} className="hero__stat">
-              <div className="hero__stat-icon">{s.icon}</div>
-              <div>
-                <div className="hero__stat-label">{s.label}</div>
-                <div className="hero__stat-sub">{s.sub}</div>
-              </div>
-            </div>
-          ))}
+
+        <div className="hero__products">
+          <p className="hero__products-label">{hero.productsLabel}</p>
+          <div className="hero__products-list">
+            {productsData.map(({ id, path, tone, status }) => (
+              <Link key={id} to={path} className={`hero__product tone-${tone}`}>
+                <span className="hero__product-mark" aria-hidden="true" />
+                <span className="hero__product-text">
+                  <span className="hero__product-name">{products[id].name}</span>
+                  <span className="hero__product-category">{products[id].shortCategory}</span>
+                </span>
+                <StatusBadge status={status} />
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </section>

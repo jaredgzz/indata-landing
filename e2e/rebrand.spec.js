@@ -5,7 +5,7 @@ test.describe('Rebrand InDaxion', () => {
   test('título, meta description y favicon', async ({ page, request }) => {
     await page.goto('/')
     await expect(page).toHaveTitle(/InDaxion/)
-    await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /We turn data into action/)
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /pequeñas y medianas empresas/)
     const favicon = await request.get('/favicon.svg')
     expect(favicon.ok()).toBeTruthy()
     expect(await favicon.text()).toContain('#00E5FF')

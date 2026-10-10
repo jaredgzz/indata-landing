@@ -1,129 +1,73 @@
+import { useAnimateIn } from '../../hooks/useAnimateIn'
+import Icon from '../Icon/Icon'
+import { content } from '../../content'
 import './TeamSection.css'
 
-const profiles = [
-  {
-    initials: 'DG',
-    name: 'David González',
-    role: 'Founder & Technical Data Leader',
-    company: 'InDaxion',
-    bio: 'Especialista en arquitectura de datos e IA generativa. Proyectos en Azure, Databricks y MS Fabric.',
-  },
+const { about, brand } = content
+
+// Los tres pilares de la marca; textos en content.about.pillars[id]
+const pillars = [
+  { id: 'inteligencia', icon: 'ai',  tone: 'cyan' },
+  { id: 'datos',        icon: 'db',  tone: 'blue' },
+  { id: 'accion',       icon: 'zap', tone: 'violet' },
 ]
 
-function ProfileCard({ initials, name, role, company, bio }) {
+function ProfileCard({ initials, name, role, bio }) {
   return (
     <div className="profile-card">
-      <div className="profile-card__avatar">{initials}</div>
+      <div className="profile-card__avatar" aria-hidden="true">{initials}</div>
       <div className="profile-card__info">
         <p className="profile-card__name">{name}</p>
         <p className="profile-card__role">{role}</p>
-        <p className="profile-card__company">{company}</p>
         <p className="profile-card__bio">{bio}</p>
       </div>
     </div>
   )
 }
 
-function CodeEditor() {
-  return (
-    <div className="code-editor">
-      <div className="code-editor__bar">
-        <span className="code-editor__dot code-editor__dot--red" />
-        <span className="code-editor__dot code-editor__dot--yellow" />
-        <span className="code-editor__dot code-editor__dot--green" />
-        <span className="code-editor__filename">indaxion_agent.py</span>
-      </div>
-
-      <div className="code-editor__body">
-        <pre className="code-editor__pre">
-          <code>
-            <span className="code-kw">from</span>{' '}
-            <span className="code-mod">langchain_openai</span>{' '}
-            <span className="code-kw">import</span>{' '}
-            <span className="code-cls">ChatOpenAI</span>{'\n'}
-            <span className="code-kw">from</span>{' '}
-            <span className="code-mod">langgraph.graph</span>{' '}
-            <span className="code-kw">import</span>{' '}
-            <span className="code-cls">StateGraph</span>{'\n'}
-            {'\n'}
-            <span className="code-cmnt"># InDaxion Agent Core</span>{'\n'}
-            <span className="code-var">builder</span>
-            <span className="code-punc"> = </span>
-            <span className="code-cls">StateGraph</span>
-            <span className="code-punc">(</span>
-            <span className="code-cls">AgentState</span>
-            <span className="code-punc">)</span>{'\n'}
-            <span className="code-var">builder</span>
-            <span className="code-fn">.add_node</span>
-            <span className="code-punc">(</span>
-            <span className="code-str">"engineer"</span>
-            <span className="code-punc">, </span>
-            <span className="code-var">ai_engineer_node</span>
-            <span className="code-punc">)</span>{'\n'}
-            <span className="code-var">builder</span>
-            <span className="code-fn">.set_entry_point</span>
-            <span className="code-punc">(</span>
-            <span className="code-str">"engineer"</span>
-            <span className="code-punc">)</span>{'\n'}
-            {'\n'}
-            <span className="code-var">graph</span>
-            <span className="code-punc"> = </span>
-            <span className="code-var">builder</span>
-            <span className="code-fn">.compile</span>
-            <span className="code-punc">()</span>{'\n'}
-            <span className="code-var">response</span>
-            <span className="code-punc"> = </span>
-            <span className="code-var">graph</span>
-            <span className="code-fn">.invoke</span>
-            <span className="code-punc">({'('}{'{'}</span>
-            <span className="code-str">"task"</span>
-            <span className="code-punc">: </span>
-            <span className="code-str">"analyze_data"</span>
-            <span className="code-punc">{'}'+')'}</span>{'\n'}
-            {'\n'}
-            <span className="code-kw">print</span>
-            <span className="code-punc">(</span>
-            <span className="code-str">"🚀 InDaxion Pipeline: Deployed Successfully"</span>
-            <span className="code-punc">)</span>
-          </code>
-        </pre>
-      </div>
-
-      <div className="code-editor__status">
-        <span className="code-editor__status-icon">✓</span>
-        <div>
-          <p className="code-editor__status-label">BUILD STATUS</p>
-          <p className="code-editor__status-text">InDaxion Pipeline: Deployed Successfully</p>
-        </div>
-      </div>
-    </div>
-  )
-}
-
 export default function TeamSection() {
+  const [ref, visible] = useAnimateIn()
+
   return (
-    <section id="sobre" className="team-section">
-      <div className="team-section__inner">
+    <section id="nosotros" className="team-section">
+      <div ref={ref} className={`team-section__inner${visible ? ' animate-in' : ''}`}>
 
         <div className="team-section__left">
-          <div className="team-section__eyebrow">LIDERAZGO TÉCNICO</div>
-          <h2 className="team-section__title">
-            Aprende de expertos<br />en producción
-          </h2>
-          <p className="team-section__subtitle">
-            Nuestro equipo está formado por ingenieros activos en la industria,
-            con experiencia real desplegando soluciones de IA y datos en producción.
-          </p>
+          <div className="team-section__eyebrow">{about.eyebrow}</div>
+          <h2 className="team-section__title">{about.title}</h2>
+          {about.paragraphs.map(paragraph => (
+            <p key={paragraph} className="team-section__text">{paragraph}</p>
+          ))}
+          <p className="team-section__stage">{about.stage}</p>
 
+          <h3 className="team-section__team-title">{about.teamTitle}</h3>
           <div className="team-section__profiles">
-            {profiles.map(p => (
-              <ProfileCard key={p.initials} {...p} />
+            {about.team.map(person => (
+              <ProfileCard key={person.initials} {...person} />
             ))}
           </div>
         </div>
 
         <div className="team-section__right">
-          <CodeEditor />
+          <div className="pillars">
+            <div className="pillars__head">
+              <p className="pillars__label">{about.pillarsLabel}</p>
+            </div>
+            <ul className="pillars__list">
+              {pillars.map(({ id, icon, tone }) => (
+                <li key={id} className={`pillars__item tone-${tone}`}>
+                  <span className="pillars__icon">
+                    <Icon name={icon} size={22} />
+                  </span>
+                  <span>
+                    <span className="pillars__title">{about.pillars[id].title}</span>
+                    <span className="pillars__desc">{about.pillars[id].desc}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <p className="pillars__tagline">{brand.taglineEn}</p>
+          </div>
         </div>
 
       </div>

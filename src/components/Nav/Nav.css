@@ -199,7 +199,22 @@
 }
 
 /* ── Responsive ───────────────────────────────────────────── */
-@media (max-width: 768px) {
+@media (max-width: 1180px) {
+  .nav {
+    padding: 0 24px;
+  }
+
+  .nav__links {
+    gap: 2px;
+  }
+
+  .nav__link {
+    padding: 6px 10px;
+  }
+}
+
+/* El menú completo no cabe: hamburguesa */
+@media (max-width: 1040px) {
   .nav {
     padding: 0 20px;
     flex-wrap: wrap;

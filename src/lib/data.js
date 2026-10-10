@@ -1,29 +1,40 @@
 /**
  * Shared data constants used across multiple components.
- * Import from here instead of defining inline to avoid duplication.
+ * Labels live in content (src/content) — here only ids and routes.
  */
 
 /**
- * Navigation links — used in Nav and Footer.
- * Nav uses `id` for scrollIntoView; Footer uses `href` anchors.
- * Both are provided so each component can pick what it needs.
+ * Navigation links — used in Nav.
+ * Items with `to` are their own route; the rest are sections of the home (#id).
+ * Label: content.nav.links[id].
  */
-export const navLinks = [
-  { label: 'Inicio',    id: 'inicio',    href: '#inicio' },
-  { label: 'Servicios', id: 'servicios', href: '#servicios' },
-  { label: 'Cursos',    id: 'cursos',    href: '#cursos' },
-  { label: 'Proyectos', id: 'proyectos', href: '#proyectos' },
-  { label: 'Sobre mí',  id: 'sobre',     href: '#sobre' },
-  { label: 'Contacto',  id: 'contacto',  href: '#contacto' },
+export const navItems = [
+  { id: 'inicio' },
+  { id: 'soluciones' },
+  { id: 'productos' },
+  { id: 'nosotros' },
+  { id: 'open', to: '/open' },
+  { id: 'contacto' },
+]
+
+/** Home sections observed to highlight the active Nav link */
+export const homeSections = [
+  'inicio',
+  'problemas',
+  'productos',
+  'soluciones',
+  'como-trabajamos',
+  'nosotros',
+  'open',
+  'contacto',
 ]
 
 /**
- * Statistics shown in Hero and About sections.
- * Hero renders with icons; About renders value+label only.
- * The shared values here are the canonical source of truth.
+ * Old home anchors → their new location, so existing links keep working.
  */
-export const statsData = [
-  { value: '+30', label: 'Proyectos Completados', sub: 'Completados' },
-  { value: '+10', label: 'Empresas Acompañadas',  sub: 'Acompañadas' },
-  { value: '+5',  label: 'Años de Experiencia',   sub: 'de Experiencia' },
-]
+export const legacyHashes = {
+  '#servicios': '/#soluciones',
+  '#proyectos': '/#productos',
+  '#sobre':     '/#nosotros',
+  '#cursos':    '/open#cursos',
+}

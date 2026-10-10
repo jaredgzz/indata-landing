@@ -1,0 +1,51 @@
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 11px;
+  border-radius: 100px;
+  border: 1px solid transparent;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.status-badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+/* Funciona hoy (MVP / disponible) */
+.status-badge--mvp,
+.status-badge--available {
+  color: #67EEFF;
+  background: rgba(0, 229, 255, 0.10);
+  border-color: rgba(0, 229, 255, 0.28);
+}
+
+/* En construcción */
+.status-badge--development,
+.status-badge--initiative {
+  color: #B9A2FB;
+  background: rgba(139, 92, 246, 0.14);
+  border-color: rgba(139, 92, 246, 0.34);
+}
+
+/* Planeado */
+.status-badge--planned {
+  color: #93BBFB;
+  background: rgba(59, 130, 246, 0.12);
+  border-color: rgba(59, 130, 246, 0.32);
+}
+
+/* Visión a futuro */
+.status-badge--vision {
+  color: var(--text-link);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.14);
+  border-style: dashed;
+}

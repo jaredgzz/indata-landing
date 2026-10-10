@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '../../lib/supabaseClient'
 import './CourseLeadModal.css'
 
@@ -8,21 +8,20 @@ export default function CourseLeadModal({ isOpen, onClose, courseName, tag, pdfP
   const [form, setForm] = useState(INITIAL_FORM)
   const [status, setStatus] = useState('idle') // idle | sending | success | error
 
+  // Reset form when the modal closes
+  const handleClose = useCallback(() => {
+    setForm(INITIAL_FORM)
+    setStatus('idle')
+    onClose()
+  }, [onClose])
+
   // Close on Escape key
   useEffect(() => {
     if (!isOpen) return
-    const handler = (e) => { if (e.key === 'Escape') onClose() }
+    const handler = (e) => { if (e.key === 'Escape') handleClose() }
     document.addEventListener('keydown', handler)
     return () => document.removeEventListener('keydown', handler)
-  }, [isOpen, onClose])
-
-  // Reset form when modal closes
-  useEffect(() => {
-    if (!isOpen) {
-      setForm(INITIAL_FORM)
-      setStatus('idle')
-    }
-  }, [isOpen])
+  }, [isOpen, handleClose])
 
   if (!isOpen) return null
 
@@ -66,7 +65,7 @@ export default function CourseLeadModal({ isOpen, onClose, courseName, tag, pdfP
       role="dialog"
       aria-modal="true"
       aria-labelledby="llf-title"
-      onClick={onClose}
+      onClick={handleClose}
     >
       <div
         className="llf-card"
@@ -74,7 +73,7 @@ export default function CourseLeadModal({ isOpen, onClose, courseName, tag, pdfP
       >
         <button
           className="llf-close"
-          onClick={onClose}
+          onClick={handleClose}
           aria-label="Cerrar"
         >
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">

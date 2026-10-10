@@ -28,19 +28,19 @@ for (const route of ROUTES) {
 test('links del Nav llevan a su sección', async ({ page, isMobile }) => {
   await page.goto('/')
   if (isMobile) {
-    await page.getByRole('button', { name: 'Abrir menu' }).click()
+    await page.getByRole('button', { name: 'Abrir menú' }).click()
     await expect(page.locator('#nav-mobile-menu')).toBeVisible()
-    await page.locator('#nav-mobile-menu').getByRole('link', { name: 'Proyectos' }).click()
+    await page.locator('#nav-mobile-menu').getByRole('link', { name: 'Productos' }).click()
     await expect(page.locator('#nav-mobile-menu')).toBeHidden()
   } else {
-    await page.locator('.nav__links').getByRole('link', { name: 'Proyectos' }).click()
+    await page.locator('.nav__links').getByRole('link', { name: 'Productos' }).click()
   }
-  await expect(page).toHaveURL(/#proyectos$/)
-  await expect(page.locator('#proyectos')).toBeInViewport()
+  await expect(page).toHaveURL(/#productos$/)
+  await expect(page.locator('#productos')).toBeInViewport()
 })
 
 test('tarjeta de curso navega al detalle', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/open')
   await page.locator('#cursos .course-card__link[href="/cursos/langflow"]').click()
   await expect(page).toHaveURL(/\/cursos\/langflow$/)
   await expect(page.locator('.nav__brand-name')).toHaveText('InDaxion')

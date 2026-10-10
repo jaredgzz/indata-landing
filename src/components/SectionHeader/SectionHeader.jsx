@@ -2,8 +2,8 @@ import './SectionHeader.css'
 
 /**
  * Shared section header: eyebrow label + H2 + optional subtitle.
- * Replaces the duplicated header pattern across Services, Courses, Projects,
- * ContactCTA, and About sections.
+ * Replaces the duplicated header pattern across Problems, Products, Services,
+ * Process, Courses and ContactCTA sections.
  */
 export default function SectionHeader({
   eyebrow,

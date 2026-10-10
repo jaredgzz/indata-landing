@@ -1,31 +1,28 @@
+/**
+ * Programas publicados. Textos: content.courses.items[id].
+ */
 export const coursesData = [
   {
-    title: 'AI Engineer Bootcamp',
-    desc: 'Ruta certificada de 6 semanas. Domina LLMs, RAG, sistemas multiagente con CrewAI y LangGraph, y despliega en producción.',
+    id: 'ai-engineer',
     logoText: 'AIE',
     logoBg: 'rgba(59,130,246,0.20)',
     logoColor: '#818CF8',
-    tag: 'Bootcamp',
     tagColor: '#3B82F6',
     detailPath: '/cursos/ai-engineer',
   },
   {
-    title: 'Mastering Claude',
-    desc: 'Domina el ecosistema Claude: prototipa con Anthropic Labs, programa con Claude Code CLI y despliega agentes empresariales con MCP.',
+    id: 'mastering-claude',
     logoText: 'MC',
     logoBg: 'rgba(217,119,6,0.20)',
     logoColor: '#FCD34D',
-    tag: 'IA Generativa',
     tagColor: '#D97706',
     detailPath: '/cursos/mastering-claude',
   },
   {
-    title: 'Agentes con LangFlow',
-    desc: 'Crea agentes inteligentes con flujos visuales, memoria y APIs. Listos para producción.',
+    id: 'langflow',
     logoText: 'LF',
     logoBg: 'rgba(59,130,246,0.20)',
     logoColor: '#60A5FA',
-    tag: 'IA Generativa',
     tagColor: '#3B82F6',
     detailPath: '/cursos/langflow',
   },
