@@ -43,6 +43,14 @@ test.describe('Diseño sin efectos de plantilla', () => {
     })
   }
 
+  test('la escena 3D no provoca scroll horizontal', async ({ page }) => {
+    for (const route of ROUTES) {
+      await page.goto(route)
+      const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)
+      expect(overflow, route).toBeLessThanOrEqual(0)
+    }
+  })
+
   test('el hero muestra capturas reales de Gova, sin canvas animado', async ({ page }) => {
     await page.goto('/')
     const hero = page.locator('#inicio')
