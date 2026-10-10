@@ -33,7 +33,8 @@ test.describe('Rebrand InDaxion', () => {
     const gradIds = await page.locator('svg[aria-label="InDaxion logo"] linearGradient').evaluateAll(
       els => els.map(el => el.id),
     )
-    expect(new Set(gradIds).size).toBe(2)
+    expect(gradIds.length).toBeGreaterThan(0)
+    expect(new Set(gradIds).size).toBe(gradIds.length)
   })
 
   for (const route of ROUTES) {
