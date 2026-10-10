@@ -104,17 +104,9 @@ const INSTRUCTORS = [
     avatarKey: 'dg',
     initials: 'DG',
     name: 'David González',
-    role: 'Co-Instructor Principal · Technical Data Leader · InDatA',
+    role: 'Instructor Principal · Technical Data Leader · InDaxion',
     tags: ['DATA STRATEGY', 'RAG', 'ENTERPRISE AI'],
     bio: 'Experto en estrategia de datos e implementación de IA generativa a nivel corporativo. Lidera la adopción de Claude en equipos de ingeniería y datos, diseñando arquitecturas seguras de RAG, agentes y automatización empresarial.',
-  },
-  {
-    avatarKey: 'jm',
-    initials: 'JM',
-    name: 'Jair Martínez',
-    role: 'Co-Instructor Principal · AI Engineer · InDatA',
-    tags: ['AI AGENTS', 'MCP', 'COMPUTER USE'],
-    bio: 'Especialista en arquitectura de agentes, automatización avanzada y despliegue de modelos de lenguaje en producción. Construye soluciones de Claude Code, MCP y Computer Use para clientes de LATAM y EE.UU.',
   },
 ]
 
@@ -222,8 +214,8 @@ export default function ClaudeMasteryDetail() {
       <section className="claude-mastery-detail__section">
         <div className="claude-mastery-detail__section-inner">
           <SectionHeader
-            eyebrow="INSTRUCTORES"
-            title="Tu Equipo Docente"
+            eyebrow="INSTRUCTOR"
+            title="Tu Instructor"
             accentColor="var(--color-teal)"
           />
           <div className="claude-mastery-detail__instructors-grid">
@@ -273,7 +265,7 @@ export default function ClaudeMasteryDetail() {
         courseName="Mastering Claude"
         tag="interesado_claude_mastery"
         pdfPath="/docs/claude-design-code.pdf"
-        pdfFileName="Programa-Mastering-Claude-InDatA.pdf"
+        pdfFileName="Programa-Mastering-Claude-InDaxion.pdf"
       />
 
     </main>

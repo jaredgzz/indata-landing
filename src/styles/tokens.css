@@ -1,31 +1,36 @@
 :root {
-  --bg-primary:      #0D1117;
-  --bg-hero:         #080C18;
-  --bg-alt:          #0A0F18;
-  --bg-footer:       #070B10;
-  --bg-card:         #111827;
-  --bg-nav:          rgba(8, 12, 24, 0.75);
-  --bg-nav-scrolled: rgba(8, 12, 24, 0.95);
+  --bg-primary:      #0B1220;
+  --bg-hero:         #070D1A;
+  --bg-alt:          #091020;
+  --bg-footer:       #060A16;
+  --bg-card:         #121B2E;
+  --bg-nav:          rgba(11, 18, 32, 0.75);
+  --bg-nav-scrolled: rgba(11, 18, 32, 0.95);
 
-  --color-blue:   #2563EB;
-  --color-purple: #7C3AED;
-  --color-teal:   #00D1B2;
+  /* Paleta InDaxion */
+  --color-blue:   #3B82F6;
+  --color-purple: #8B5CF6;
+  --color-cyan:   #00E5FF;
+  --color-teal:   var(--color-cyan); /* alias legado */
 
-  --text-primary:   #F5F7FA;
+  --text-primary:   #FFFFFF;
   --text-secondary: #8B9BB4;
   --text-muted:     #5A6A82;
   --text-nav:       #9AAFC8;
   --text-link:      #B4C0D3;
 
-  --grad-primary: linear-gradient(135deg, #2563EB, #7C3AED);
-  --grad-accent:  linear-gradient(135deg, #2563EB, #00D1B2);
+  /* Superficies con texto blanco (botones): sin cian para mantener contraste */
+  --grad-primary: linear-gradient(135deg, #3B82F6, #8B5CF6);
+  /* Degradado de marca (logo, wordmark, acentos decorativos) */
+  --grad-brand:   linear-gradient(135deg, #00E5FF, #3B82F6, #8B5CF6);
+  --grad-accent:  linear-gradient(135deg, #3B82F6, #00E5FF);
 
   --font-base: 'Manrope', system-ui, sans-serif;
 
   --section-padding: 100px 40px;
   --max-width: 1200px;
   --card-radius: 16px;
-  --card-bg: #111827;
+  --card-bg: #121B2E;
   --card-border: rgba(255, 255, 255, 0.08);
 }
 

@@ -179,10 +179,10 @@ export default function LangflowDetail() {
             <div className="instructor-avatar" aria-hidden="true">DG</div>
             <div className="instructor-info">
               <p className="instructor-info__name">David González</p>
-              <p className="instructor-info__role">Fundador de InDatA · Consultor de Datos & IA</p>
+              <p className="instructor-info__role">Fundador de InDaxion · Consultor de Datos & IA</p>
               <p className="instructor-info__bio">
                 Especialista en inteligencia de datos aplicada con más de 5 años desarrollando
-                soluciones de IA para empresas en LATAM. Fundador de InDatA, donde lidera
+                soluciones de IA para empresas en LATAM. Fundador de InDaxion, donde lidera
                 proyectos de analytics, automatización y agentes conversacionales.
               </p>
             </div>
@@ -213,7 +213,7 @@ export default function LangflowDetail() {
         courseName="Agentes con LangFlow"
         tag="interesado_langflow"
         pdfPath="/docs/curso-agentes-langflow.pdf"
-        pdfFileName="Programa-Agentes-LangFlow-InDatA.pdf"
+        pdfFileName="Programa-Agentes-LangFlow-InDaxion.pdf"
       />
 
     </main>

@@ -5,15 +5,8 @@ const profiles = [
     initials: 'DG',
     name: 'David González',
     role: 'Founder & Technical Data Leader',
-    company: 'InDatA',
+    company: 'InDaxion',
     bio: 'Especialista en arquitectura de datos e IA generativa. Proyectos en Azure, Databricks y MS Fabric.',
-  },
-  {
-    initials: 'JM',
-    name: 'Jair Martínez',
-    role: 'IA Engineer',
-    company: 'InDatA',
-    bio: 'Especialista en desarrollo de agentes inteligentes y automatización avanzada con LangChain y LangGraph.',
   },
 ]
 
@@ -38,7 +31,7 @@ function CodeEditor() {
         <span className="code-editor__dot code-editor__dot--red" />
         <span className="code-editor__dot code-editor__dot--yellow" />
         <span className="code-editor__dot code-editor__dot--green" />
-        <span className="code-editor__filename">indata_agent.py</span>
+        <span className="code-editor__filename">indaxion_agent.py</span>
       </div>
 
       <div className="code-editor__body">
@@ -53,7 +46,7 @@ function CodeEditor() {
             <span className="code-kw">import</span>{' '}
             <span className="code-cls">StateGraph</span>{'\n'}
             {'\n'}
-            <span className="code-cmnt"># InDatA Agent Core</span>{'\n'}
+            <span className="code-cmnt"># InDaxion Agent Core</span>{'\n'}
             <span className="code-var">builder</span>
             <span className="code-punc"> = </span>
             <span className="code-cls">StateGraph</span>
@@ -90,7 +83,7 @@ function CodeEditor() {
             {'\n'}
             <span className="code-kw">print</span>
             <span className="code-punc">(</span>
-            <span className="code-str">"🚀 InDatA Pipeline: Deployed Successfully"</span>
+            <span className="code-str">"🚀 InDaxion Pipeline: Deployed Successfully"</span>
             <span className="code-punc">)</span>
           </code>
         </pre>
@@ -100,7 +93,7 @@ function CodeEditor() {
         <span className="code-editor__status-icon">✓</span>
         <div>
           <p className="code-editor__status-label">BUILD STATUS</p>
-          <p className="code-editor__status-text">InDatA Pipeline: Deployed Successfully</p>
+          <p className="code-editor__status-text">InDaxion Pipeline: Deployed Successfully</p>
         </div>
       </div>
     </div>

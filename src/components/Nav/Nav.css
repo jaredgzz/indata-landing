@@ -25,7 +25,7 @@
 }
 
 .nav__logo-icon {
-  width: 48px;
+  width: 34px;
   height: auto;
   flex-shrink: 0;
 }
@@ -43,7 +43,7 @@
   letter-spacing: -0.01em;
 }
 
-/* Wordmark compartido: "InDatA" con la A en gradiente diagonal */
+/* Wordmark compartido: "InDaxion" con la D en gradiente diagonal */
 .brand-name {
   color: #fff;
   font-weight: 700;
@@ -51,7 +51,7 @@
 }
 
 .brand-name__accent {
-  background: linear-gradient(135deg, #4F46E5 0%, #2563EB 50%, #7C3AED 100%);
+  background: linear-gradient(135deg, #00E5FF 0%, #3B82F6 50%, #8B5CF6 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -107,12 +107,12 @@
   font-family: var(--font-base);
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
   transition: all 200ms ease;
 }
 
 .nav__cta:hover {
-  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
   transform: translateY(-1px);
 }
 
@@ -160,7 +160,7 @@
   top: 68px;
   left: 0;
   right: 0;
-  background: var(--bg-nav-scrolled, rgba(8, 12, 28, 0.97));
+  background: var(--bg-nav-scrolled, rgba(11, 18, 32, 0.97));
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -190,7 +190,7 @@
 .nav__mobile-link--active {
   color: var(--text-primary);
   border-left-color: var(--color-blue);
-  background: rgba(37, 99, 235, 0.08);
+  background: rgba(59, 130, 246, 0.08);
 }
 
 .nav__cta--mobile {

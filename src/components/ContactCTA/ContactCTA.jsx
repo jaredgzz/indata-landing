@@ -50,25 +50,7 @@ export default function ContactCTA() {
       state:     'nuevo',
     }
 
-    let { error } = await supabase.from('leads').insert([payload])
-
-    // Fallback: if `message` column doesn't exist yet, append the message into `service`
-    if (error) {
-      const isMessageColMissing =
-        error.code === '42703' ||
-        error.message?.toLowerCase().includes('message')
-
-      if (isMessageColMissing) {
-        const { message: _msg, ...rest } = payload
-        const combined = form.servicio
-          ? `${form.servicio} | ${form.mensaje}`
-          : form.mensaje
-        const retry = await supabase
-          .from('leads')
-          .insert([{ ...rest, service: combined }])
-        error = retry.error
-      }
-    }
+    const { error } = await supabase.from('leads').insert([payload])
 
     if (error) {
       console.error('Supabase error:', error)
@@ -96,7 +78,7 @@ export default function ContactCTA() {
         {status === 'success' ? (
           <div className="contact-cta__success">
             <div className="contact-cta__success-icon">
-              <svg width={32} height={32} viewBox="0 0 24 24" fill="none" stroke="#00D1B2" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+              <svg width={32} height={32} viewBox="0 0 24 24" fill="none" stroke="#00E5FF" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                 <polyline points="22 4 12 14.01 9 11.01" />
               </svg>

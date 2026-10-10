@@ -1,21 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 38" fill="none">
-  <rect width="38" height="38" rx="9" fill="#0D1117"/>
-  <rect x="2" y="4" width="3.5" height="3.5" rx="0.5" fill="#2563EB"/>
-  <rect x="2" y="9" width="3.5" height="3.5" rx="0.5" fill="#2563EB" opacity="0.6"/>
-  <rect x="2" y="14" width="3.5" height="3.5" rx="0.5" fill="#2563EB"/>
-  <rect x="2" y="19" width="3.5" height="3.5" rx="0.5" fill="#2563EB" opacity="0.6"/>
-  <rect x="7" y="4" width="3.5" height="3.5" rx="0.5" fill="#2563EB" opacity="0.6"/>
-  <rect x="7" y="9" width="3.5" height="3.5" rx="0.5" fill="#2563EB"/>
-  <rect x="12" y="2" width="3.5" height="3.5" rx="0.5" fill="#2563EB" opacity="0.6"/>
-  <rect x="12" y="6" width="3.5" height="3.5" rx="0.5" fill="#2563EB"/>
-  <rect x="17" y="2" width="3.5" height="3.5" rx="0.5" fill="#2563EB" opacity="0.6"/>
-  <path d="M14 6 L22 6 Q32 6 32 19 Q32 32 22 32 L14 32 Z" fill="none" stroke="url(#g)" stroke-width="2.5"/>
-  <polyline points="17,26 20,20 23,23 27,15" fill="none" stroke="#00D1B2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="27" cy="15" r="2" fill="#00D1B2"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" rx="22" fill="#0B1220"/>
+  <g transform="translate(13 13) scale(0.74)">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#2563EB"/>
-      <stop offset="100%" stop-color="#7C3AED"/>
+    <clipPath id="fv-clip"><path d="M10,6 H51 C72.5,6 90,25.7 90,50 C90,74.3 72.5,94 51,94 H10 Z"/></clipPath>
+    <linearGradient id="fv-body" x1="0.05" y1="0" x2="1" y2="0.7">
+      <stop offset="0" stop-color="#00E5FF"/>
+      <stop offset="0.42" stop-color="#3B82F6"/>
+      <stop offset="0.8" stop-color="#8B5CF6"/>
+    </linearGradient>
+    <linearGradient id="fv-inner" x1="0.8" y1="0.2" x2="0" y2="1">
+      <stop offset="0" stop-color="#3B82F6"/>
+      <stop offset="0.55" stop-color="#3B82F6"/>
+      <stop offset="1" stop-color="#00E5FF"/>
+    </linearGradient>
+    <linearGradient id="fv-sweep" x1="0" y1="1" x2="1" y2="0.4">
+      <stop offset="0" stop-color="#00E5FF"/>
+      <stop offset="0.45" stop-color="#3B82F6"/>
+      <stop offset="1" stop-color="#4F5DF2"/>
     </linearGradient>
   </defs>
+  <g clip-path="url(#fv-clip)">
+    <path d="M10,6 H51 C72.5,6 90,25.7 90,50 C90,74.3 72.5,94 51,94 H10 Z M10.8,27.6 H42.6 C47.4,27.6 50.8,29.2 53.2,31.6 L65.8,46.6 C67.6,48.9 67.7,52.9 66,55.2 L51.6,70 C48.6,72.8 44.6,73.6 40.6,73.6 H35.2 C38.8,68.4 40.4,62.4 40.4,56.2 C40.4,51 38.2,46.6 34.4,43.4 Z" fill="url(#fv-body)" fill-rule="evenodd"/>
+    <path d="M10,27.6 H10.8 L34.4,43.4 C38.2,46.6 40.4,51 40.4,56.2 C40.4,62.4 38.8,68.4 35.2,73.6 C26,78 16,85 10,92 Z" fill="url(#fv-inner)"/>
+    <path d="M10,92 C16,85 26,78 35.2,73.6 H40.6 C44.6,73.6 48.6,72.8 51.6,70 L66,55.2 C67.7,52.9 67.6,48.9 65.8,46.6 C72.6,54 78.6,63 78.6,73 C78.6,83 75,92 70,100 L10,100 Z" fill="url(#fv-sweep)"/>
+  </g>
+  </g>
 </svg>

@@ -20,7 +20,7 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(90deg, #080C18 42%, rgba(8,12,24,0.7) 65%, rgba(8,12,24,0) 100%);
+  background: linear-gradient(90deg, #070D1A 42%, rgba(7,13,26,0.7) 65%, rgba(7,13,26,0) 100%);
   pointer-events: none;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .hero__headline-gradient-purple {
-  background: linear-gradient(135deg, #7C3AED, #2563EB);
+  background: linear-gradient(135deg, #8B5CF6, #3B82F6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -83,7 +83,7 @@
   font-family: var(--font-base);
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 24px rgba(37, 99, 235, 0.45);
+  box-shadow: 0 4px 24px rgba(59, 130, 246, 0.45);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -146,7 +146,7 @@
     opacity: 0.4;
   }
   .hero__fade {
-    background: linear-gradient(90deg, #080C18 60%, rgba(8,12,24,0.85) 100%);
+    background: linear-gradient(90deg, #070D1A 60%, rgba(7,13,26,0.85) 100%);
   }
   .hero__content {
     padding: 60px 20px;

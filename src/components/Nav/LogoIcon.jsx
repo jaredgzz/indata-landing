@@ -1,96 +1,69 @@
+import { useId } from 'react'
+
+// Isotipo InDaxion (viewBox 100×100), reconstruido del brand board.
+// Silueta exterior de la D
+const D_OUTER = 'M10,6 H51 C72.5,6 90,25.7 90,50 C90,74.3 72.5,94 51,94 H10 Z'
+
+// Espacio negativo en chevrón (transparente, se resta con evenodd)
+const D_CHEVRON =
+  'M10.8,27.6 H42.6 C47.4,27.6 50.8,29.2 53.2,31.6 L65.8,46.6 C67.6,48.9 67.7,52.9 66,55.2 ' +
+  'L51.6,70 C48.6,72.8 44.6,73.6 40.6,73.6 H35.2 C38.8,68.4 40.4,62.4 40.4,56.2 ' +
+  'C40.4,51 38.2,46.6 34.4,43.4 Z'
+
+// Forma azul interior que nace del borde izquierdo
+const D_INNER =
+  'M10,27.6 H10.8 L34.4,43.4 C38.2,46.6 40.4,51 40.4,56.2 C40.4,62.4 38.8,68.4 35.2,73.6 ' +
+  'C26,78 16,85 10,92 Z'
+
+// Barrido inferior que sube hasta la punta del chevrón (se recorta con la silueta)
+const D_SWEEP =
+  'M10,92 C16,85 26,78 35.2,73.6 H40.6 C44.6,73.6 48.6,72.8 51.6,70 L66,55.2 ' +
+  'C67.7,52.9 67.6,48.9 65.8,46.6 C72.6,54 78.6,63 78.6,73 C78.6,83 75,92 70,100 L10,100 Z'
+
 export default function LogoIcon({ className }) {
-  // Píxeles dispersos: cluster orgánico a la izquierda de la D,
-  // con tamaños y opacidades variadas para sugerir "data dissolve"
-  const pixels = [
-    { x: 4,  y: 38, s: 3, op: 0.40 },
-    { x: 8,  y: 24, s: 2, op: 0.50 },
-    { x: 11, y: 46, s: 4, op: 0.70 },
-    { x: 16, y: 14, s: 3, op: 0.60 },
-    { x: 18, y: 32, s: 5, op: 1.00 },
-    { x: 23, y: 52, s: 3, op: 0.70 },
-    { x: 27, y: 22, s: 4, op: 0.90 },
-    { x: 32, y: 40, s: 5, op: 1.00 },
-  ]
-
-  // D como anillo (fill-rule="evenodd"):
-  //  - Subpath exterior: silueta completa
-  //  - Subpath interior: hueco (resta) → genera el efecto anillo
-  const dPath =
-    'M46,8 L60,8 Q110,8 110,40 Q110,72 60,72 L46,72 Z ' +
-    'M54,16 L60,16 Q102,16 102,40 Q102,64 60,64 L54,64 Z'
-
-  // Path solo del INTERIOR de la D — para clip del gráfico
-  const dInnerPath =
-    'M54,16 L60,16 Q102,16 102,40 Q102,64 60,64 L54,64 Z'
-
-  // Polyline ascendente dentro de la cavidad de la D
-  const chartPoints = [
-    { x: 62, y: 58 },
-    { x: 74, y: 46 },
-    { x: 86, y: 36 },
-    { x: 98, y: 24 },
-  ]
-  const chartPointsStr = chartPoints.map(p => `${p.x},${p.y}`).join(' ')
+  // El logo aparece en Nav y Footer: ids únicos para no colisionar defs
+  const uid = useId().replace(/[^a-zA-Z0-9_-]/g, '')
+  const ids = {
+    clip: `ix-clip-${uid}`,
+    body: `ix-body-${uid}`,
+    inner: `ix-inner-${uid}`,
+    sweep: `ix-sweep-${uid}`,
+  }
 
   return (
     <svg
       className={className}
-      viewBox="0 0 120 80"
+      viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
-      aria-label="InDatA logo"
+      role="img"
+      aria-label="InDaxion logo"
       fill="none"
     >
       <defs>
-        {/* Gradiente diagonal índigo → azul → morado */}
-        <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%"   stopColor="#4F46E5" />
-          <stop offset="50%"  stopColor="#2563EB" />
-          <stop offset="100%" stopColor="#7C3AED" />
-        </linearGradient>
-
-        {/* Clip path con el hueco interior de la D, para confinar el gráfico */}
-        <clipPath id="dClip">
-          <path d={dInnerPath} />
+        <clipPath id={ids.clip}>
+          <path d={D_OUTER} />
         </clipPath>
+        <linearGradient id={ids.body} x1="0.05" y1="0" x2="1" y2="0.7">
+          <stop offset="0"    stopColor="#00E5FF" />
+          <stop offset="0.42" stopColor="#3B82F6" />
+          <stop offset="0.8"  stopColor="#8B5CF6" />
+        </linearGradient>
+        <linearGradient id={ids.inner} x1="0.8" y1="0.2" x2="0" y2="1">
+          <stop offset="0"    stopColor="#3B82F6" />
+          <stop offset="0.55" stopColor="#3B82F6" />
+          <stop offset="1"    stopColor="#00E5FF" />
+        </linearGradient>
+        <linearGradient id={ids.sweep} x1="0" y1="1" x2="1" y2="0.4">
+          <stop offset="0"    stopColor="#00E5FF" />
+          <stop offset="0.45" stopColor="#3B82F6" />
+          <stop offset="1"    stopColor="#4F5DF2" />
+        </linearGradient>
       </defs>
 
-      {/* --- Píxeles dispersos (efecto dissolve a la izquierda) --- */}
-      {pixels.map(({ x, y, s, op }, i) => (
-        <rect
-          key={i}
-          x={x}
-          y={y}
-          width={s}
-          height={s}
-          rx={0.5}
-          fill="url(#logoGrad)"
-          opacity={op}
-        />
-      ))}
-
-      {/* --- Punto sutil arriba del stem (sugiere la "i") --- */}
-      <rect x={46} y={4} width={8} height={3} rx={0.5} fill="url(#logoGrad)" />
-
-      {/* --- D como anillo (fill-rule evenodd) --- */}
-      <path
-        d={dPath}
-        fill="url(#logoGrad)"
-        fillRule="evenodd"
-      />
-
-      {/* --- Gráfico interior, clipeado al hueco de la D --- */}
-      <g clipPath="url(#dClip)">
-        <polyline
-          points={chartPointsStr}
-          fill="none"
-          stroke="white"
-          strokeWidth={2}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        {chartPoints.map(({ x, y }, i) => (
-          <circle key={i} cx={x} cy={y} r={2.5} fill="white" />
-        ))}
+      <g clipPath={`url(#${ids.clip})`}>
+        <path d={`${D_OUTER} ${D_CHEVRON}`} fill={`url(#${ids.body})`} fillRule="evenodd" />
+        <path d={D_INNER} fill={`url(#${ids.inner})`} />
+        <path d={D_SWEEP} fill={`url(#${ids.sweep})`} />
       </g>
     </svg>
   )

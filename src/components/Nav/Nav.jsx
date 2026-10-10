@@ -46,9 +46,9 @@ export default function Nav({ activeSection }) {
         <LogoIcon className="nav__logo-icon" />
         <div className="nav__brand-text">
           <span className="nav__brand-name brand-name">
-            InDat<span className="brand-name__accent">A</span>
+            In<span className="brand-name__accent">D</span>axion
           </span>
-          <span className="nav__brand-tagline">Inteligencia de Datos Aplicada</span>
+          <span className="nav__brand-tagline">Inteligencia · Datos · Acción</span>
         </div>
       </Link>
 

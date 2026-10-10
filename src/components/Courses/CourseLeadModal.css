@@ -64,7 +64,7 @@
 }
 
 .llf-close:focus-visible {
-  outline: 2px solid var(--color-blue, #2563EB);
+  outline: 2px solid var(--color-blue, #3B82F6);
   outline-offset: 2px;
 }
 
@@ -77,8 +77,8 @@
   width: 52px;
   height: 52px;
   border-radius: 12px;
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(124, 58, 237, 0.15));
-  border: 1px solid rgba(37, 99, 235, 0.2);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15));
+  border: 1px solid rgba(59, 130, 246, 0.2);
   color: #60A5FA;
   margin-bottom: 20px;
 }
@@ -149,9 +149,9 @@
 }
 
 .llf-input:focus {
-  border-color: rgba(37, 99, 235, 0.5);
-  background: rgba(37, 99, 235, 0.05);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+  border-color: rgba(59, 130, 246, 0.5);
+  background: rgba(59, 130, 246, 0.05);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
 }
 
 .llf-input:disabled {
@@ -181,21 +181,21 @@
   width: 100%;
   padding: 14px 24px;
   border-radius: 10px;
-  background: linear-gradient(135deg, #2563EB, #7C3AED);
+  background: linear-gradient(135deg, #3B82F6, #8B5CF6);
   color: #fff;
   font-size: 15px;
   font-weight: 600;
   font-family: var(--font-base);
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
   transition: opacity 200ms ease, transform 200ms ease, box-shadow 200ms ease;
   margin-top: 4px;
 }
 
 .llf-submit:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(37, 99, 235, 0.5);
+  box-shadow: 0 8px 28px rgba(59, 130, 246, 0.5);
 }
 
 .llf-submit:disabled {
