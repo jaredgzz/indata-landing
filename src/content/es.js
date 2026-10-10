@@ -280,15 +280,6 @@ const es = {
     ],
     stage:
       'Somos una startup en etapa temprana, enfocada en las pymes de México y con visión de crecer en Latinoamérica.',
-    teamTitle: 'Equipo',
-    team: [
-      {
-        initials: 'DG',
-        name: 'David González',
-        role: 'Fundador y líder técnico',
-        bio: 'Especialista en arquitectura de datos e IA generativa, con proyectos en Azure, Databricks y Microsoft Fabric. Lidera el desarrollo de los productos de InDaxion.',
-      },
-    ],
     pillarsLabel: 'Lo que significa InDaxion',
     pillars: {
       inteligencia: {

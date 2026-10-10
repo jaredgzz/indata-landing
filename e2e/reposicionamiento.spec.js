@@ -41,6 +41,8 @@ test.describe('Home', () => {
     await page.goto('/')
     const text = await page.locator('body').innerText()
     expect(text).not.toMatch(/\+\s?30|\+\s?10 Empresas|\+\s?5 Años|Casos reales|Deployed Successfully/i)
+    // Nosotros sin bloque de equipo
+    await expect(page.locator('#nosotros')).not.toContainText('David González')
   })
 
   test('Gova y Miga con su estado real y enlace a su página', async ({ page }) => {

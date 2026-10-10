@@ -12,19 +12,6 @@ const pillars = [
   { id: 'accion',       icon: 'zap', tone: 'violet' },
 ]
 
-function ProfileCard({ initials, name, role, bio }) {
-  return (
-    <div className="profile-card">
-      <div className="profile-card__avatar" aria-hidden="true">{initials}</div>
-      <div className="profile-card__info">
-        <p className="profile-card__name">{name}</p>
-        <p className="profile-card__role">{role}</p>
-        <p className="profile-card__bio">{bio}</p>
-      </div>
-    </div>
-  )
-}
-
 export default function TeamSection() {
   const [ref, visible] = useAnimateIn()
 
@@ -39,13 +26,6 @@ export default function TeamSection() {
             <p key={paragraph} className="team-section__text">{paragraph}</p>
           ))}
           <p className="team-section__stage">{about.stage}</p>
-
-          <h3 className="team-section__team-title">{about.teamTitle}</h3>
-          <div className="team-section__profiles">
-            {about.team.map(person => (
-              <ProfileCard key={person.initials} {...person} />
-            ))}
-          </div>
         </div>
 
         <div className="team-section__right">
