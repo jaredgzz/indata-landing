@@ -29,3 +29,17 @@
   border-radius: 6px;
   padding: 3px 8px;
 }
+
+/* Captura real del producto */
+.product-illustration--screenshot {
+  padding: 16px 16px 44px;
+}
+
+.product-illustration__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}

@@ -25,6 +25,7 @@ const es = {
 
   common: {
     illustrationNote: 'Ilustración conceptual',
+    screenshotNote: 'Captura del MVP · datos de ejemplo',
     status: {
       mvp: 'MVP en validación',
       development: 'En desarrollo',
@@ -130,8 +131,8 @@ const es = {
         'Aprovecha mejor el conocimiento de tu negocio.',
       ],
       cta: 'Conocer Gova',
-      illustrationAlt:
-        'Ilustración conceptual de Gova: un catálogo de productos y una cotización con conceptos y total.',
+      screenshotAlt:
+        'Panel de inicio de Gova con pendientes, cobros y agenda de un negocio de ejemplo.',
       detail: {
         intro:
           'Gova es una plataforma en desarrollo que busca ayudar a las pequeñas empresas a organizar el conocimiento de su negocio, administrar catálogos y reglas comerciales y elaborar cotizaciones con mayor facilidad.',

@@ -1,9 +1,11 @@
 import { useId } from 'react'
+import { getProduct } from './productsData'
 import { content } from '../../content'
 import './ProductIllustration.css'
 
 /*
- * Ilustraciones conceptuales de los productos (no son capturas reales).
+ * Imagen de cada producto: captura real del MVP o, si no la hay,
+ * ilustración conceptual (rotulada como tal).
  * Solo formas: sin texto dentro del SVG, para no depender del idioma.
  */
 
@@ -11,105 +13,6 @@ import './ProductIllustration.css'
 const WAVE = Array.from({ length: 41 }, (_, i) =>
   6 + Math.round(Math.abs(Math.sin(i * 1.7) * 14 + Math.sin(i * 0.6) * 8)),
 )
-
-const CATALOG_ROWS = [70, 84, 60, 76, 64]
-const QUOTE_ROWS = [
-  { desc: 110, amount: 44 },
-  { desc: 90,  amount: 38 },
-  { desc: 120, amount: 50 },
-  { desc: 80,  amount: 36 },
-]
-
-function GovaArt({ uid, label }) {
-  const accent = `gova-accent-${uid}`
-  const total = `gova-total-${uid}`
-  const clip = `gova-clip-${uid}`
-
-  return (
-    <svg className="product-illustration__svg" viewBox="0 0 520 340" role="img" aria-label={label}>
-      <defs>
-        <linearGradient id={accent} x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#00E5FF" />
-          <stop offset="1" stopColor="#3B82F6" />
-        </linearGradient>
-        <linearGradient id={total} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#00E5FF" stopOpacity="0.20" />
-          <stop offset="1" stopColor="#3B82F6" stopOpacity="0.20" />
-        </linearGradient>
-        <clipPath id={clip}>
-          <rect x="236" y="22" width="264" height="296" rx="14" />
-        </clipPath>
-      </defs>
-
-      {/* Catálogo de productos y precios */}
-      <rect x="20" y="44" width="196" height="252" rx="14" fill="#0F1A2E" stroke="rgba(255,255,255,0.08)" />
-      <rect x="36" y="62" width="70" height="8" rx="4" fill="#5A6A82" />
-      <rect x="172" y="60" width="28" height="12" rx="6" fill="rgba(0,229,255,0.16)" />
-      <rect x="28" y="122" width="180" height="38" rx="10" fill="rgba(0,229,255,0.05)" stroke="rgba(0,229,255,0.45)" />
-      {CATALOG_ROWS.map((w, i) => {
-        const y = 88 + i * 40
-        return (
-          <g key={y}>
-            <rect x="36" y={y} width="26" height="26" rx="6" fill={i === 1 ? 'rgba(0,229,255,0.20)' : 'rgba(255,255,255,0.06)'} />
-            <rect x="72" y={y + 4} width={w} height="7" rx="3.5" fill="#B4C0D3" opacity="0.8" />
-            <rect x="72" y={y + 16} width="40" height="6" rx="3" fill="#5A6A82" />
-            <rect x="168" y={y + 9} width="32" height="8" rx="4" fill="#3B82F6" opacity="0.55" />
-          </g>
-        )
-      })}
-
-      {/* El catálogo alimenta la cotización */}
-      <path d="M208 141 H246" stroke="#00E5FF" strokeWidth="1.5" strokeDasharray="4 4" opacity="0.8" />
-      <circle cx="248" cy="141" r="3" fill="#00E5FF" />
-
-      {/* Cotización */}
-      <rect x="236" y="22" width="264" height="296" rx="14" fill="#121B2E" stroke="rgba(255,255,255,0.10)" />
-      <g clipPath={`url(#${clip})`}>
-        <rect x="236" y="22" width="264" height="52" fill={`url(#${accent})`} opacity="0.14" />
-        <rect x="236" y="22" width="264" height="4" fill={`url(#${accent})`} />
-      </g>
-      <rect x="254" y="40" width="96" height="9" rx="4.5" fill="#FFFFFF" opacity="0.85" />
-      <rect x="254" y="55" width="60" height="6" rx="3" fill="#8B9BB4" />
-      <rect x="430" y="40" width="52" height="16" rx="8" fill="rgba(0,229,255,0.16)" stroke="rgba(0,229,255,0.40)" />
-
-      <rect x="254" y="90" width="50" height="5" rx="2.5" fill="#5A6A82" />
-      <rect x="380" y="90" width="22" height="5" rx="2.5" fill="#5A6A82" />
-      <rect x="442" y="90" width="40" height="5" rx="2.5" fill="#5A6A82" />
-      {QUOTE_ROWS.map(({ desc, amount }, i) => {
-        const y = 108 + i * 30
-        return (
-          <g key={y}>
-            <rect x="254" y={y} width={desc} height="7" rx="3.5" fill="#B4C0D3" opacity="0.75" />
-            <rect x="380" y={y} width="14" height="7" rx="3.5" fill="#8B9BB4" opacity="0.6" />
-            <rect x={482 - amount} y={y} width={amount} height="7" rx="3.5" fill="#FFFFFF" opacity="0.7" />
-            <line x1="254" x2="482" y1={y + 18} y2={y + 18} stroke="rgba(255,255,255,0.06)" />
-          </g>
-        )
-      })}
-
-      <rect x="380" y="234" width="40" height="5" rx="2.5" fill="#5A6A82" />
-      <rect x="446" y="234" width="36" height="5" rx="2.5" fill="#8B9BB4" />
-      <rect x="380" y="248" width="34" height="5" rx="2.5" fill="#5A6A82" />
-      <rect x="452" y="248" width="30" height="5" rx="2.5" fill="#8B9BB4" />
-      <rect x="372" y="266" width="116" height="30" rx="8" fill={`url(#${total})`} stroke="rgba(0,229,255,0.35)" />
-      <rect x="384" y="278" width="30" height="6" rx="3" fill="#67EEFF" />
-      <rect x="428" y="276" width="48" height="10" rx="5" fill="#FFFFFF" />
-
-      {/* Revisión antes de guardar */}
-      <rect x="254" y="268" width="96" height="26" rx="13" fill="rgba(59,130,246,0.16)" stroke="rgba(59,130,246,0.45)" />
-      <path d="M264 281 l4 4 l8 -8" stroke="#93BBFB" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-      <rect x="284" y="278" width="52" height="6" rx="3" fill="#93BBFB" />
-
-      {/* Aviso de información faltante */}
-      <rect x="112" y="14" width="124" height="32" rx="10" fill="#1A2540" stroke="rgba(139,92,246,0.55)" />
-      <circle cx="129" cy="30" r="8" fill="rgba(139,92,246,0.28)" />
-      <rect x="128" y="25" width="2" height="6" rx="1" fill="#B9A2FB" />
-      <circle cx="129" cy="34.5" r="1.2" fill="#B9A2FB" />
-      <rect x="144" y="24" width="76" height="5" rx="2.5" fill="#B4C0D3" opacity="0.8" />
-      <rect x="144" y="33" width="50" height="5" rx="2.5" fill="#5A6A82" />
-    </svg>
-  )
-}
 
 function MigaArt({ uid, label }) {
   const scene = `miga-scene-${uid}`
@@ -190,12 +93,30 @@ function MigaArt({ uid, label }) {
 export default function ProductIllustration({ id }) {
   // Varias ilustraciones pueden convivir en la página: ids únicos para los defs
   const uid = useId().replace(/[^a-zA-Z0-9_-]/g, '')
-  const label = content.products[id].illustrationAlt
-  const Art = id === 'gova' ? GovaArt : MigaArt
+  const { screenshot } = getProduct(id)
+  const text = content.products[id]
+
+  // Captura real del producto si existe; si no, ilustración conceptual
+  if (screenshot) {
+    return (
+      <figure className="product-illustration product-illustration--screenshot">
+        <img
+          className="product-illustration__img"
+          src={screenshot.src}
+          width={screenshot.width}
+          height={screenshot.height}
+          alt={text.screenshotAlt}
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption className="product-illustration__note">{content.common.screenshotNote}</figcaption>
+      </figure>
+    )
+  }
 
   return (
     <figure className="product-illustration">
-      <Art uid={uid} label={label} />
+      <MigaArt uid={uid} label={text.illustrationAlt} />
       <figcaption className="product-illustration__note">{content.common.illustrationNote}</figcaption>
     </figure>
   )
