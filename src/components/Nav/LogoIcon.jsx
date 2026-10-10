@@ -1,19 +1,34 @@
 import { useId } from 'react'
 
-// Silueta exterior: stem con esquinas redondeadas + bowl amplio
-const D_OUTER = 'M18,6 L50,6 C78,6 94,26 94,50 C94,74 78,94 50,94 L18,94 Q8,94 8,84 L8,16 Q8,6 18,6 Z'
+// Isotipo InDaxion (viewBox 100×100), reconstruido del brand board.
+// Silueta exterior de la D
+const D_OUTER = 'M10,6 H51 C72.5,6 90,25.7 90,50 C90,74.3 72.5,94 51,94 H10 Z'
 
-// Contraforma interior (fill-rule="evenodd" la resta de la silueta)
-const D_INNER = 'M34,30 L48,30 C60,30 70,39 70,50 C70,61 60,70 48,70 L34,70 Q30,70 30,66 L30,34 Q30,30 34,30 Z'
+// Espacio negativo en chevrón (transparente, se resta con evenodd)
+const D_CHEVRON =
+  'M10.8,27.6 H42.6 C47.4,27.6 50.8,29.2 53.2,31.6 L65.8,46.6 C67.6,48.9 67.7,52.9 66,55.2 ' +
+  'L51.6,70 C48.6,72.8 44.6,73.6 40.6,73.6 H35.2 C38.8,68.4 40.4,62.4 40.4,56.2 ' +
+  'C40.4,51 38.2,46.6 34.4,43.4 Z'
 
-// Cuadrante inferior derecho del bowl: capa de luz para dar volumen
-const D_SHEEN = 'M94,50 C94,74 78,94 50,94 L48,70 C60,70 70,61 70,50 Z'
+// Forma azul interior que nace del borde izquierdo
+const D_INNER =
+  'M10,27.6 H10.8 L34.4,43.4 C38.2,46.6 40.4,51 40.4,56.2 C40.4,62.4 38.8,68.4 35.2,73.6 ' +
+  'C26,78 16,85 10,92 Z'
+
+// Barrido inferior que sube hasta la punta del chevrón (se recorta con la silueta)
+const D_SWEEP =
+  'M10,92 C16,85 26,78 35.2,73.6 H40.6 C44.6,73.6 48.6,72.8 51.6,70 L66,55.2 ' +
+  'C67.7,52.9 67.6,48.9 65.8,46.6 C72.6,54 78.6,63 78.6,73 C78.6,83 75,92 70,100 L10,100 Z'
 
 export default function LogoIcon({ className }) {
-  // El logo aparece en Nav y Footer: ids únicos para no colisionar gradientes
+  // El logo aparece en Nav y Footer: ids únicos para no colisionar defs
   const uid = useId().replace(/[^a-zA-Z0-9_-]/g, '')
-  const gradId = `logoGrad-${uid}`
-  const sheenId = `logoSheen-${uid}`
+  const ids = {
+    clip: `ix-clip-${uid}`,
+    body: `ix-body-${uid}`,
+    inner: `ix-inner-${uid}`,
+    sweep: `ix-sweep-${uid}`,
+  }
 
   return (
     <svg
@@ -25,20 +40,31 @@ export default function LogoIcon({ className }) {
       fill="none"
     >
       <defs>
-        {/* Gradiente diagonal cian → azul → violeta */}
-        <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%"   stopColor="#00E5FF" />
-          <stop offset="45%"  stopColor="#3B82F6" />
-          <stop offset="85%"  stopColor="#8B5CF6" />
+        <clipPath id={ids.clip}>
+          <path d={D_OUTER} />
+        </clipPath>
+        <linearGradient id={ids.body} x1="0.05" y1="0" x2="1" y2="0.7">
+          <stop offset="0"    stopColor="#00E5FF" />
+          <stop offset="0.42" stopColor="#3B82F6" />
+          <stop offset="0.8"  stopColor="#8B5CF6" />
         </linearGradient>
-        <linearGradient id={sheenId} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%"   stopColor="#8B5CF6" stopOpacity="0" />
-          <stop offset="100%" stopColor="#C084FC" stopOpacity="0.7" />
+        <linearGradient id={ids.inner} x1="0.8" y1="0.2" x2="0" y2="1">
+          <stop offset="0"    stopColor="#3B82F6" />
+          <stop offset="0.55" stopColor="#3B82F6" />
+          <stop offset="1"    stopColor="#00E5FF" />
+        </linearGradient>
+        <linearGradient id={ids.sweep} x1="0" y1="1" x2="1" y2="0.4">
+          <stop offset="0"    stopColor="#00E5FF" />
+          <stop offset="0.45" stopColor="#3B82F6" />
+          <stop offset="1"    stopColor="#4F5DF2" />
         </linearGradient>
       </defs>
 
-      <path d={`${D_OUTER} ${D_INNER}`} fill={`url(#${gradId})`} fillRule="evenodd" />
-      <path d={D_SHEEN} fill={`url(#${sheenId})`} />
+      <g clipPath={`url(#${ids.clip})`}>
+        <path d={`${D_OUTER} ${D_CHEVRON}`} fill={`url(#${ids.body})`} fillRule="evenodd" />
+        <path d={D_INNER} fill={`url(#${ids.inner})`} />
+        <path d={D_SWEEP} fill={`url(#${ids.sweep})`} />
+      </g>
     </svg>
   )
 }
