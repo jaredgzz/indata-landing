@@ -2,50 +2,44 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 4px 11px;
+  padding: 3px 10px;
   border-radius: 100px;
-  border: 1px solid transparent;
-  font-size: 12px;
-  font-weight: 600;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 13px;
+  font-weight: 500;
   line-height: 1.4;
+  color: var(--text-2);
   white-space: nowrap;
 }
 
 .status-badge__dot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: currentColor;
+  background: var(--status-dot);
   flex-shrink: 0;
 }
 
 /* Funciona hoy (MVP / disponible) */
 .status-badge--mvp,
 .status-badge--available {
-  color: #67EEFF;
-  background: rgba(0, 229, 255, 0.10);
-  border-color: rgba(0, 229, 255, 0.28);
+  --status-dot: var(--status-ok);
 }
 
 /* En construcción */
 .status-badge--development,
 .status-badge--initiative {
-  color: #B9A2FB;
-  background: rgba(139, 92, 246, 0.14);
-  border-color: rgba(139, 92, 246, 0.34);
+  --status-dot: var(--status-progress);
 }
 
 /* Planeado */
 .status-badge--planned {
-  color: #93BBFB;
-  background: rgba(59, 130, 246, 0.12);
-  border-color: rgba(59, 130, 246, 0.32);
+  --status-dot: var(--status-planned);
 }
 
 /* Visión a futuro */
 .status-badge--vision {
-  color: var(--text-link);
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.14);
+  --status-dot: var(--status-vision);
   border-style: dashed;
 }

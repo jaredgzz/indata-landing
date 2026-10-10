@@ -1,38 +1,37 @@
 .section-header {
-  margin-bottom: 72px;
+  margin-bottom: 56px;
 }
 
 .section-header--center {
   text-align: center;
 }
 
-.section-header--left {
-  text-align: left;
-}
-
 .section-header__eyebrow {
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  margin-bottom: 12px;
+  color: var(--text-2);
+  margin-bottom: 10px;
 }
 
 .section-header__title {
-  font-size: clamp(28px, 3.5vw, 48px);
-  font-weight: 800;
-  color: var(--text-primary);
-  letter-spacing: -0.02em;
+  font-size: clamp(30px, 3.4vw, 44px);
+  font-weight: 650;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  color: var(--text);
   text-wrap: balance;
+  max-width: 22ch;
 }
 
 .section-header__subtitle {
   margin-top: 14px;
-  font-size: 16px;
-  color: var(--text-secondary);
-  max-width: 520px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text-2);
+  max-width: 56ch;
 }
 
+.section-header--center .section-header__title,
 .section-header--center .section-header__subtitle {
   margin-left: auto;
   margin-right: auto;

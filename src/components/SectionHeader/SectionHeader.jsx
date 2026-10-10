@@ -1,26 +1,19 @@
 import './SectionHeader.css'
 
 /**
- * Shared section header: eyebrow label + H2 + optional subtitle.
- * Replaces the duplicated header pattern across Problems, Products, Services,
- * Process, Courses and ContactCTA sections.
+ * Encabezado de sección compartido: título H2, subtítulo y una etiqueta
+ * opcional encima. Alineado a la izquierda salvo que se pida centrado.
  */
 export default function SectionHeader({
   eyebrow,
   title,
   subtitle,
-  align = 'center',
-  accentColor = 'var(--color-blue)',
+  align = 'left',
   className = '',
 }) {
   return (
     <div className={`section-header section-header--${align}${className ? ` ${className}` : ''}`}>
-      <div
-        className="section-header__eyebrow"
-        style={{ color: accentColor }}
-      >
-        {eyebrow}
-      </div>
+      {eyebrow && <p className="section-header__eyebrow">{eyebrow}</p>}
       <h2 className="section-header__title">{title}</h2>
       {subtitle && (
         <p className="section-header__subtitle">{subtitle}</p>

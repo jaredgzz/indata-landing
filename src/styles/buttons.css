@@ -4,8 +4,8 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 13px 26px;
-  border-radius: 10px;
+  padding: 12px 22px;
+  border-radius: 8px;
   border: 1px solid transparent;
   font-family: var(--font-base);
   font-size: 15px;
@@ -13,40 +13,34 @@
   line-height: 1.2;
   text-decoration: none;
   cursor: pointer;
-  transition: transform 200ms ease, box-shadow 200ms ease, background 200ms ease,
-              border-color 200ms ease, color 200ms ease;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
 }
 
 .btn--primary {
-  background: var(--grad-primary);
-  color: #fff;
-  box-shadow: 0 4px 24px rgba(59, 130, 246, 0.40);
+  background: var(--accent);
+  color: var(--on-accent);
 }
 
 .btn--primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(59, 130, 246, 0.50);
+  background: var(--accent-hover);
 }
 
 .btn--secondary {
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text-link);
-  border-color: rgba(255, 255, 255, 0.18);
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--border-strong);
 }
 
 .btn--secondary:hover {
-  background: rgba(255, 255, 255, 0.09);
-  border-color: rgba(255, 255, 255, 0.30);
-  color: var(--text-primary);
+  border-color: var(--text-3);
 }
 
 .btn--sm {
-  padding: 10px 18px;
+  padding: 9px 16px;
   font-size: 14px;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .btn:hover {
-    transform: none;
-  }
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }

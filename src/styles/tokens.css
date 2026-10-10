@@ -1,41 +1,85 @@
+/*
+ * Tokens de la interfaz. Los componentes solo usan estos nombres;
+ * el tema (claro u oscuro) se define por completo en este archivo.
+ */
 :root {
-  --bg-primary:      #0B1220;
-  --bg-hero:         #070D1A;
-  --bg-alt:          #091020;
-  --bg-footer:       #060A16;
-  --bg-card:         #121B2E;
-  --bg-nav:          rgba(11, 18, 32, 0.75);
-  --bg-nav-scrolled: rgba(11, 18, 32, 0.95);
-
-  /* Paleta InDaxion */
+  /* Marca (brand board): solo logo, favicon y wordmark */
+  --color-cyan:   #00E5FF;
   --color-blue:   #3B82F6;
   --color-purple: #8B5CF6;
-  --color-cyan:   #00E5FF;
-  --color-teal:   var(--color-cyan); /* alias legado */
+  --color-navy:   #0B1220;
+  --grad-brand:   linear-gradient(135deg, #00E5FF 0%, #3B82F6 50%, #8B5CF6 100%);
 
-  --text-primary:   #FFFFFF;
-  --text-secondary: #8B9BB4;
-  --text-muted:     #5A6A82;
-  --text-nav:       #9AAFC8;
-  --text-link:      #B4C0D3;
+  /* Superficies */
+  --bg:             #FAFAF8;
+  --bg-alt:         #F2F1EC;
+  --surface:        #FFFFFF;
+  --surface-sunken: #F5F4F0;
+  --border:         #E5E3DD;
+  --border-strong:  #D2CFC6;
 
-  /* Superficies con texto blanco (botones): sin cian para mantener contraste */
-  --grad-primary: linear-gradient(135deg, #3B82F6, #8B5CF6);
-  /* Degradado de marca (logo, wordmark, acentos decorativos) */
-  --grad-brand:   linear-gradient(135deg, #00E5FF, #3B82F6, #8B5CF6);
-  --grad-accent:  linear-gradient(135deg, #3B82F6, #00E5FF);
+  /* Texto */
+  --text:   #0B1220;
+  --text-2: #475467;
+  --text-3: #667085;
 
-  --font-base: 'Manrope', system-ui, sans-serif;
+  /* Acción: un solo azul, con contraste AA para texto blanco */
+  --accent:       #2D5BE3;
+  --accent-hover: #2149C4;
+  --on-accent:    #FFFFFF;
+  --link:         #2D5BE3;
+  --focus:        #2D5BE3;
+  --selection:    rgba(45, 91, 227, 0.16);
 
-  --section-padding: 100px 40px;
+  /* Productos */
+  --gova:        #0C8479;
+  --gova-text:   #0A7268;
+  --gova-soft:   rgba(12, 132, 121, 0.08);
+  --miga:        #6E49D8;
+  --miga-text:   #6E49D8;
+  --miga-soft:   rgba(110, 73, 216, 0.08);
+
+  /* Estados de producto (punto de la etiqueta) */
+  --status-ok:       #1F8F55;
+  --status-progress: #C77D0A;
+  --status-planned:  #2D5BE3;
+  --status-vision:   #98A2B3;
+
+  /* Errores y avisos del formulario */
+  --danger:      #B42318;
+  --danger-soft: #FEF3F2;
+  --notice:      #344054;
+  --notice-soft: #F2F4F7;
+
+  /* Elevación */
+  --shadow-1: 0 1px 2px rgba(11, 18, 32, 0.06);
+  --shadow-2: 0 1px 2px rgba(11, 18, 32, 0.04), 0 8px 24px rgba(11, 18, 32, 0.06);
+  /* Capturas en la escena 3D: sombra suave proyectada sobre la superficie */
+  --shadow-screen:
+    0 1px 1px rgba(11, 18, 32, 0.05),
+    0 4px 8px rgba(11, 18, 32, 0.05),
+    0 16px 32px rgba(11, 18, 32, 0.07),
+    0 40px 80px rgba(11, 18, 32, 0.10);
+  --screen-border: rgba(11, 18, 32, 0.10);
+  --stage-surface: #EFEDE7;
+
+  /* Pie de página: navy de marca */
+  --footer-bg:     #0B1220;
+  --footer-text:   #E6E9EF;
+  --footer-text-2: #9AA5B8;
+  --footer-border: rgba(255, 255, 255, 0.08);
+
+  --nav-bg: #FAFAF8;
+
+  --font-base: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --section-padding: 112px 40px;
   --max-width: 1200px;
-  --card-radius: 16px;
-  --card-bg: #121B2E;
-  --card-border: rgba(255, 255, 255, 0.08);
+  --radius: 12px;
 }
 
 @media (max-width: 768px) {
   :root {
-    --section-padding: 64px 20px;
+    --section-padding: 72px 20px;
   }
 }
