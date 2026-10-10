@@ -20,9 +20,6 @@ import { content } from './content'
 // Detail pages — lazy loaded to keep the home bundle small
 const ProductDetail       = lazy(() => import('./components/Products/ProductDetail'))
 const OpenPage            = lazy(() => import('./components/Open/OpenPage'))
-const LangflowDetail      = lazy(() => import('./components/Courses/LangflowDetail'))
-const AiEngineerDetail    = lazy(() => import('./components/Courses/AiEngineerDetail'))
-const ClaudeMasteryDetail = lazy(() => import('./components/Courses/ClaudeMasteryDetail'))
 
 // Tab title per known route; anything else renders the 404 page
 const PAGE_TITLES = {
@@ -30,9 +27,6 @@ const PAGE_TITLES = {
   '/productos/gova':          content.pages.gova,
   '/productos/miga':          content.pages.miga,
   '/open':                    content.pages.open,
-  '/cursos/langflow':         content.pages.home,
-  '/cursos/ai-engineer':      content.pages.home,
-  '/cursos/mastering-claude': content.pages.home,
 }
 
 // Page-level content only — Nav and Footer are rendered outside AnimatePresence
@@ -122,31 +116,8 @@ function AppRoutes() {
                 </PageTransition>
               }
             />
-            <Route
-              path="/cursos/langflow"
-              element={
-                <PageTransition>
-                  <LangflowDetail />
-                </PageTransition>
-              }
-            />
-            <Route
-              path="/cursos/ai-engineer"
-              element={
-                <PageTransition>
-                  <AiEngineerDetail />
-                </PageTransition>
-              }
-            />
-            <Route
-              path="/cursos/mastering-claude"
-              element={
-                <PageTransition>
-                  <ClaudeMasteryDetail />
-                </PageTransition>
-              }
-            />
-            {/* Unknown routes: 404 page (old home anchors are redirected in HomeContent) */}
+            {/* Unknown routes: 404 page (old home anchors are redirected in HomeContent).
+                /cursos/* also lands here until the programs are updated. */}
             <Route
               path="*"
               element={

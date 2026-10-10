@@ -44,21 +44,4 @@ test.describe('Vista previa de Vercel', () => {
     await expect(page.getByRole('status')).toContainText('no se guardó ni se envió')
     expect(requests).toEqual([])
   })
-
-  test('el modal de un curso descarga el PDF sin guardar el lead', async ({ page }) => {
-    const requests = await watchSupabase(page)
-    await page.goto('/cursos/langflow')
-    await page.getByRole('button', { name: /Descargar Programa Completo/ }).first().click()
-    const dialog = page.getByRole('dialog')
-    await expect(dialog.locator('.llf-preview')).toContainText('Vista previa')
-
-    await page.locator('#llf-nombre').fill('Prueba en vista previa')
-    await page.locator('#llf-email').fill('preview@example.com')
-    const [download] = await Promise.all([
-      page.waitForEvent('download'),
-      dialog.locator('button[type="submit"]').click(),
-    ])
-    expect(download.suggestedFilename()).toBe('Programa-Agentes-LangFlow-InDaxion.pdf')
-    expect(requests).toEqual([])
-  })
 })

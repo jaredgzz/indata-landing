@@ -38,24 +38,3 @@ test('links del Nav llevan a su sección', async ({ page, isMobile }) => {
   await expect(page).toHaveURL(/#productos$/)
   await expect(page.locator('#productos')).toBeInViewport()
 })
-
-test('modal de lead abre, cierra y descarga el PDF con nombre nuevo', async ({ page }) => {
-  await page.goto('/cursos/langflow')
-  const openModal = () => page.getByRole('button', { name: /Descargar Programa Completo/ }).first().click()
-
-  await openModal()
-  const dialog = page.getByRole('dialog')
-  await expect(dialog).toBeVisible()
-  await dialog.getByRole('button', { name: 'Cerrar' }).click()
-  await expect(dialog).toBeHidden()
-
-  await openModal()
-  await page.locator('#llf-nombre').fill('Prueba E2E')
-  await page.locator('#llf-email').fill('e2e@example.com')
-  const [download] = await Promise.all([
-    page.waitForEvent('download'),
-    dialog.locator('button[type="submit"]').click(),
-  ])
-  expect(download.suggestedFilename()).toBe('Programa-Agentes-LangFlow-InDaxion.pdf')
-  await expect(dialog.locator('.llf-success')).toBeVisible()
-})

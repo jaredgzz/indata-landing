@@ -13,7 +13,7 @@ const { nav, brand } = content
 function activeForPath(pathname) {
   const path = pathname.replace(/\/+$/, '')
   if (productsData.some(product => product.path === path)) return 'productos'
-  if (path === '/open' || /^\/cursos\/[\w-]+$/.test(path)) return 'open'
+  if (path === '/open') return 'open'
   return ''
 }
 

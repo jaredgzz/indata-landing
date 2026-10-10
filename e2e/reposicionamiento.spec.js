@@ -152,12 +152,10 @@ test.describe('Rutas anteriores', () => {
     await expect(page.locator('meta[name="robots"]')).toHaveCount(0)
   })
 
-  test('los cursos no afirman certificaciones oficiales', async ({ page }) => {
+  test('las páginas de cursos están ocultas: muestran la 404', async ({ page }) => {
     for (const route of ['/cursos/ai-engineer', '/cursos/mastering-claude', '/cursos/langflow']) {
       await page.goto(route)
-      await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
-      const text = await page.locator('main').innerText()
-      expect(text, route).not.toMatch(/Certificado oficial|Ruta Certificada|Bootcamp Certificado/i)
+      await expect(page.getByRole('heading', { level: 1 }), route).toHaveText('No encontramos esta página.')
     }
   })
 
