@@ -43,6 +43,7 @@ test.describe('Rebrand InDaxion', () => {
       await expect(page.locator('.nav__brand-name')).toHaveText('InDaxion')
       const text = await page.locator('body').innerText()
       expect(text).not.toMatch(/indata/i)
+      expect(text).not.toMatch(/Jair/i)
     })
   }
 

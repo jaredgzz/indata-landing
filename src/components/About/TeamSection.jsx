@@ -8,13 +8,6 @@ const profiles = [
     company: 'InDaxion',
     bio: 'Especialista en arquitectura de datos e IA generativa. Proyectos en Azure, Databricks y MS Fabric.',
   },
-  {
-    initials: 'JM',
-    name: 'Jair Martínez',
-    role: 'IA Engineer',
-    company: 'InDaxion',
-    bio: 'Especialista en desarrollo de agentes inteligentes y automatización avanzada con LangChain y LangGraph.',
-  },
 ]
 
 function ProfileCard({ initials, name, role, company, bio }) {

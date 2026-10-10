@@ -196,7 +196,8 @@
 /* ── Instructors grid ─────────────────────────────────────────────────────── */
 .claude-mastery-detail__instructors-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 640px);
+  justify-content: center;
   gap: 1.5rem;
   margin-top: 48px;
 }
@@ -243,10 +244,6 @@
 
 .instructor-card__avatar--dg {
   background: linear-gradient(135deg, #3B82F6, #8B5CF6);
-}
-
-.instructor-card__avatar--jm {
-  background: linear-gradient(135deg, #0891B2, #0D9488);
 }
 
 .instructor-card__name {
