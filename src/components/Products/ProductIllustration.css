@@ -1,13 +1,12 @@
+/* Marco de la ilustración: una pantalla oscura, igual en ambos temas */
 .product-illustration {
   position: relative;
   margin: 0;
-  padding: 22px 22px 40px;
-  border-radius: 14px;
-  background:
-    radial-gradient(circle at 75% 20%, var(--tone-soft, rgba(59, 130, 246, 0.12)), transparent 60%),
-    #0A1222;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  overflow: hidden;
+  padding: 24px 24px 44px;
+  border-radius: var(--radius);
+  background: #0E131C;
+  border: 1px solid var(--screen-border);
+  box-shadow: var(--shadow-2);
 }
 
 .product-illustration__svg {
@@ -18,28 +17,9 @@
 
 .product-illustration__note {
   position: absolute;
-  left: 14px;
-  bottom: 10px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--text-secondary);
-  background: rgba(7, 13, 26, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 6px;
-  padding: 3px 8px;
-}
-
-/* Captura real del producto */
-.product-illustration--screenshot {
-  padding: 16px 16px 44px;
-}
-
-.product-illustration__img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  left: 16px;
+  bottom: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #AEB7C6;
 }

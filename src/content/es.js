@@ -11,7 +11,6 @@
 const es = {
   brand: {
     tagline: 'Inteligencia · Datos · Acción',
-    taglineEn: 'We turn data into action.',
   },
 
   // Títulos de pestaña por ruta (ver App.jsx)
@@ -25,7 +24,7 @@ const es = {
 
   common: {
     illustrationNote: 'Ilustración conceptual',
-    screenshotNote: 'Captura del MVP · datos de ejemplo',
+    screenshotsNote: 'Capturas del MVP de Gova · datos de ejemplo',
     status: {
       mvp: 'MVP en validación',
       development: 'En desarrollo',
@@ -34,14 +33,12 @@ const es = {
       vision: 'Visión',
       initiative: 'Iniciativa en desarrollo',
     },
-    // Aviso en formularios cuando el sitio es una vista previa (no guarda datos)
-    previewNotice: 'Vista previa: tus datos no se guardarán.',
   },
 
   notFound: {
     eyebrow: 'Error 404',
     title: 'No encontramos esta página.',
-    text: 'Es posible que el enlace haya cambiado o que la página ya no exista. Puedes volver al inicio o conocer nuestros productos.',
+    text: 'Es posible que el enlace haya cambiado o que la página ya no exista. Puedes volver al inicio o ver nuestros productos.',
     home: 'Volver al inicio',
     products: 'Ver productos',
   },
@@ -62,47 +59,37 @@ const es = {
   },
 
   hero: {
-    eyebrow: 'Software e inteligencia artificial para pymes',
-    // Partes del título; `accent` aplica el degradado de marca
-    title: [
-      { text: 'Tecnología ' },
-      { text: 'inteligente', accent: 'blue' },
-      { text: ' para negocios que ' },
-      { text: 'quieren crecer.', accent: 'purple' },
-    ],
+    title: 'Hacemos software para pymes. Empezamos por las cotizaciones.',
     description:
-      'Desarrollamos software, automatizaciones y herramientas de inteligencia artificial que ayudan a las pequeñas y medianas empresas a simplificar tareas, mejorar procesos y concentrarse en hacer crecer su negocio.',
-    primaryCta: 'Conoce nuestras soluciones',
-    secondaryCta: 'Cuéntanos tu idea',
+      'Gova reúne tu catálogo, tus precios y tus reglas para que armes cotizaciones sin empezar de cero. Miga, para crear videos de tus productos con ayuda de inteligencia artificial, está en desarrollo.',
+    primaryCta: 'Ver productos',
+    secondaryCta: 'Escríbenos',
     productsLabel: 'Nuestros productos',
   },
 
   problems: {
-    eyebrow: 'Lo que vemos en las pymes',
-    title: 'Tu negocio no necesita procesos más complicados.',
-    titleAccent: 'Necesita mejores herramientas.',
-    subtitle:
-      'Estas son algunas de las necesidades hacia las que orientamos nuestros productos y servicios.',
+    title: 'Lo que vemos en las pymes',
+    subtitle: 'Estos son los problemas que queremos resolver primero.',
     items: {
       cotizaciones: {
-        title: 'Cotizaciones que consumen demasiado tiempo',
-        desc: 'Procesos manuales, cálculos repetitivos y elaboración de documentos comerciales.',
+        title: 'Cada cotización se arma desde cero',
+        desc: 'Se buscan precios en distintos archivos, se recalculan totales y se da formato al documento una y otra vez.',
       },
       informacion: {
-        title: 'Información dispersa',
-        desc: 'Precios, catálogos, documentos y reglas de negocio almacenados en distintos lugares.',
+        title: 'Precios y reglas en muchos lugares',
+        desc: 'El catálogo vive en un Excel, las condiciones en un correo y los acuerdos en la memoria de alguien.',
       },
       contenido: {
-        title: 'Creación de contenido complicada',
-        desc: 'Dificultades para producir materiales comerciales y videos sin conocimientos especializados.',
+        title: 'Hacer contenido toma demasiado',
+        desc: 'Un video de un producto requiere tiempo, herramientas y práctica que no siempre hay.',
       },
       repetitivos: {
-        title: 'Procesos repetitivos',
-        desc: 'Actividades administrativas que pueden simplificarse mediante automatización e integración de sistemas.',
+        title: 'Tareas que se repiten cada semana',
+        desc: 'Capturar, copiar y dar seguimiento a mano a lo mismo de siempre.',
       },
       herramientas: {
-        title: 'Herramientas que no se adaptan al negocio',
-        desc: 'Software complejo o demasiado costoso para las necesidades reales de una empresa pequeña.',
+        title: 'Software pensado para empresas grandes',
+        desc: 'Sistemas caros o complicados para lo que una empresa pequeña necesita.',
       },
     },
     related: {
@@ -113,29 +100,70 @@ const es = {
   },
 
   products: {
-    eyebrow: 'Productos',
-    title: 'Productos diseñados para hacer tu negocio más inteligente.',
-    subtitle:
-      'Desarrollamos productos propios a partir de necesidades reales de las pymes, y te mostramos con claridad qué funciona hoy y qué está en camino.',
+    title: 'Nuestros productos',
+    subtitle: 'Te decimos qué funciona hoy y qué sigue en desarrollo.',
     backToProducts: '← Todos los productos',
     gova: {
       name: 'Gova',
-      category: 'Gestión comercial y cotización inteligente',
+      category: 'Gestión comercial y cotización',
       shortCategory: 'Gestión comercial y cotización',
       summary:
-        'Organiza el conocimiento de tu negocio —catálogo, precios y reglas comerciales— y elabora cotizaciones con mayor facilidad.',
+        'Tu catálogo, tus precios y tus reglas en un solo lugar, para armar cotizaciones sin empezar de cero.',
       benefits: [
-        'Centraliza tu información comercial.',
-        'Simplifica la elaboración de cotizaciones.',
-        'Reduce tareas repetitivas.',
-        'Aprovecha mejor el conocimiento de tu negocio.',
+        'Tu información comercial en un solo lugar.',
+        'Cotizaciones que no empiezan de cero.',
+        'Menos captura repetida.',
+        'Lo que sabe tu negocio, guardado y con historial.',
       ],
-      cta: 'Conocer Gova',
-      screenshotAlt:
-        'Panel de inicio de Gova con pendientes, cobros y agenda de un negocio de ejemplo.',
+      cta: 'Ver Gova',
+      // Capturas del MVP (ver productsData.govaScreens)
+      screens: {
+        inicio: {
+          label: 'Inicio',
+          alt: 'Pantalla de Inicio de Gova con pendientes, cobros y agenda de un negocio de ejemplo.',
+        },
+        catalogo: {
+          label: 'Catálogo',
+          alt: 'Catálogo de productos y servicios en Gova, con precios confirmados y su versión.',
+        },
+        cotizacion: {
+          label: 'Cotización',
+          alt: 'Editor de cotización de Gova con dos conceptos y la vista previa del documento.',
+        },
+        documento: {
+          label: 'Documento',
+          alt: 'Documento de cotización de Gova con la plantilla Moderna y datos de ejemplo.',
+        },
+        ventas: {
+          label: 'Ventas',
+          alt: 'Lista de cotizaciones en Gova con su estado: aceptada, enviada, borrador, vencida y rechazada.',
+        },
+      },
+      // Recorrido del home: un paso por pantalla (ver productsData.govaTour)
+      tour: {
+        title: 'Gova, paso a paso',
+        steps: {
+          catalogo: {
+            title: 'Tu catálogo y tus precios, en un solo lugar',
+            desc: 'Registra productos, servicios y reglas comerciales. Cuando cambias un precio, la versión anterior queda guardada.',
+          },
+          cotizacion: {
+            title: 'Arma la cotización con esos datos',
+            desc: 'Agrega conceptos, cantidades y ajustes. Gova te avisa si falta información antes de cotizar.',
+          },
+          documento: {
+            title: 'Imprímela o guárdala en PDF',
+            desc: 'Elige una de tres plantillas, agrega los datos de tu negocio y revisa cómo queda antes de compartirla.',
+          },
+          inicio: {
+            title: 'Da seguimiento desde Inicio',
+            desc: 'Pendientes, cobros y agenda del día, junto con tus contactos y tareas.',
+          },
+        },
+      },
       detail: {
         intro:
-          'Gova es una plataforma en desarrollo que busca ayudar a las pequeñas empresas a organizar el conocimiento de su negocio, administrar catálogos y reglas comerciales y elaborar cotizaciones con mayor facilidad.',
+          'Gova es una plataforma en desarrollo para que las pequeñas empresas organicen lo que saben de su negocio —catálogo, precios y reglas comerciales— y armen cotizaciones con esa información.',
         statusNote:
           'MVP funcional que se ejecuta de forma local, todavía en evolución y validación. Aún no tiene una versión pública.',
         todayTitle: 'Lo que hace hoy el MVP',
@@ -169,22 +197,22 @@ const es = {
     },
     miga: {
       name: 'Miga',
-      category: 'Creación de contenido y edición de video asistida por IA',
+      category: 'Contenido y video con ayuda de inteligencia artificial',
       shortCategory: 'Contenido y video con IA',
       summary:
-        'Facilita crear y editar contenido de marketing para que tu negocio comunique sus productos y servicios sin depender de herramientas complejas.',
+        'Para que tu negocio cree videos y contenido de sus productos sin depender de herramientas complicadas.',
       benefits: [
-        'Simplifica la creación de contenido comercial.',
-        'Hace más accesibles las herramientas audiovisuales.',
-        'Reduce el trabajo manual de edición.',
-        'Facilita la experimentación creativa.',
+        'Crear contenido comercial con menos pasos.',
+        'Edición de video más accesible.',
+        'Menos trabajo manual al editar.',
+        'Más libertad para probar ideas.',
       ],
-      cta: 'Descubrir Miga',
+      cta: 'Ver Miga',
       illustrationAlt:
         'Ilustración conceptual de Miga: un video vertical con subtítulos y una línea de tiempo de edición.',
       detail: {
         intro:
-          'Miga es una plataforma en desarrollo cuyo objetivo es facilitar la creación y edición de contenido de marketing para empresas que necesitan comunicar sus productos y servicios sin depender de herramientas complejas.',
+          'Miga es una plataforma en desarrollo para crear y editar contenido de marketing sin depender de herramientas complejas: describes lo que necesitas y la plataforma te ayuda a prepararlo.',
         statusNote:
           'Producto en desarrollo. Sus capacidades técnicas se prueban en un entorno local; la experiencia para usuarios finales todavía está en diseño.',
         todayTitle: 'Avances técnicos actuales',
@@ -198,7 +226,7 @@ const es = {
         todayExtra: null,
         nextTitle: 'Visión del producto',
         nextIntro:
-          'Queremos que describas lo que necesitas y que la plataforma te ayude a crear, modificar y preparar contenido audiovisual mediante herramientas inteligentes.',
+          'Queremos que describas lo que necesitas y que la plataforma te ayude a crear, modificar y preparar contenido audiovisual.',
         nextNote: 'Capacidades objetivo. Todavía no están disponibles.',
         next: [
           'Edición asistida por instrucciones en lenguaje natural.',
@@ -219,73 +247,69 @@ const es = {
   },
 
   services: {
-    eyebrow: 'Soluciones',
-    title: 'Tecnología adaptada a las necesidades de tu empresa.',
+    title: 'También hacemos proyectos a la medida',
     subtitle:
-      'Además de nuestros productos, adaptamos e integramos tecnología para resolver problemas concretos de tu operación.',
+      'Cuando Gova o Miga no cubren lo que necesitas, lo resolvemos contigo.',
     items: {
       automatizacion: {
         title: 'Automatización de procesos',
-        desc: 'Identificamos y simplificamos tareas administrativas y operativas repetitivas.',
+        desc: 'Quitamos pasos manuales de tareas que se repiten, como capturar datos o enviar recordatorios.',
       },
       software: {
-        title: 'Desarrollo de software',
-        desc: 'Aplicaciones y herramientas diseñadas para las necesidades específicas de tu empresa.',
+        title: 'Software a la medida',
+        desc: 'Aplicaciones para un proceso específico de tu empresa, cuando una herramienta genérica no alcanza.',
       },
       ia: {
         title: 'Inteligencia artificial aplicada',
-        desc: 'Asistentes, automatizaciones inteligentes y soluciones que aprovechan la información de tu empresa.',
+        desc: 'Asistentes y automatizaciones que usan la información de tu negocio, siempre con revisión de una persona.',
       },
       datos: {
         title: 'Datos e integraciones',
-        desc: 'Organización de información, conexión entre sistemas y herramientas de análisis para apoyar tus decisiones.',
+        desc: 'Conectamos los sistemas que ya usas y ordenamos la información para que puedas consultarla.',
       },
     },
-    cta: 'Hablemos de tu proyecto',
+    cta: 'Cuéntanos tu proyecto',
   },
 
   process: {
-    eyebrow: 'Cómo trabajamos',
-    title: 'De una necesidad a una solución real.',
-    subtitle:
-      'Un proceso claro, en el que cada etapa tiene un propósito y un resultado que puedes revisar.',
+    title: 'Cómo trabajamos',
+    subtitle: 'Cuatro etapas, cada una con algo concreto que puedes revisar.',
     steps: [
       {
         title: 'Entendemos tu negocio',
-        desc: 'Escuchamos el problema, los procesos actuales y los resultados que buscas.',
+        desc: 'Platicamos sobre el problema, cómo lo resuelves hoy y qué resultado buscas.',
       },
       {
         title: 'Definimos la solución',
-        desc: 'Identificamos qué producto, integración o desarrollo puede resolver la necesidad y acordamos el alcance.',
+        desc: 'Proponemos el producto, la integración o el desarrollo que tiene sentido, y acordamos el alcance.',
       },
       {
-        title: 'Construimos y validamos',
-        desc: 'Desarrollamos un prototipo o solución inicial y lo probamos con situaciones reales.',
+        title: 'Construimos y probamos',
+        desc: 'Hacemos una primera versión y la probamos con situaciones reales de tu operación.',
       },
       {
-        title: 'Implementamos y mejoramos',
-        desc: 'Acompañamos la adopción de la solución y definimos mejoras según los resultados.',
+        title: 'Implementamos y ajustamos',
+        desc: 'Te acompañamos al empezar a usarla y la mejoramos con base en lo que funciona.',
       },
     ],
     note:
-      'Las herramientas modernas e inteligencia artificial nos permiten avanzar más rápido. Aun así, el alcance, las pruebas, la seguridad y el mantenimiento siguen siendo esenciales en cada proyecto.',
+      'Usamos herramientas modernas e inteligencia artificial para avanzar más rápido, pero el alcance, las pruebas, la seguridad y el mantenimiento se cuidan igual en cada proyecto.',
   },
 
   about: {
-    eyebrow: 'Nosotros',
-    title: 'La inteligencia y los datos deben convertirse en acción.',
+    title: 'Qué es InDaxion',
     paragraphs: [
-      'InDaxion nace de una idea sencilla: la inteligencia y los datos deben convertirse en acciones que generen valor.',
-      'Creemos que las herramientas tecnológicas avanzadas no deberían estar reservadas únicamente para grandes empresas. Por eso desarrollamos software y soluciones de inteligencia artificial pensadas para hacer más accesible la transformación digital de pequeños y medianos negocios.',
-      'Nuestro enfoque combina ingeniería, análisis de datos, desarrollo de software e inteligencia artificial aplicada.',
+      'Hacemos software e inteligencia artificial para pequeñas y medianas empresas.',
+      'Creemos que las herramientas que usan las empresas grandes también deberían estar al alcance de un negocio pequeño, sin que tenga que contratar un área de sistemas.',
+      'Por eso empezamos por problemas concretos, como cotizar o crear contenido, y probamos cada producto con situaciones reales antes de ofrecerlo.',
     ],
     stage:
-      'Somos una startup en etapa temprana, enfocada en las pymes de México y con visión de crecer en Latinoamérica.',
-    pillarsLabel: 'Lo que significa InDaxion',
+      'Somos una startup en etapa temprana, enfocada en las pymes de México y con la idea de crecer en Latinoamérica.',
+    pillarsLabel: 'De dónde viene el nombre',
     pillars: {
       inteligencia: {
         title: 'Inteligencia',
-        desc: 'Usamos la IA donde realmente simplifica el trabajo, no como un fin en sí misma.',
+        desc: 'Usamos la inteligencia artificial donde de verdad ahorra trabajo.',
       },
       datos: {
         title: 'Datos',
@@ -293,36 +317,35 @@ const es = {
       },
       accion: {
         title: 'Acción',
-        desc: 'Convertimos esa información en herramientas que producen resultados concretos.',
+        desc: 'Todo termina en una herramienta que se usa en el día a día.',
       },
     },
   },
 
   openTeaser: {
     eyebrow: 'InDaxion Open',
-    title: 'El conocimiento crece cuando se comparte.',
-    text: 'Una iniciativa educativa abierta donde aprender significa construir, colaborar y demostrar habilidades mediante proyectos reales.',
+    title: 'Aprender construyendo proyectos reales',
+    text: 'Una iniciativa educativa abierta: módulos gratuitos, proyectos en comunidad y evidencia de lo que sabes hacer.',
     points: [
-      'Módulos gratuitos de formación, comenzando con AI Engineering.',
-      'Conocimientos aplicados en proyectos comunitarios y problemas reales.',
-      'Evidencia de habilidades basada en contribuciones reales.',
+      'Módulos gratuitos, empezando por AI Engineering.',
+      'Proyectos comunitarios con problemas reales.',
+      'Habilidades demostradas con contribuciones, no con rankings.',
     ],
     cta: 'Conoce InDaxion Open',
   },
 
   open: {
-    eyebrow: 'InDaxion Open',
-    title: 'El conocimiento crece cuando se comparte.',
+    title: 'InDaxion Open',
     subtitle:
-      'Una iniciativa educativa abierta donde aprender significa construir, colaborar y demostrar habilidades mediante proyectos reales.',
-    philosophyLabel: 'Nuestra filosofía',
+      'Una iniciativa educativa abierta para aprender construyendo, colaborar en proyectos reales y demostrar lo que sabes hacer.',
+    philosophyLabel: 'Por qué existe',
     philosophy:
       'Queremos que las oportunidades dependan cada vez más de las capacidades demostradas y menos de los recursos económicos o antecedentes personales.',
     conceptsTitle: 'Cómo queremos que funcione',
     concepts: {
       aprendizaje: {
         title: 'Aprendizaje abierto',
-        desc: 'Módulos gratuitos de formación, comenzando con AI Engineering.',
+        desc: 'Módulos gratuitos de formación, empezando por AI Engineering.',
       },
       construir: {
         title: 'Aprender construyendo',
@@ -376,10 +399,14 @@ const es = {
   },
 
   contact: {
-    eyebrow: 'Contacto',
     title: 'Cuéntanos qué necesita tu negocio.',
     subtitle:
-      'No necesitas tener conocimientos técnicos ni una solución definida. Cuéntanos qué proceso quieres mejorar o qué problema necesitas resolver.',
+      'No necesitas saber de tecnología ni tener una solución definida. Cuéntanos qué proceso quieres mejorar o qué problema quieres resolver.',
+    direct: {
+      title: '¿Prefieres escribirnos directo?',
+      whatsapp: 'WhatsApp',
+      email: 'Correo',
+    },
     fields: {
       name: { label: 'Nombre', placeholder: 'Tu nombre' },
       email: { label: 'Correo electrónico', placeholder: 'tu@empresa.com' },
@@ -398,7 +425,7 @@ const es = {
       gova: 'Gova · Gestión comercial y cotización',
       miga: 'Miga · Contenido y video con IA',
       automatizacion: 'Automatización de procesos',
-      software: 'Software personalizado',
+      software: 'Software a la medida',
       ia: 'Inteligencia artificial aplicada',
       datos: 'Datos e integraciones',
       open: 'Cursos e InDaxion Open',
@@ -432,7 +459,7 @@ const es = {
 
   footer: {
     description:
-      'Software e inteligencia artificial para pequeñas y medianas empresas. Convertimos inteligencia y datos en soluciones que producen resultados reales.',
+      'Software e inteligencia artificial para pequeñas y medianas empresas en México.',
     columns: {
       products: 'Productos',
       solutions: 'Soluciones',
@@ -445,8 +472,8 @@ const es = {
     whatsapp: 'WhatsApp',
     email: 'Correo electrónico',
     // {year} se reemplaza en el componente
-    copyright: '© {year} InDaxion — Inteligencia · Datos · Acción. Todos los derechos reservados.',
-    cta: 'Contáctanos →',
+    copyright: '© {year} InDaxion. Todos los derechos reservados.',
+    cta: 'Escríbenos',
   },
 }
 

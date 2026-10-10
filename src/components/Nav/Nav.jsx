@@ -65,7 +65,7 @@ export default function Nav({ activeSection }) {
 
   return (
     <nav className={`nav${scrolled ? ' nav--scrolled' : ''}`} ref={menuRef} aria-label={nav.mainLabel}>
-      <Link to="/" className="nav__brand" style={{ textDecoration: 'none' }}>
+      <Link to="/" className="nav__brand">
         <LogoIcon className="nav__logo-icon" />
         <div className="nav__brand-text">
           <span className="nav__brand-name brand-name">
@@ -79,7 +79,7 @@ export default function Nav({ activeSection }) {
         {navItems.map(item => renderLink(item, 'nav__link', 'nav__link--active'))}
       </div>
 
-      <button className="nav__cta nav__cta--desktop" onClick={goToContact}>
+      <button className="btn btn--primary btn--sm nav__cta nav__cta--desktop" onClick={goToContact}>
         {nav.cta}
       </button>
 
@@ -100,7 +100,7 @@ export default function Nav({ activeSection }) {
       {menuOpen && (
         <div id="nav-mobile-menu" className="nav__mobile-menu">
           {navItems.map(item => renderLink(item, 'nav__mobile-link', 'nav__mobile-link--active'))}
-          <button className="nav__cta nav__cta--mobile" onClick={goToContact}>
+          <button className="btn btn--primary btn--sm nav__cta nav__cta--mobile" onClick={goToContact}>
             {nav.cta}
           </button>
         </div>

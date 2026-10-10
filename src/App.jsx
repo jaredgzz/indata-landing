@@ -7,7 +7,7 @@ import Problems from './components/Problems/Problems'
 import Products from './components/Products/Products'
 import Services from './components/Services/Services'
 import Process from './components/Process/Process'
-import TeamSection from './components/About/TeamSection'
+import About from './components/About/About'
 import OpenTeaser from './components/Open/OpenTeaser'
 import ContactCTA from './components/ContactCTA/ContactCTA'
 import Footer from './components/Footer/Footer'
@@ -67,7 +67,7 @@ function HomeContent() {
         <Products />
         <Services />
         <Process />
-        <TeamSection />
+        <About />
         <OpenTeaser />
         <ContactCTA />
       </main>
