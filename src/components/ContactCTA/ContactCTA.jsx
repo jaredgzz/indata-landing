@@ -1,66 +1,103 @@
-import { useState } from 'react'
-import { supabase } from '../../lib/supabaseClient'
+import { useEffect, useRef, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
+import { saveLead, leadsAreLive } from '../../lib/leads'
 import { useAnimateIn } from '../../hooks/useAnimateIn'
+import { leadInterests, isLeadInterest, leadInterestValue } from '../../lib/leadOptions'
 import SectionHeader from '../SectionHeader/SectionHeader'
+import { content } from '../../content'
 import './ContactCTA.css'
 
-const SERVICIOS = [
-  'Inteligencia Artificial',
-  'Ingeniería de Datos',
-  'Automatización de Procesos',
-  'Dashboards y BI',
-  'Desarrollo de Software',
-  'Agentes IA Empresariales',
-  'Cursos / Academia',
-  'Otro',
-]
+const { contact } = content
+const { fields } = contact
 
 const INITIAL_FORM = {
   nombre: '',
   email: '',
   empresa: '',
   phone: '',
-  servicio: '',
+  interes: '',
   mensaje: '',
+  hp_field: '', // campo trampa (antispam)
 }
+
+// Un envío más rápido que esto, desde que se mostró el formulario, es sospechoso:
+// no se rechaza, solo se pide confirmar (el campo trampa es la señal fuerte)
+const MIN_FILL_MS = 3000
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export default function ContactCTA() {
   const [ref, visible] = useAnimateIn()
-  const [form, setForm] = useState(INITIAL_FORM)
-  const [status, setStatus] = useState('idle') // idle | sending | success | error
+  const [searchParams] = useSearchParams()
+  // ?interes=<id> preselecciona la opción (desde las páginas de producto)
+  const [form, setForm] = useState(() => {
+    const interes = searchParams.get('interes')
+    return { ...INITIAL_FORM, interes: isLeadInterest(interes) ? interes : '' }
+  })
+  const [status, setStatus] = useState('idle') // idle | confirm | sending | success | error
   const [errorMsg, setErrorMsg] = useState('')
+  const [simulated, setSimulated] = useState(false) // vista previa: no se guardó nada
+  const shownAt = useRef(0)
+
+  useEffect(() => {
+    shownAt.current = Date.now()
+  }, [])
 
   const handleChange = (e) => {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
+  const fail = (message) => {
+    setStatus('error')
+    setErrorMsg(message)
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!form.nombre || !form.email || !form.mensaje) return
+    const nombre = form.nombre.trim()
+    const email = form.email.trim()
+    const mensaje = form.mensaje.trim()
+
+    if (!nombre || !email || !mensaje) return fail(contact.errors.required)
+    if (!EMAIL_RE.test(email)) return fail(contact.errors.email)
+
+    // Antispam: con el campo trampa lleno no se envía nada y se muestra
+    // el mismo error genérico que un fallo real.
+    if (form.hp_field) return fail(contact.errors.send)
+
+    // Un envío casi instantáneo no se rechaza: se pide confirmarlo
+    if (status !== 'confirm' && Date.now() - shownAt.current < MIN_FILL_MS) {
+      setStatus('confirm')
+      setErrorMsg('')
+      return
+    }
+
     setStatus('sending')
     setErrorMsg('')
 
     const payload = {
-      full_name: form.nombre,
-      email:     form.email,
-      company:   form.empresa || null,
-      phone:     form.phone   || null,
-      service:   form.servicio || null,
-      message:   form.mensaje,
+      full_name: nombre,
+      email,
+      company:   form.empresa.trim() || null,
+      phone:     form.phone.trim() || null,
+      service:   leadInterestValue(form.interes),
+      message:   mensaje,
       state:     'nuevo',
     }
 
-    const { error } = await supabase.from('leads').insert([payload])
+    const { error, simulated: wasSimulated } = await saveLead(payload)
 
     if (error) {
+      // Solo se confirma el envío si Supabase lo guardó
       console.error('Supabase error:', error)
-      setStatus('error')
-      setErrorMsg(`Error: ${error.message || error.code || JSON.stringify(error)}`)
+      fail(contact.errors.send)
     } else {
+      setSimulated(wasSimulated)
       setStatus('success')
       setForm(INITIAL_FORM)
     }
   }
+
+  const sending = status === 'sending'
 
   return (
     <section id="contacto" className="contact-cta">
@@ -68,65 +105,75 @@ export default function ContactCTA() {
 
         <div className="contact-cta__header">
           <SectionHeader
-            eyebrow="CONTACTO"
-            title="¿Listo para transformar tus datos?"
-            subtitle="Conversemos sobre cómo podemos ayudar a tu empresa a crecer con datos, IA y automatización."
+            eyebrow={contact.eyebrow}
+            title={contact.title}
+            subtitle={contact.subtitle}
             accentColor="var(--color-teal)"
           />
         </div>
 
         {status === 'success' ? (
-          <div className="contact-cta__success">
+          <div className="contact-cta__success" role="status">
             <div className="contact-cta__success-icon">
-              <svg width={32} height={32} viewBox="0 0 24 24" fill="none" stroke="#00E5FF" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+              <svg width={32} height={32} viewBox="0 0 24 24" fill="none" stroke="#00E5FF" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                 <polyline points="22 4 12 14.01 9 11.01" />
               </svg>
             </div>
-            <h3 className="contact-cta__success-title">¡Mensaje enviado!</h3>
+            <h3 className="contact-cta__success-title">
+              {simulated ? contact.preview.successTitle : contact.success.title}
+            </h3>
             <p className="contact-cta__success-text">
-              Gracias por contactarnos. Te responderemos en menos de 24 horas.
+              {simulated ? contact.preview.successText : contact.success.text}
             </p>
             <button
               className="contact-cta__success-reset"
               onClick={() => setStatus('idle')}
             >
-              Enviar otro mensaje
+              {contact.success.reset}
             </button>
           </div>
         ) : (
           <form className="contact-cta__form" onSubmit={handleSubmit} noValidate>
+            {!leadsAreLive && (
+              <p className="contact-cta__preview">{contact.preview.notice}</p>
+            )}
+
             <div className="contact-cta__form-row">
               <div className="contact-cta__field">
                 <label className="contact-cta__label" htmlFor="nombre">
-                  Nombre <span className="contact-cta__required">*</span>
+                  {fields.name.label} <span className="contact-cta__required" aria-hidden="true">*</span>
                 </label>
                 <input
                   id="nombre"
                   name="nombre"
                   type="text"
                   className="contact-cta__input"
-                  placeholder="Tu nombre"
+                  placeholder={fields.name.placeholder}
                   value={form.nombre}
                   onChange={handleChange}
                   required
-                  disabled={status === 'sending'}
+                  maxLength={120}
+                  autoComplete="name"
+                  disabled={sending}
                 />
               </div>
               <div className="contact-cta__field">
                 <label className="contact-cta__label" htmlFor="email">
-                  Email <span className="contact-cta__required">*</span>
+                  {fields.email.label} <span className="contact-cta__required" aria-hidden="true">*</span>
                 </label>
                 <input
                   id="email"
                   name="email"
                   type="email"
                   className="contact-cta__input"
-                  placeholder="tu@empresa.com"
+                  placeholder={fields.email.placeholder}
                   value={form.email}
                   onChange={handleChange}
                   required
-                  disabled={status === 'sending'}
+                  maxLength={254}
+                  autoComplete="email"
+                  disabled={sending}
                 />
               </div>
             </div>
@@ -134,89 +181,114 @@ export default function ContactCTA() {
             <div className="contact-cta__form-row">
               <div className="contact-cta__field">
                 <label className="contact-cta__label" htmlFor="empresa">
-                  Empresa
+                  {fields.company.label}
                 </label>
                 <input
                   id="empresa"
                   name="empresa"
                   type="text"
                   className="contact-cta__input"
-                  placeholder="Nombre de tu empresa (opcional)"
+                  placeholder={fields.company.placeholder}
                   value={form.empresa}
                   onChange={handleChange}
-                  disabled={status === 'sending'}
+                  maxLength={160}
+                  autoComplete="organization"
+                  disabled={sending}
                 />
               </div>
               <div className="contact-cta__field">
-                <label className="contact-cta__label" htmlFor="servicio">
-                  ¿Qué te interesa?
+                <label className="contact-cta__label" htmlFor="phone">
+                  {fields.phone.label}
                 </label>
-                <select
-                  id="servicio"
-                  name="servicio"
-                  className="contact-cta__select"
-                  value={form.servicio}
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  className="contact-cta__input"
+                  placeholder={fields.phone.placeholder}
+                  value={form.phone}
                   onChange={handleChange}
-                  disabled={status === 'sending'}
-                >
-                  <option value="">Selecciona un servicio</option>
-                  {SERVICIOS.map(s => (
-                    <option key={s} value={s}>{s}</option>
-                  ))}
-                </select>
+                  maxLength={30}
+                  autoComplete="tel"
+                  disabled={sending}
+                />
               </div>
             </div>
 
             <div className="contact-cta__field">
-              <label className="contact-cta__label" htmlFor="phone">
-                Teléfono
+              <label className="contact-cta__label" htmlFor="interes">
+                {fields.interest.label}
               </label>
-              <input
-                id="phone"
-                name="phone"
-                type="tel"
-                className="contact-cta__input"
-                placeholder="+52 81 2567 0127 (opcional)"
-                value={form.phone}
+              <select
+                id="interes"
+                name="interes"
+                className="contact-cta__select"
+                value={form.interes}
                 onChange={handleChange}
-                disabled={status === 'sending'}
-                autoComplete="tel"
-              />
+                disabled={sending}
+              >
+                <option value="">{fields.interest.placeholder}</option>
+                {leadInterests.map(({ id }) => (
+                  <option key={id} value={id}>{contact.options[id]}</option>
+                ))}
+              </select>
             </div>
 
             <div className="contact-cta__field">
               <label className="contact-cta__label" htmlFor="mensaje">
-                Mensaje <span className="contact-cta__required">*</span>
+                {fields.message.label} <span className="contact-cta__required" aria-hidden="true">*</span>
               </label>
               <textarea
                 id="mensaje"
                 name="mensaje"
                 className="contact-cta__textarea"
-                placeholder="Cuéntanos sobre tu proyecto, reto o pregunta..."
+                placeholder={fields.message.placeholder}
                 rows={4}
                 value={form.mensaje}
                 onChange={handleChange}
                 required
-                disabled={status === 'sending'}
+                maxLength={3000}
+                disabled={sending}
+              />
+            </div>
+
+            {/* Campo trampa: invisible para personas, los bots suelen llenarlo */}
+            <div className="contact-cta__trap" aria-hidden="true">
+              <label htmlFor="hp_field">{fields.trap}</label>
+              <input
+                id="hp_field"
+                name="hp_field"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={form.hp_field}
+                onChange={handleChange}
               />
             </div>
 
             {status === 'error' && (
-              <p className="contact-cta__error">{errorMsg}</p>
+              <p className="contact-cta__error" role="alert">{errorMsg}</p>
+            )}
+
+            {status === 'confirm' && (
+              <p className="contact-cta__confirm" role="status">{contact.confirm.notice}</p>
             )}
 
             <button
               type="submit"
               className="contact-cta__submit"
-              disabled={status === 'sending'}
+              disabled={sending}
             >
-              {status === 'sending' ? (
+              {sending ? (
                 <>
-                  <span className="contact-cta__spinner" />
-                  Enviando...
+                  <span className="contact-cta__spinner" aria-hidden="true" />
+                  {contact.sending}
                 </>
               ) : (
-                'Enviar mensaje →'
+                <>
+                  {status === 'confirm' ? contact.confirm.submit : contact.submit}
+                  {' '}<span aria-hidden="true">→</span>
+                </>
               )}
             </button>
           </form>

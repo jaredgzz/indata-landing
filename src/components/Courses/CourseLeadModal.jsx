@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react'
-import { supabase } from '../../lib/supabaseClient'
+import { useState, useEffect, useCallback } from 'react'
+import { saveLead, leadsAreLive } from '../../lib/leads'
+import { content } from '../../content'
 import './CourseLeadModal.css'
 
 const INITIAL_FORM = { nombre: '', email: '', empresa: '', phone: '' }
@@ -8,21 +9,20 @@ export default function CourseLeadModal({ isOpen, onClose, courseName, tag, pdfP
   const [form, setForm] = useState(INITIAL_FORM)
   const [status, setStatus] = useState('idle') // idle | sending | success | error
 
+  // Reset form when the modal closes
+  const handleClose = useCallback(() => {
+    setForm(INITIAL_FORM)
+    setStatus('idle')
+    onClose()
+  }, [onClose])
+
   // Close on Escape key
   useEffect(() => {
     if (!isOpen) return
-    const handler = (e) => { if (e.key === 'Escape') onClose() }
+    const handler = (e) => { if (e.key === 'Escape') handleClose() }
     document.addEventListener('keydown', handler)
     return () => document.removeEventListener('keydown', handler)
-  }, [isOpen, onClose])
-
-  // Reset form when modal closes
-  useEffect(() => {
-    if (!isOpen) {
-      setForm(INITIAL_FORM)
-      setStatus('idle')
-    }
-  }, [isOpen])
+  }, [isOpen, handleClose])
 
   if (!isOpen) return null
 
@@ -42,16 +42,14 @@ export default function CourseLeadModal({ isOpen, onClose, courseName, tag, pdfP
     if (!form.nombre || !form.email) return
     setStatus('sending')
 
-    const { error } = await supabase
-      .from('leads')
-      .insert([{
-        full_name: form.nombre,
-        email:     form.email,
-        company:   form.empresa || null,
-        phone:     form.phone   || null,
-        state:     'nuevo',
-        tag:       tag,
-      }])
+    const { error } = await saveLead({
+      full_name: form.nombre,
+      email:     form.email,
+      company:   form.empresa || null,
+      phone:     form.phone   || null,
+      state:     'nuevo',
+      tag:       tag,
+    })
 
     if (error) console.error('Supabase error:', error)
 
@@ -66,7 +64,7 @@ export default function CourseLeadModal({ isOpen, onClose, courseName, tag, pdfP
       role="dialog"
       aria-modal="true"
       aria-labelledby="llf-title"
-      onClick={onClose}
+      onClick={handleClose}
     >
       <div
         className="llf-card"
@@ -74,7 +72,7 @@ export default function CourseLeadModal({ isOpen, onClose, courseName, tag, pdfP
       >
         <button
           className="llf-close"
-          onClick={onClose}
+          onClick={handleClose}
           aria-label="Cerrar"
         >
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
@@ -180,6 +178,10 @@ export default function CourseLeadModal({ isOpen, onClose, courseName, tag, pdfP
                 autoComplete="tel"
               />
             </div>
+
+            {!leadsAreLive && (
+              <p className="llf-preview">{content.common.previewNotice}</p>
+            )}
 
             {status === 'error' && (
               <p className="llf-error-msg">

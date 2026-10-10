@@ -1,0 +1,31 @@
+.product-illustration {
+  position: relative;
+  margin: 0;
+  padding: 22px 22px 40px;
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 75% 20%, var(--tone-soft, rgba(59, 130, 246, 0.12)), transparent 60%),
+    #0A1222;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.product-illustration__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.product-illustration__note {
+  position: absolute;
+  left: 14px;
+  bottom: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  background: rgba(7, 13, 26, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 3px 8px;
+}

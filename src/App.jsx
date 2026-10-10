@@ -1,35 +1,55 @@
 import { useState, useEffect, lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-import { AnimatePresence } from 'framer-motion'
+import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom'
+import { AnimatePresence, MotionConfig } from 'framer-motion'
 import Nav from './components/Nav/Nav'
 import Hero from './components/Hero/Hero'
+import Problems from './components/Problems/Problems'
+import Products from './components/Products/Products'
 import Services from './components/Services/Services'
-import Courses from './components/Courses/Courses'
-import Projects from './components/Projects/Projects'
+import Process from './components/Process/Process'
 import TeamSection from './components/About/TeamSection'
+import OpenTeaser from './components/Open/OpenTeaser'
 import ContactCTA from './components/ContactCTA/ContactCTA'
 import Footer from './components/Footer/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import PageTransition from './components/PageTransition'
+import NotFound from './components/NotFound/NotFound'
+import { homeSections, legacyHashes } from './lib/data'
+import { content } from './content'
 
-// Course detail pages — lazy loaded to keep the home bundle small
-const LangflowDetail      = lazy(() => import('./components/Courses/LangflowDetail'))
-const AiEngineerDetail    = lazy(() => import('./components/Courses/AiEngineerDetail'))
-const ClaudeMasteryDetail = lazy(() => import('./components/Courses/ClaudeMasteryDetail'))
+// Detail pages — lazy loaded to keep the home bundle small
+const ProductDetail       = lazy(() => import('./components/Products/ProductDetail'))
+const OpenPage            = lazy(() => import('./components/Open/OpenPage'))
 
-const SECTIONS = ['inicio', 'servicios', 'cursos', 'proyectos', 'sobre', 'contacto']
+// Tab title per known route; anything else renders the 404 page
+const PAGE_TITLES = {
+  '/':                        content.pages.home,
+  '/productos/gova':          content.pages.gova,
+  '/productos/miga':          content.pages.miga,
+  '/open':                    content.pages.open,
+}
 
 // Page-level content only — Nav and Footer are rendered outside AnimatePresence
 function HomeContent() {
   const [activeSection, setActiveSection] = useState('inicio')
+  const location = useLocation()
+  const navigate = useNavigate()
 
+  // Old anchors (#servicios, #cursos, …) → new location
   useEffect(() => {
-    const observers = SECTIONS.map(id => {
+    const target = legacyHashes[location.hash]
+    if (target) navigate(target, { replace: true })
+  }, [location.hash, navigate])
+
+  // The active section is the one crossing the middle of the viewport
+  // (works for sections taller than the screen, unlike a ratio threshold)
+  useEffect(() => {
+    const observers = homeSections.map(id => {
       const el = document.getElementById(id)
       if (!el) return null
       const obs = new IntersectionObserver(
         ([entry]) => { if (entry.isIntersecting) setActiveSection(id) },
-        { threshold: 0.4 }
+        { rootMargin: '-50% 0px -50% 0px' }
       )
       obs.observe(el)
       return obs
@@ -39,19 +59,18 @@ function HomeContent() {
 
   return (
     <>
-      {/* activeSection is forwarded up to AppRoutes via a ref-like callback,
-          but since IntersectionObserver state lives here, we pass it down
-          through context or keep Nav colocated. For now Nav is in AppRoutes
-          and receives a static empty string for non-home routes; home scroll
-          highlighting requires Nav inside HomeContent. We keep Nav here only
-          for the home page so intersection observers can control activeSection. */}
+      {/* Nav lives here on the home so the section observers can drive activeSection */}
       <Nav activeSection={activeSection} />
-      <Hero />
-      <Services />
-      <Courses />
-      <Projects />
-      <TeamSection />
-      <ContactCTA />
+      <main>
+        <Hero />
+        <Problems />
+        <Products />
+        <Services />
+        <Process />
+        <TeamSection />
+        <OpenTeaser />
+        <ContactCTA />
+      </main>
     </>
   )
 }
@@ -59,6 +78,11 @@ function HomeContent() {
 function AppRoutes() {
   const location = useLocation()
   const isHome = location.pathname === '/'
+
+  useEffect(() => {
+    const path = location.pathname.replace(/\/+$/, '') || '/'
+    document.title = PAGE_TITLES[path] ?? content.pages.notFound
+  }, [location.pathname])
 
   return (
     <>
@@ -77,26 +101,28 @@ function AppRoutes() {
               }
             />
             <Route
-              path="/cursos/langflow"
+              path="/productos/:slug"
               element={
                 <PageTransition>
-                  <LangflowDetail />
+                  <ProductDetail />
                 </PageTransition>
               }
             />
             <Route
-              path="/cursos/ai-engineer"
+              path="/open"
               element={
                 <PageTransition>
-                  <AiEngineerDetail />
+                  <OpenPage />
                 </PageTransition>
               }
             />
+            {/* Unknown routes: 404 page (old home anchors are redirected in HomeContent).
+                /cursos/* also lands here until the programs are updated. */}
             <Route
-              path="/cursos/mastering-claude"
+              path="*"
               element={
                 <PageTransition>
-                  <ClaudeMasteryDetail />
+                  <NotFound />
                 </PageTransition>
               }
             />
@@ -112,8 +138,10 @@ function AppRoutes() {
 export default function App() {
   return (
     <BrowserRouter>
-      <ScrollToTop />
-      <AppRoutes />
+      <MotionConfig reducedMotion="user">
+        <ScrollToTop />
+        <AppRoutes />
+      </MotionConfig>
     </BrowserRouter>
   )
 }

@@ -19,3 +19,51 @@ body {
 ::-webkit-scrollbar-track { background: var(--bg-primary); }
 ::-webkit-scrollbar-thumb { background: rgba(59, 130, 246, 0.27); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(59, 130, 246, 0.53); }
+
+:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 3px;
+}
+
+/* Deja espacio para el Nav fijo al saltar a una sección */
+section[id] {
+  scroll-margin-top: 68px;
+}
+
+/* Texto con el degradado de marca */
+.text-gradient {
+  background: var(--grad-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Tonos de la paleta para iconos, acentos y enlaces de cada tarjeta.
+   --tone-text es la variante clara con contraste suficiente para texto. */
+.tone-cyan {
+  --tone: #00E5FF;
+  --tone-text: #67EEFF;
+  --tone-soft: rgba(0, 229, 255, 0.10);
+  --tone-border: rgba(0, 229, 255, 0.32);
+}
+
+.tone-blue {
+  --tone: #3B82F6;
+  --tone-text: #93BBFB;
+  --tone-soft: rgba(59, 130, 246, 0.12);
+  --tone-border: rgba(59, 130, 246, 0.38);
+}
+
+.tone-violet {
+  --tone: #8B5CF6;
+  --tone-text: #B9A2FB;
+  --tone-soft: rgba(139, 92, 246, 0.14);
+  --tone-border: rgba(139, 92, 246, 0.40);
+}

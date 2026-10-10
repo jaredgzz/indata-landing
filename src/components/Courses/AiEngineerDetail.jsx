@@ -163,16 +163,15 @@ export default function AiEngineerDetail() {
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
       <section className="ai-engineer-detail__hero">
         <div className="ai-engineer-detail__hero-inner">
-          <span className="ai-engineer-detail__badge">Bootcamp Ruta Certificada</span>
+          <span className="ai-engineer-detail__badge">Bootcamp</span>
 
           <h1 className="ai-engineer-detail__title">
-            AI Engineer Bootcamp Certificado
+            AI Engineer Bootcamp
           </h1>
 
           <div className="ai-engineer-detail__stats">
             <span className="ai-engineer-detail__stat-pill">6 Semanas</span>
             <span className="ai-engineer-detail__stat-pill">105 Horas Academicas</span>
-            <span className="ai-engineer-detail__stat-pill">Certificado Oficial</span>
           </div>
 
           <p className="ai-engineer-detail__subtitle">
@@ -296,7 +295,7 @@ export default function AiEngineerDetail() {
             Descargar Programa Completo (PDF)
           </button>
           <p className="ai-engineer-detail__final-cta-note">
-            6 semanas · 105 horas · Certificado oficial
+            6 semanas · 105 horas
           </p>
         </div>
       </section>

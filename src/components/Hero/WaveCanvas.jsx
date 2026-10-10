@@ -7,14 +7,15 @@ export default function WaveCanvas() {
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
-    let raf, W, H, t = 0
+    // Con movimiento reducido se dibuja un solo cuadro, sin animación
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    let raf = 0, W, H, t = 0
 
     const resize = () => {
       W = canvas.width = canvas.offsetWidth
       H = canvas.height = canvas.offsetHeight
     }
     resize()
-    window.addEventListener('resize', resize)
 
     const particleCount = window.innerWidth < 768 ? 50 : 120
     const particles = Array.from({ length: particleCount }, () => ({
@@ -96,7 +97,7 @@ export default function WaveCanvas() {
       })
     }
 
-    const draw = () => {
+    const renderFrame = () => {
       t += 0.012
       ctx.clearRect(0, 0, W, H)
 
@@ -162,13 +163,35 @@ export default function WaveCanvas() {
         }
       }
 
-      raf = requestAnimationFrame(draw)
     }
-    draw()
+
+    const loop = () => {
+      renderFrame()
+      raf = requestAnimationFrame(loop)
+    }
+    const start = () => { if (!raf) raf = requestAnimationFrame(loop) }
+    const stop = () => { cancelAnimationFrame(raf); raf = 0 }
+
+    const onResize = () => {
+      resize()
+      if (reduceMotion) renderFrame()
+    }
+    window.addEventListener('resize', onResize)
+
+    // Solo anima mientras el Hero está en pantalla
+    const observer = new IntersectionObserver(([entry]) => {
+      if (reduceMotion) return
+      if (entry.isIntersecting) start()
+      else stop()
+    })
+
+    if (reduceMotion) renderFrame()
+    observer.observe(canvas)
 
     return () => {
-      cancelAnimationFrame(raf)
-      window.removeEventListener('resize', resize)
+      stop()
+      observer.disconnect()
+      window.removeEventListener('resize', onResize)
     }
   }, [])
 
