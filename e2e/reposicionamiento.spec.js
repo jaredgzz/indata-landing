@@ -159,13 +159,13 @@ test.describe('Rutas anteriores', () => {
     }
   })
 
-  test('/open no muestra programas por ahora; rutas y PDFs siguen disponibles', async ({ page, request }) => {
+  test('/open no muestra programas y los PDF ya no se publican', async ({ page, request }) => {
     await page.goto('/open')
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
     await expect(page.locator('#cursos, .course-card')).toHaveCount(0)
     for (const pdf of ['ai-engineer-bootcamp.pdf', 'claude-design-code.pdf', 'curso-agentes-langflow.pdf']) {
       const res = await request.get(`/docs/${pdf}`)
-      expect(res.ok(), pdf).toBeTruthy()
+      expect(res.headers()['content-type'], pdf).not.toContain('application/pdf')
     }
   })
 
