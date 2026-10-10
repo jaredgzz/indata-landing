@@ -13,7 +13,9 @@ import './ProductStage.css'
  *                 frente; las demás se quedan atrás, atenuadas.
  *
  * Cada composición se diseña en un espacio fijo (stage) y se escala al ancho
- * disponible, para que se vea igual en cualquier pantalla.
+ * disponible, para que se vea igual en cualquier pantalla. `height` acorta ese
+ * espacio cuando la captura activa no necesita todo el alto (p. ej. no es el
+ * documento vertical).
  */
 
 const SCREEN_W = 560
@@ -166,9 +168,10 @@ function TourLayer({ layer, layout, active }) {
   )
 }
 
-export default function ProductStage({ variant = 'hero', active = null, caption = true, className = '' }) {
+export default function ProductStage({ variant = 'hero', active = null, height, caption = true, className = '' }) {
   const layout = LAYOUTS[variant]
-  const { stage, plane } = layout
+  const { plane } = layout
+  const stage = { ...layout.stage, height: height ?? layout.stage.height }
   const frameRef = useRef(null)
   const scale = useStageScale(frameRef, stage.width)
 

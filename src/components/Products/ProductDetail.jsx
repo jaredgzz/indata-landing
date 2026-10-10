@@ -43,7 +43,7 @@ export default function ProductDetail() {
             </div>
           </div>
           {product.id === 'gova'
-            ? <ProductStage variant="tour" active="cotizacion" className="product-detail__stage" />
+            ? <ProductStage variant="tour" active="cotizacion" height={680} className="product-detail__stage" />
             : <ProductIllustration id={product.id} />}
         </div>
       </section>
