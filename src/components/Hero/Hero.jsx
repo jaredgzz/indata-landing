@@ -1,20 +1,10 @@
 import { Fragment } from 'react'
 import ProductStage from '../ProductStage/ProductStage'
-import Icon from '../Icon/Icon'
 import { content } from '../../content'
 import { scrollTo } from '../../lib/scrollTo'
 import './Hero.css'
 
 const { hero } = content
-
-// Lo que hacemos, en una línea; textos en content.hero.highlights[id]
-const highlights = [
-  { id: 'medida',         icon: 'code' },
-  { id: 'automatizacion', icon: 'repeat' },
-  { id: 'ia',             icon: 'cpu' },
-  { id: 'datos',          icon: 'chart' },
-  { id: 'integraciones',  icon: 'link' },
-]
 
 export default function Hero() {
   return (
@@ -43,17 +33,6 @@ export default function Hero() {
 
         <ProductStage variant="hero" className="hero__stage" />
       </div>
-
-      <ul className="hero__highlights" aria-label={hero.highlightsLabel}>
-        {highlights.map(({ id, icon }) => (
-          <li key={id} className="hero__highlight">
-            <span className="hero__highlight-icon">
-              <Icon name={icon} size={20} />
-            </span>
-            <span className="hero__highlight-label">{hero.highlights[id]}</span>
-          </li>
-        ))}
-      </ul>
     </section>
   )
 }

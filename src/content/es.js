@@ -66,14 +66,6 @@ const es = {
       'Somos InDaxion. Desarrollamos productos y soluciones a la medida para simplificar el trabajo de tu negocio.',
     primaryCta: 'Cuéntanos tu proyecto',
     secondaryCta: 'Ver productos',
-    highlightsLabel: 'Lo que hacemos',
-    highlights: {
-      medida: 'Desarrollo a la medida',
-      automatizacion: 'Automatización de procesos',
-      ia: 'Inteligencia artificial',
-      datos: 'Datos y reportes',
-      integraciones: 'Integración de sistemas',
-    },
   },
 
   problems: {
