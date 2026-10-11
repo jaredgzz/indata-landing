@@ -23,7 +23,6 @@ const es = {
   },
 
   common: {
-    illustrationNote: 'Ilustración conceptual',
     screenshotsNote: 'Capturas del MVP de Gova · datos de ejemplo',
     status: {
       mvp: 'MVP en validación',
@@ -209,13 +208,15 @@ const es = {
         'Más libertad para probar ideas.',
       ],
       cta: 'Ver Miga',
-      illustrationAlt:
-        'Ilustración conceptual de Miga: un video vertical con subtítulos y una línea de tiempo de edición.',
+      // Captura de la primera versión local (ver productsData.productShots)
+      screenAlt:
+        'Miga en desarrollo: proyecto de Reel con el brief y el material de un negocio de ejemplo, Café Aurora.',
+      screenshotNote: 'Captura de Miga en desarrollo · datos de ejemplo',
       detail: {
         intro:
           'Miga es una plataforma en desarrollo para crear y editar contenido de marketing sin depender de herramientas complejas: describes lo que necesitas y la plataforma te ayuda a prepararlo.',
         statusNote:
-          'Producto en desarrollo. Sus capacidades técnicas se prueban en un entorno local; la experiencia para usuarios finales todavía está en diseño.',
+          'Producto en desarrollo. Ya tiene una primera versión local para preparar un Reel a partir de un brief y material propio; está en revisión interna y aún no tiene versión pública.',
         todayTitle: 'Avances técnicos actuales',
         today: [
           'Infraestructura para ejecutar herramientas de edición de forma controlada.',

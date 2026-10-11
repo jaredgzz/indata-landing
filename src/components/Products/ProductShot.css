@@ -1,0 +1,19 @@
+.product-shot {
+  margin: 0;
+}
+
+.product-shot__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid var(--screen-border);
+  background: var(--surface);
+  box-shadow: var(--shadow-screen);
+}
+
+.product-shot__note {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--text-3);
+}

@@ -12,18 +12,20 @@ export const productsData = [
 
 export const getProduct = (id) => productsData.find(product => product.id === id)
 
-/**
- * Capturas del MVP de Gova (repo GovaCRM, base de ejemplo "Servicios del Centro"),
- * tomadas a 1240×820 con doble densidad: `src` (1x) y `src2x` (2x, sin pérdida).
- * width/height son los de la versión 1x.
- * Texto alternativo y etiqueta: content.products.gova.screens[id].
- */
-const screen = (id, width = 1240, height = 820) => ({
-  src: `/products/gova-${id}.webp`,
-  src2x: `/products/gova-${id}@2x.webp`,
+// Captura con doble densidad: `src` (1x) y `src2x` (2x); width/height son los de la 1x
+const shot = (file, width, height) => ({
+  src: `/products/${file}.webp`,
+  src2x: `/products/${file}@2x.webp`,
   width,
   height,
 })
+
+/**
+ * Capturas del MVP de Gova (repo GovaCRM, base de ejemplo "Servicios del Centro"),
+ * tomadas a 1240×820 con doble densidad (la 2x, sin pérdida).
+ * Texto alternativo y etiqueta: content.products.gova.screens[id].
+ */
+const screen = (id, width = 1240, height = 820) => shot(`gova-${id}`, width, height)
 
 export const govaScreens = {
   inicio:     screen('inicio'),
@@ -31,6 +33,15 @@ export const govaScreens = {
   cotizacion: screen('cotizacion'),
   documento:  screen('documento', 456, 817),
   ventas:     screen('ventas'),
+}
+
+/**
+ * Captura de cada producto que no tiene recorrido. Miga: primera versión local
+ * (repo 9_AppMarketing, /reel) con almacenamiento temporal y el negocio ficticio
+ * Café Aurora, a 1000 px de ancho. Texto: content.products[id].screenAlt.
+ */
+export const productShots = {
+  miga: shot('miga-reel', 1000, 1105),
 }
 
 /** srcSet para que cada pantalla descargue la densidad que necesita */

@@ -60,7 +60,11 @@ test.describe('Home', () => {
 
     const miga = page.locator('#productos .miga-card')
     await expect(miga.locator('.status-badge')).toHaveText('En desarrollo')
-    await expect(miga.getByText('Ilustración conceptual')).toBeVisible()
+    // Miga: captura real de su primera versión local, rotulada con datos de ejemplo
+    await expect(miga.getByText('Captura de Miga en desarrollo · datos de ejemplo')).toBeVisible()
+    const migaShot = miga.getByRole('img', { name: /Miga en desarrollo/ })
+    await migaShot.scrollIntoViewIfNeeded()
+    await expect.poll(() => migaShot.evaluate(img => img.naturalWidth)).toBeGreaterThanOrEqual(1000)
 
     await miga.getByRole('link', { name: /Ver Miga/ }).click()
     await expect(page).toHaveURL(/\/productos\/miga$/)
@@ -109,6 +113,14 @@ test.describe('Páginas de producto', () => {
     const next = page.locator('.product-detail__panel').filter({ hasText: 'Próxima evolución' })
     await expect(next.locator('.status-badge')).toHaveText('Próximamente')
     await expect(next).toContainText('Todavía no está disponible')
+  })
+
+  test('Miga muestra una captura real de su versión en desarrollo', async ({ page }) => {
+    await page.goto('/productos/miga')
+    const hero = page.locator('.product-detail__hero')
+    await expect(hero.getByRole('img', { name: /Miga en desarrollo/ })).toBeVisible()
+    await expect(hero.getByText('Captura de Miga en desarrollo · datos de ejemplo')).toBeVisible()
+    await expect(hero.locator('.product-detail__status')).toContainText('revisión interna')
   })
 
   test('el CTA del producto preselecciona el interés en el formulario', async ({ page }) => {

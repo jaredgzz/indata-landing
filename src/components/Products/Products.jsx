@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import SectionHeader from '../SectionHeader/SectionHeader'
 import StatusBadge from '../StatusBadge/StatusBadge'
-import ProductIllustration from './ProductIllustration'
+import ProductShot from './ProductShot'
 import GovaTour from './GovaTour'
 import { getProduct } from './productsData'
 import { content } from '../../content'
@@ -36,7 +36,7 @@ function GovaSection() {
 function MigaCard() {
   return (
     <article className="miga-card tone-miga" aria-labelledby="miga-name">
-      <ProductIllustration id="miga" />
+      <ProductShot id="miga" />
       <div className="miga-card__body">
         <ProductHead id="miga" headingId="miga-name" />
         <ul className="miga-card__benefits">

@@ -2,7 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 import StatusBadge from '../StatusBadge/StatusBadge'
 import Icon from '../Icon/Icon'
 import ProductStage from '../ProductStage/ProductStage'
-import ProductIllustration from './ProductIllustration'
+import ProductShot from './ProductShot'
 import NotFound from '../NotFound/NotFound'
 import { getProduct, productsData } from './productsData'
 import { content } from '../../content'
@@ -19,7 +19,7 @@ export default function ProductDetail() {
   const { detail } = text
   const other = productsData.find(p => p.id !== product.id)
   const contactPath = `/?interes=${product.id}#contacto`
-  // Gova tiene capturas reales; Miga, una ilustración
+  // Gova: escena 3D con varias capturas; Miga: una captura
   const hasStage = product.id === 'gova'
 
   return (
@@ -46,7 +46,7 @@ export default function ProductDetail() {
           </div>
           {hasStage
             ? <ProductStage variant="detail" className="product-detail__stage" />
-            : <ProductIllustration id={product.id} />}
+            : <ProductShot id={product.id} />}
         </div>
       </section>
 
