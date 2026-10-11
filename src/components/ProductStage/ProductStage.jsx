@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
-import { govaScreens } from '../Products/productsData'
+import { govaScreens, screenSrcSet } from '../Products/productsData'
 import { content } from '../../content'
 import './ProductStage.css'
 
@@ -23,15 +23,15 @@ const DOC_W = 240
 
 const LAYOUTS = {
   hero: {
-    stage: { width: 1000, height: 700 },
-    plane: { width: 1000, height: 700, rotateX: 5, rotateY: -12, rotateZ: 0, scale: 1 },
+    stage: { width: 1000, height: 740 },
+    plane: { width: 1000, height: 740, rotateX: 5, rotateY: -12, rotateZ: 0, scale: 1 },
     // Al terminar el scroll del hero
     planeEnd: { rotateX: 0, rotateY: -4, rotateZ: 0 },
     // `open`: cuánto se abre cada capa de atrás con el scroll
     layers: [
-      { id: 'ventas',    x: 340, y: 40,  z: -180, width: 620, opacity: 0.92, open: { x: 50, y: -30 } },
-      { id: 'documento', x: 30,  y: 190, z: -110, width: 250, rotate: -6, open: { x: -50, y: 20 } },
-      { id: 'inicio',    x: 120, y: 170, z: 0,    width: 780 },
+      { id: 'ventas',    x: 350, y: 30,  z: -180, width: 620, opacity: 0.92, open: { x: 50, y: -30 } },
+      { id: 'documento', x: 20,  y: 170, z: -110, width: 240, rotate: -6, open: { x: -50, y: 20 } },
+      { id: 'inicio',    x: 100, y: 150, z: 0,    width: 820 },
     ],
   },
   tour: {
@@ -98,6 +98,7 @@ function Screen({ id, eager, opacity = 1 }) {
     >
       <img
         src={shot.src}
+        srcSet={screenSrcSet(shot)}
         width={shot.width}
         height={shot.height}
         alt={content.products.gova.screens[id].alt}

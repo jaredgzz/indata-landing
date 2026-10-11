@@ -13,16 +13,28 @@ export const productsData = [
 export const getProduct = (id) => productsData.find(product => product.id === id)
 
 /**
- * Capturas del MVP de Gova (repo GovaCRM, base de ejemplo "Servicios del Centro").
+ * Capturas del MVP de Gova (repo GovaCRM, base de ejemplo "Servicios del Centro"),
+ * tomadas a 1240×820 con doble densidad: `src` (1x) y `src2x` (2x, sin pérdida).
+ * width/height son los de la versión 1x.
  * Texto alternativo y etiqueta: content.products.gova.screens[id].
  */
+const screen = (id, width = 1240, height = 820) => ({
+  src: `/products/gova-${id}.webp`,
+  src2x: `/products/gova-${id}@2x.webp`,
+  width,
+  height,
+})
+
 export const govaScreens = {
-  inicio:     { src: '/products/gova-inicio.webp',     width: 1440, height: 900 },
-  catalogo:   { src: '/products/gova-catalogo.webp',   width: 1440, height: 900 },
-  cotizacion: { src: '/products/gova-cotizacion.webp', width: 1440, height: 900 },
-  documento:  { src: '/products/gova-documento.webp',  width: 1112, height: 1594 },
-  ventas:     { src: '/products/gova-ventas.webp',     width: 1440, height: 900 },
+  inicio:     screen('inicio'),
+  catalogo:   screen('catalogo'),
+  cotizacion: screen('cotizacion'),
+  documento:  screen('documento', 456, 817),
+  ventas:     screen('ventas'),
 }
+
+/** srcSet para que cada pantalla descargue la densidad que necesita */
+export const screenSrcSet = shot => `${shot.src} 1x, ${shot.src2x} 2x`
 
 /** Pasos del recorrido "Gova, paso a paso": cada uno muestra su captura */
 export const govaTour = ['catalogo', 'cotizacion', 'documento', 'inicio']

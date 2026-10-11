@@ -55,7 +55,8 @@ test.describe('Home', () => {
     const shot = gova.getByRole('img', { name: /Catálogo de productos y servicios en Gova/ }).filter({ visible: true })
     await shot.scrollIntoViewIfNeeded()
     await expect(shot).toBeVisible()
-    await expect.poll(() => shot.evaluate(img => img.naturalWidth)).toBe(1440)
+    // 1x (1240 px) o 2x (2480 px) según la densidad de la pantalla
+    await expect.poll(() => shot.evaluate(img => img.naturalWidth)).toBeGreaterThanOrEqual(1240)
 
     const miga = page.locator('#productos .miga-card')
     await expect(miga.locator('.status-badge')).toHaveText('En desarrollo')

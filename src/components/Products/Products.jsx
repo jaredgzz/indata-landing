@@ -4,7 +4,7 @@ import SectionHeader from '../SectionHeader/SectionHeader'
 import StatusBadge from '../StatusBadge/StatusBadge'
 import ProductStage from '../ProductStage/ProductStage'
 import ProductIllustration from './ProductIllustration'
-import { getProduct, govaScreens, govaTour } from './productsData'
+import { getProduct, govaScreens, govaTour, screenSrcSet } from './productsData'
 import { content } from '../../content'
 import './Products.css'
 
@@ -71,6 +71,7 @@ function GovaTour() {
                   <img
                     className={`gova-tour__shot${portrait ? ' gova-tour__shot--portrait' : ''}`}
                     src={shot.src}
+                    srcSet={screenSrcSet(shot)}
                     width={shot.width}
                     height={shot.height}
                     alt={text.screens[id].alt}
