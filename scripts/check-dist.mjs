@@ -8,7 +8,7 @@ import { pathToFileURL } from 'node:url'
 // Extensiones publicables, según el inventario real de public/ y del build de Vite.
 // Para publicar un tipo nuevo (p. ej. 'pdf', 'woff2', 'jpg', 'ico'), agrégalo aquí
 // a propósito: un tipo no listado hace fallar el build.
-const ALLOWED_EXTENSIONS = ['html', 'js', 'css', 'svg', 'png', 'webp', 'txt']
+const ALLOWED_EXTENSIONS = ['html', 'js', 'css', 'svg', 'png', 'webp', 'txt', 'xml']
 
 // Nunca se publican, aunque se amplíe la lista anterior
 const BLOCKED_NAMES = [
@@ -20,7 +20,7 @@ const BLOCKED_NAMES = [
   { test: name => /\.(pem|key)$/.test(name), why: 'clave o certificado' },
 ]
 const BLOCKED_CONTENT = [/service_role/, /SUPABASE_SERVICE/]
-const TEXT_EXTENSIONS = new Set(['html', 'js', 'css', 'svg', 'txt'])
+const TEXT_EXTENSIONS = new Set(['html', 'js', 'css', 'svg', 'txt', 'xml'])
 
 function listFiles(dir) {
   return readdirSync(dir, { withFileTypes: true }).flatMap(entry => {

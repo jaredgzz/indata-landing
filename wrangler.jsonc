@@ -9,6 +9,13 @@
     // Igual que el rewrite de vercel.json: toda ruta sin archivo sirve index.html
     "not_found_handling": "single-page-application"
   },
+  // Dominio propio (Custom Domain: Cloudflare crea el DNS y el certificado al desplegar).
+  // www.indaxion.com redirige a la raíz con una Redirect Rule de la zona.
+  "routes": [
+    { "pattern": "indaxion.com", "custom_domain": true }
+  ],
+  // Se conserva indaxion-landing.indaxion.workers.dev y las URLs de Preview usan workers.dev
+  "workers_dev": true,
   // Obligatorio para Worker Previews; vacío porque el sitio no usa variables ni bindings
   "previews": {}
 }

@@ -172,5 +172,14 @@ publicar.
 - La página 404 se muestra con estado HTTP 200 (el rewrite de Vercel sirve
   `index.html` en cualquier ruta). Lleva `noindex` para que no se indexe. Un 404
   real requiere listar las rutas en `vercel.json`. Es opcional.
-- `og:image`, `og:url`, canonical y sitemap: pendientes hasta tener el dominio
-  definitivo.
+- Dominio propio `indaxion.com` (registrado en Cloudflare Registrar):
+  - La raíz es un Custom Domain del Worker, declarado en `routes` de
+    `wrangler.jsonc`; se crea o actualiza con cada deploy de `main`.
+  - `www.indaxion.com` tiene un registro DNS proxied (`AAAA 100::`) y una
+    Redirect Rule 301 hacia `https://indaxion.com` que conserva la ruta y la query.
+  - `indaxion-landing.indaxion.workers.dev` sigue activo (`workers_dev: true`);
+    las Preview URLs dependen de workers.dev.
+  - `og:url`, canonical (App.jsx la ajusta por ruta), `sitemap.xml` y la línea
+    `Sitemap:` de `robots.txt` usan `https://indaxion.com`. Si se agrega una ruta
+    pública, súmala a `PAGE_TITLES` y a `public/sitemap.xml`.
+- `og:image`: pendiente de una imagen 1200×630 con la marca.
