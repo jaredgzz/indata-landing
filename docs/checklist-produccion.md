@@ -85,8 +85,13 @@ Worker `indaxion-landing`, conectado a `jaredgzz/indaxion-landing`:
 - Deploy command: `npm run build:live && npx wrangler deploy`.
 - Non-production branch builds: activado. Preview command:
   `npm run build && npx wrangler preview` (Worker Previews, Wrangler ≥ 4.135).
-- Build variables: `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`. **No** definir
-  `VITE_LEADS_MODE`. Las variables de runtime del Worker no llegan a Vite.
+- Build variables: `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` **solo en Production**.
+  Previews Base no lleva variables, así que la Preview ni siquiera conoce la URL de la
+  base. **No** definir `VITE_LEADS_MODE`. Las variables de runtime del Worker no llegan a Vite.
+- Domains: Preview URLs activadas (`<rama>-indaxion-landing.davidjared7.workers.dev`).
+- El fallback de la SPA solo aplica a navegaciones del navegador (`Sec-Fetch-Mode: navigate`).
+  Un `curl` sin esas cabeceras a `/open` recibe un 404 `Not found`, y es lo esperado. Las
+  rutas como `/.env` nunca devuelven contenido real: dan 404 o `index.html`.
 
 Modo de los formularios, en `src/lib/leadsMode.js`. Falla cerrado:
 
