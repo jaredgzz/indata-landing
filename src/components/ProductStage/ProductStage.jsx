@@ -5,10 +5,10 @@ import { content } from '../../content'
 import './ProductStage.css'
 
 /*
- * Capturas reales de Gova sobre una superficie en perspectiva (CSS 3D).
+ * Capturas reales de Gova en perspectiva (CSS 3D).
  *
- * variant="hero": vista general; al hacer scroll el plano se endereza y las
- *                 capas se separan.
+ * variant="hero": la captura principal casi de frente, con dos más detrás;
+ *                 al hacer scroll queda de frente y las de atrás se abren.
  * variant="tour": la captura `active` se levanta de la superficie y queda de
  *                 frente; las demás se quedan atrás, atenuadas.
  *
@@ -23,17 +23,15 @@ const DOC_W = 240
 
 const LAYOUTS = {
   hero: {
-    stage: { width: 1400, height: 640 },
-    plane: { width: 1240, height: 760, rotateX: 52, rotateZ: -20, scale: 0.92 },
-    // Al terminar el scroll del hero; `y` compensa que el plano sube al enderezarse
-    planeEnd: { rotateX: 42, rotateZ: -13, y: 70 },
-    spread: 2.2,
+    stage: { width: 1000, height: 700 },
+    plane: { width: 1000, height: 700, rotateX: 5, rotateY: -12, rotateZ: 0, scale: 1 },
+    // Al terminar el scroll del hero
+    planeEnd: { rotateX: 0, rotateY: -4, rotateZ: 0 },
+    // `open`: cuánto se abre cada capa de atrás con el scroll
     layers: [
-      { id: 'ventas',     x: 0,   y: 60,  z: 0 },
-      { id: 'catalogo',   x: 170, y: 170, z: 34 },
-      { id: 'cotizacion', x: 340, y: 280, z: 68 },
-      { id: 'inicio',     x: 510, y: 390, z: 102 },
-      { id: 'documento',  x: 980, y: 40,  z: 60, doc: true },
+      { id: 'ventas',    x: 340, y: 40,  z: -180, width: 620, opacity: 0.92, open: { x: 50, y: -30 } },
+      { id: 'documento', x: 30,  y: 190, z: -110, width: 250, rotate: -6, open: { x: -50, y: 20 } },
+      { id: 'inicio',    x: 120, y: 170, z: 0,    width: 780 },
     ],
   },
   tour: {
@@ -69,7 +67,7 @@ function liftOffset(plane, z, shift) {
 
 function layerSize(layer) {
   const shot = govaScreens[layer.id]
-  const width = layer.doc ? DOC_W : SCREEN_W
+  const width = layer.width ?? (layer.doc ? DOC_W : SCREEN_W)
   return { width, height: Math.round((width * shot.height) / shot.width) }
 }
 
@@ -89,13 +87,13 @@ function useStageScale(ref, designWidth) {
 }
 
 // La opacidad va en este último nivel: en una capa con preserve-3d aplanaría el giro
-function Screen({ id, eager, dimmed = false }) {
+function Screen({ id, eager, opacity = 1 }) {
   const shot = govaScreens[id]
   return (
     <motion.div
       className="product-stage__screen"
       initial={false}
-      animate={{ opacity: dimmed ? 0.5 : 1 }}
+      animate={{ opacity }}
       transition={TOUR_TRANSITION}
     >
       <img
@@ -111,16 +109,18 @@ function Screen({ id, eager, dimmed = false }) {
   )
 }
 
-// Capa de la vista general: su altura (z) crece con el scroll
-function OverviewLayer({ layer, progress, spread, eager }) {
-  const z = useTransform(progress, [0, 1], [layer.z, layer.z * spread])
+// Capa del hero: las de atrás se abren hacia los lados con el scroll
+function OverviewLayer({ layer, progress }) {
+  const open = layer.open ?? { x: 0, y: 0 }
+  const x = useTransform(progress, [0, 1], [0, open.x])
+  const y = useTransform(progress, [0, 1], [0, open.y])
   return (
     <motion.div
       className="product-stage__layer"
       data-screen={layer.id}
-      style={{ left: layer.x, top: layer.y, ...layerSize(layer), z }}
+      style={{ left: layer.x, top: layer.y, ...layerSize(layer), x, y, z: layer.z, rotateZ: layer.rotate ?? 0 }}
     >
-      <Screen id={layer.id} eager={eager} />
+      <Screen id={layer.id} eager opacity={layer.opacity} />
     </motion.div>
   )
 }
@@ -161,7 +161,7 @@ function TourLayer({ layer, layout, active }) {
           animate={{ rotateX: isActive ? -(plane.rotateX - lift.tilt) : 0 }}
           transition={TOUR_TRANSITION}
         >
-          <Screen id={layer.id} dimmed={active !== null && !isActive} />
+          <Screen id={layer.id} opacity={active !== null && !isActive ? 0.5 : 1} />
         </motion.div>
       </motion.div>
     </motion.div>
@@ -182,8 +182,8 @@ export default function ProductStage({ variant = 'hero', active = null, height, 
   const progress = useTransform(scrollY, [0, 600], [0, moving ? 1 : 0], { clamp: true })
   const end = layout.planeEnd ?? plane
   const rotateX = useTransform(progress, [0, 1], [plane.rotateX, end.rotateX])
+  const rotateY = useTransform(progress, [0, 1], [plane.rotateY ?? 0, end.rotateY ?? 0])
   const rotateZ = useTransform(progress, [0, 1], [plane.rotateZ, end.rotateZ])
-  const planeY = useTransform(progress, [0, 1], [0, end.y ?? 0])
 
   return (
     <figure className={`product-stage product-stage--${variant}${className ? ` ${className}` : ''}`}>
@@ -203,8 +203,8 @@ export default function ProductStage({ variant = 'hero', active = null, height, 
               height: plane.height,
               marginLeft: -plane.width / 2,
               marginTop: -plane.height / 2,
-              y: planeY,
               rotateX,
+              rotateY,
               rotateZ,
               scale: plane.scale,
             }}
@@ -213,14 +213,8 @@ export default function ProductStage({ variant = 'hero', active = null, height, 
               ? layout.layers.map(layer => (
                 <TourLayer key={layer.id} layer={layer} layout={layout} active={active} />
               ))
-              : layout.layers.map((layer, i) => (
-                <OverviewLayer
-                  key={layer.id}
-                  layer={layer}
-                  progress={progress}
-                  spread={layout.spread}
-                  eager={i >= layout.layers.length - 2}
-                />
+              : layout.layers.map(layer => (
+                <OverviewLayer key={layer.id} layer={layer} progress={progress} />
               ))}
           </motion.div>
         </div>

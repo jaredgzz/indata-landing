@@ -52,19 +52,28 @@ const es = {
       open: 'InDaxion Open',
       contacto: 'Contacto',
     },
-    cta: 'Hablemos',
+    cta: 'Cuéntanos tu proyecto',
     openMenu: 'Abrir menú',
     closeMenu: 'Cerrar menú',
     mainLabel: 'Navegación principal',
   },
 
   hero: {
-    title: 'Hacemos software para pymes. Empezamos por las cotizaciones.',
+    eyebrow: 'Software e inteligencia artificial para pymes',
+    // Una frase por línea
+    title: ['Tu negocio es único.', 'Tu software también puede serlo.'],
     description:
-      'Gova reúne tu catálogo, tus precios y tus reglas para que armes cotizaciones sin empezar de cero. Miga, para crear videos de tus productos con ayuda de inteligencia artificial, está en desarrollo.',
-    primaryCta: 'Ver productos',
-    secondaryCta: 'Escríbenos',
-    productsLabel: 'Nuestros productos',
+      'Somos InDaxion. Desarrollamos productos y soluciones a la medida para simplificar el trabajo de tu negocio.',
+    primaryCta: 'Cuéntanos tu proyecto',
+    secondaryCta: 'Ver productos',
+    highlightsLabel: 'Lo que hacemos',
+    highlights: {
+      medida: 'Desarrollo a la medida',
+      automatizacion: 'Automatización de procesos',
+      ia: 'Inteligencia artificial',
+      datos: 'Datos y reportes',
+      integraciones: 'Integración de sistemas',
+    },
   },
 
   problems: {
@@ -268,7 +277,7 @@ const es = {
         desc: 'Conectamos los sistemas que ya usas y ordenamos la información para que puedas consultarla.',
       },
     },
-    cta: 'Cuéntanos tu proyecto',
+    cta: 'Hablemos de tu proyecto',
   },
 
   process: {

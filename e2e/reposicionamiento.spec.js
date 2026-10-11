@@ -27,13 +27,14 @@ test.describe('Home', () => {
   test('el Hero comunica el nuevo enfoque', async ({ page }) => {
     await page.goto('/')
     await expect(page).toHaveTitle('InDaxion | Software e Inteligencia Artificial para Pymes')
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Hacemos software para pymes. Empezamos por las cotizaciones.')
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Tu negocio es único. Tu software también puede serlo.')
 
-    await page.getByRole('button', { name: 'Ver productos' }).click()
+    const hero = page.locator('#inicio')
+    await hero.getByRole('button', { name: 'Ver productos' }).click()
     await expect(page.locator('#productos')).toBeInViewport()
 
     await page.goto('/')
-    await page.getByRole('button', { name: 'Escríbenos' }).click()
+    await hero.getByRole('button', { name: /Cuéntanos tu proyecto/ }).click()
     await expect(page.locator('#contacto')).toBeInViewport()
   })
 
@@ -150,7 +151,7 @@ test.describe('Rutas anteriores', () => {
 
     await page.getByRole('link', { name: /Volver al inicio/ }).click()
     await expect(page).toHaveURL(/\/$/)
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Hacemos software para pymes. Empezamos por las cotizaciones.')
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Tu negocio es único. Tu software también puede serlo.')
     // Al salir de la 404 se retira el noindex
     await expect(page.locator('meta[name="robots"]')).toHaveCount(0)
   })
