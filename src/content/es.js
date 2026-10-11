@@ -440,7 +440,7 @@ const es = {
       notice: 'Revisa que tus datos sean correctos y confirma el envío.',
       submit: 'Confirmar y enviar',
     },
-    // Vista previa (Vercel Preview / desarrollo local): no se envía nada
+    // Vista previa (Worker Preview, Vercel Preview, build local): no se envía nada
     preview: {
       notice: 'Vista previa: este formulario no envía datos. Puedes probarlo sin crear contactos reales.',
       successTitle: 'Prueba completada',

@@ -74,22 +74,52 @@ Si aparece una restricción sobre `service` o un tipo `enum`, hay dos caminos:
 usar un proyecto de Supabase de pruebas o una transacción con `rollback`, y solo
 después de revisar en (c) que ningún trigger envíe correos o llamadas externas.
 
-## 2. Variables de entorno en Vercel
+## 2. Despliegue y modo de los formularios
+
+### Cloudflare Workers Builds (hospedaje principal)
+
+Worker `indaxion-landing`, conectado a `jaredgzz/indaxion-landing`:
+
+- Production branch: `main`. Root directory: `/`.
+- Build command: vacío.
+- Deploy command: `npm run build:live && npx wrangler deploy`.
+- Non-production branch builds: activado. Preview command:
+  `npm run build && npx wrangler preview` (Worker Previews, Wrangler ≥ 4.135).
+- Build variables: `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`. **No** definir
+  `VITE_LEADS_MODE`. Las variables de runtime del Worker no llegan a Vite.
+
+Modo de los formularios, en `src/lib/leadsMode.js`. Falla cerrado:
+
+| Build | Leads |
+|---|---|
+| `npm run build:live` (solo el deploy de producción) | guarda |
+| Vercel Production (temporal, mientras siga Vercel) | guarda |
+| Worker Preview, Vercel Preview, `npm run build` local, `npm run dev`, entorno desconocido | simula |
+
+- `build:live` falla salvo en Workers Builds sobre `main` con las dos variables de Supabase,
+  o en las E2E locales contra el Supabase falso. Las pruebas están en `npm run test:build-modes`.
+- `VITE_LEADS_MODE=test` fuerza la simulación. `live` se ignora.
+- Cada build publica `<meta name="indaxion-build" content="leads=live|test; sha=…">`.
+  Para revisar una URL sin enviar formularios, lee ese meta.
+- `scripts/check-dist.mjs` corre después de cada build. Bloquea archivos sensibles y
+  extensiones no listadas.
+- Es un control de despliegue, no de seguridad. La clave anon es pública, y lo que
+  protege la tabla `leads` es RLS.
+
+### Vercel (temporal, hasta decidir su retiro)
 
 **Revisado el 2026-10-10, sin cambios:** `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`
 están definidas para «Production and Preview». Es decir, una Preview usa la misma
 base de producción. *Enable access to System Environment Variables* está activo.
 
 - **Production** debe tener `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`.
-- **Preview** no puede crear leads reales: el código solo guarda cuando
-  `VERCEL_ENV=production` (ver `src/lib/leadsMode.js`). En una Preview, los
+- **Preview** no puede crear leads reales: en Vercel el código solo guarda cuando
+  `VERCEL=1` y `VERCEL_ENV=production` (ver `src/lib/leadsMode.js`). En una Preview, los
   formularios muestran «Vista previa» y simulan el envío.
 - Para que esto funcione, en Vercel → Settings → Environment Variables debe estar
   activo *Automatically expose System Environment Variables* (activo por defecto).
   Comprobación rápida: en la URL de Preview, el formulario de contacto debe mostrar
   el aviso «Vista previa: este formulario no envía datos».
-- No definir `VITE_LEADS_MODE=live` en Preview, salvo que Preview apunte a un
-  proyecto de Supabase de pruebas.
 - El workflow `supabase-keepalive.yml` no cambia: sigue leyendo `public.keepalive`.
 
 ## 3. Aviso de privacidad

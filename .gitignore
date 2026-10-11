@@ -11,12 +11,13 @@ node_modules
 dist
 dist-preview
 dist-ssr
+.wrangler
 *.local
 
 # Environment variables — never commit real secrets
 .env
-.env.local
-.env.production
+.env.*
+!.env.example
 
 # Editor directories and files
 .vscode/*
