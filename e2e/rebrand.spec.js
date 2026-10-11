@@ -47,7 +47,7 @@ test.describe('Rebrand InDaxion', () => {
     })
   }
 
-  test('tokens de la paleta nueva', async ({ page }) => {
+  test('tokens de marca y fondo del tema', async ({ page }) => {
     await page.goto('/')
     const tokens = await page.evaluate(() => {
       const s = getComputedStyle(document.documentElement)
@@ -56,16 +56,17 @@ test.describe('Rebrand InDaxion', () => {
         blue: v('--color-blue'),
         purple: v('--color-purple'),
         cyan: v('--color-cyan'),
-        bg: v('--bg-primary'),
+        navy: v('--color-navy'),
         bodyBg: getComputedStyle(document.body).backgroundColor,
       }
     })
+    // Los colores del brand board no cambian; el fondo es el del tema claro
     expect(tokens).toEqual({
       blue: '#3B82F6',
       purple: '#8B5CF6',
       cyan: '#00E5FF',
-      bg: '#0B1220',
-      bodyBg: 'rgb(11, 18, 32)',
+      navy: '#0B1220',
+      bodyBg: 'rgb(250, 250, 248)',
     })
   })
 })

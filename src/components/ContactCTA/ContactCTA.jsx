@@ -4,6 +4,8 @@ import { saveLead, leadsAreLive } from '../../lib/leads'
 import { useAnimateIn } from '../../hooks/useAnimateIn'
 import { leadInterests, isLeadInterest, leadInterestValue } from '../../lib/leadOptions'
 import SectionHeader from '../SectionHeader/SectionHeader'
+import Icon from '../Icon/Icon'
+import { contactInfo } from '../../lib/contactInfo'
 import { content } from '../../content'
 import './ContactCTA.css'
 
@@ -103,22 +105,33 @@ export default function ContactCTA() {
     <section id="contacto" className="contact-cta">
       <div ref={ref} className={`contact-cta__inner${visible ? ' animate-in' : ''}`}>
 
-        <div className="contact-cta__header">
+        <div className="contact-cta__intro">
           <SectionHeader
-            eyebrow={contact.eyebrow}
             title={contact.title}
             subtitle={contact.subtitle}
-            accentColor="var(--color-teal)"
+            className="contact-cta__header"
           />
+          <div className="contact-cta__direct">
+            <p className="contact-cta__direct-title">{contact.direct.title}</p>
+            <ul className="contact-cta__direct-list">
+              <li>
+                <span className="contact-cta__direct-label">{contact.direct.whatsapp}</span>
+                <a href={contactInfo.whatsappUrl} target="_blank" rel="noopener noreferrer" className="text-link">
+                  {contactInfo.phone}
+                </a>
+              </li>
+              <li>
+                <span className="contact-cta__direct-label">{contact.direct.email}</span>
+                <a href={`mailto:${contactInfo.email}`} className="text-link">{contactInfo.email}</a>
+              </li>
+            </ul>
+          </div>
         </div>
 
         {status === 'success' ? (
           <div className="contact-cta__success" role="status">
             <div className="contact-cta__success-icon">
-              <svg width={32} height={32} viewBox="0 0 24 24" fill="none" stroke="#00E5FF" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                <polyline points="22 4 12 14.01 9 11.01" />
-              </svg>
+              <Icon name="check" size={26} strokeWidth={2.25} />
             </div>
             <h3 className="contact-cta__success-title">
               {simulated ? contact.preview.successTitle : contact.success.title}
@@ -127,7 +140,7 @@ export default function ContactCTA() {
               {simulated ? contact.preview.successText : contact.success.text}
             </p>
             <button
-              className="contact-cta__success-reset"
+              className="btn btn--secondary btn--sm"
               onClick={() => setStatus('idle')}
             >
               {contact.success.reset}
@@ -276,7 +289,7 @@ export default function ContactCTA() {
 
             <button
               type="submit"
-              className="contact-cta__submit"
+              className="btn btn--primary contact-cta__submit"
               disabled={sending}
             >
               {sending ? (
@@ -287,7 +300,6 @@ export default function ContactCTA() {
               ) : (
                 <>
                   {status === 'confirm' ? contact.confirm.submit : contact.submit}
-                  {' '}<span aria-hidden="true">→</span>
                 </>
               )}
             </button>

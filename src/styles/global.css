@@ -10,18 +10,19 @@ html {
 
 body {
   font-family: var(--font-base);
-  background: var(--bg-primary);
-  color: var(--text-primary);
+  font-size: 16px;
+  line-height: 1.6;
+  background: var(--bg);
+  color: var(--text);
   -webkit-font-smoothing: antialiased;
 }
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg-primary); }
-::-webkit-scrollbar-thumb { background: rgba(59, 130, 246, 0.27); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(59, 130, 246, 0.53); }
+::selection {
+  background: var(--selection);
+}
 
 :focus-visible {
-  outline: 2px solid var(--color-cyan);
+  outline: 2px solid var(--focus);
   outline-offset: 3px;
 }
 
@@ -30,40 +31,55 @@ section[id] {
   scroll-margin-top: 68px;
 }
 
-/* Texto con el degradado de marca */
-.text-gradient {
-  background: var(--grad-brand);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 }
 
-/* Tonos de la paleta para iconos, acentos y enlaces de cada tarjeta.
-   --tone-text es la variante clara con contraste suficiente para texto. */
-.tone-cyan {
-  --tone: #00E5FF;
-  --tone-text: #67EEFF;
-  --tone-soft: rgba(0, 229, 255, 0.10);
-  --tone-border: rgba(0, 229, 255, 0.32);
+/* Wordmark compartido por Nav y Footer: "InDaxion" con la D de la marca */
+.brand-name {
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
-.tone-blue {
-  --tone: #3B82F6;
-  --tone-text: #93BBFB;
-  --tone-soft: rgba(59, 130, 246, 0.12);
-  --tone-border: rgba(59, 130, 246, 0.38);
+.brand-name__accent {
+  background: var(--grad-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
-.tone-violet {
-  --tone: #8B5CF6;
-  --tone-text: #B9A2FB;
-  --tone-soft: rgba(139, 92, 246, 0.14);
-  --tone-border: rgba(139, 92, 246, 0.40);
+/* Color de cada producto (marcas, etiquetas y viñetas) */
+.tone-gova {
+  --tone: var(--gova);
+  --tone-text: var(--gova-text);
+  --tone-soft: var(--gova-soft);
+}
+
+.tone-miga {
+  --tone: var(--miga);
+  --tone-text: var(--miga-text);
+  --tone-soft: var(--miga-soft);
+}
+
+/* Enlace de texto con flecha, para acciones secundarias */
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: 600;
+  color: var(--link);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.text-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }

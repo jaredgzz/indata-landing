@@ -3,29 +3,28 @@
   top: 0; left: 0; right: 0;
   z-index: 1000;
   height: 68px;
-  background: var(--bg-nav);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--nav-bg);
+  border-bottom: 1px solid transparent;
   display: flex;
   align-items: center;
   padding: 0 32px;
-  transition: background 300ms ease;
+  transition: border-color 200ms ease;
 }
 
 .nav--scrolled {
-  background: var(--bg-nav-scrolled);
+  border-bottom-color: var(--border);
 }
 
 .nav__brand {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   flex-shrink: 0;
+  text-decoration: none;
 }
 
 .nav__logo-icon {
-  width: 34px;
+  width: 30px;
   height: auto;
   flex-shrink: 0;
 }
@@ -37,83 +36,47 @@
 }
 
 .nav__brand-name {
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--text-primary);
-  letter-spacing: -0.01em;
-}
-
-/* Wordmark compartido: "InDaxion" con la D en gradiente diagonal */
-.brand-name {
-  color: #fff;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
-
-.brand-name__accent {
-  background: linear-gradient(135deg, #00E5FF 0%, #3B82F6 50%, #8B5CF6 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+  font-size: 19px;
+  color: var(--text);
 }
 
 .nav__brand-tagline {
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  margin-top: 2px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--text-3);
+  margin-top: 4px;
 }
 
 .nav__links {
   display: flex;
-  gap: 6px;
+  gap: 4px;
   flex: 1;
   justify-content: center;
 }
 
 .nav__link {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
-  color: var(--text-nav);
+  color: var(--text-2);
   text-decoration: none;
-  padding: 6px 14px;
-  border-radius: 6px;
+  padding: 6px 12px;
   border-bottom: 2px solid transparent;
-  transition: color 200ms;
+  transition: color 150ms ease, border-color 150ms ease;
   white-space: nowrap;
 }
 
 .nav__link:hover {
-  color: var(--text-primary);
+  color: var(--text);
 }
 
 .nav__link--active {
-  color: var(--text-primary);
-  border-bottom-color: var(--color-blue);
-  padding-bottom: 4px;
+  color: var(--text);
+  border-bottom-color: var(--text);
 }
 
 .nav__cta {
   flex-shrink: 0;
-  padding: 9px 22px;
-  border-radius: 8px;
-  background: var(--grad-primary);
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-  font-family: var(--font-base);
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
-  transition: all 200ms ease;
-}
-
-.nav__cta:hover {
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
-  transform: translateY(-1px);
 }
 
 /* ── Hamburger button ─────────────────────────────────────── */
@@ -136,7 +99,7 @@
   display: block;
   width: 22px;
   height: 2px;
-  background: var(--text-primary);
+  background: var(--text);
   border-radius: 2px;
   transition: transform 240ms ease, opacity 200ms ease;
   transform-origin: center;
@@ -160,10 +123,10 @@
   top: 68px;
   left: 0;
   right: 0;
-  background: var(--bg-nav-scrolled, rgba(11, 18, 32, 0.97));
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-2);
   display: flex;
   flex-direction: column;
   padding: 12px 20px 20px;
@@ -172,25 +135,22 @@
 }
 
 .nav__mobile-link {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 500;
-  color: var(--text-nav);
+  color: var(--text-2);
   text-decoration: none;
   padding: 10px 8px;
-  border-radius: 6px;
   border-left: 2px solid transparent;
-  transition: color 150ms, border-color 150ms, background 150ms;
+  transition: color 150ms ease, border-color 150ms ease;
 }
 
 .nav__mobile-link:hover {
-  color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
 }
 
 .nav__mobile-link--active {
-  color: var(--text-primary);
-  border-left-color: var(--color-blue);
-  background: rgba(59, 130, 246, 0.08);
+  color: var(--text);
+  border-left-color: var(--text);
 }
 
 .nav__cta--mobile {
@@ -205,7 +165,7 @@
   }
 
   .nav__links {
-    gap: 2px;
+    gap: 0;
   }
 
   .nav__link {
@@ -217,8 +177,6 @@
 @media (max-width: 1040px) {
   .nav {
     padding: 0 20px;
-    flex-wrap: wrap;
-    position: fixed; /* ensure dropdown positions relative to nav */
   }
 
   .nav__links {

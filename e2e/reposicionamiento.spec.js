@@ -27,13 +27,14 @@ test.describe('Home', () => {
   test('el Hero comunica el nuevo enfoque', async ({ page }) => {
     await page.goto('/')
     await expect(page).toHaveTitle('InDaxion | Software e Inteligencia Artificial para Pymes')
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Tecnología inteligente para negocios que quieren crecer.')
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Tu negocio es único. Tu software también puede serlo.')
 
-    await page.getByRole('button', { name: /Conoce nuestras soluciones/ }).click()
+    const hero = page.locator('#inicio')
+    await hero.getByRole('button', { name: 'Ver productos' }).click()
     await expect(page.locator('#productos')).toBeInViewport()
 
     await page.goto('/')
-    await page.getByRole('button', { name: 'Cuéntanos tu idea' }).click()
+    await hero.getByRole('button', { name: /Cuéntanos tu proyecto/ }).click()
     await expect(page.locator('#contacto')).toBeInViewport()
   })
 
@@ -47,22 +48,25 @@ test.describe('Home', () => {
 
   test('Gova y Miga con su estado real y enlace a su página', async ({ page }) => {
     await page.goto('/')
-    const cards = page.locator('#productos .product-card')
-    await expect(cards).toHaveCount(2)
-
-    const gova = cards.filter({ hasText: 'Gova' })
-    await expect(gova.locator('.status-badge')).toHaveText('MVP en validación')
-    // Gova: captura real del MVP, rotulada como datos de ejemplo
-    await expect(gova.getByText('Captura del MVP · datos de ejemplo')).toBeVisible()
-    const shot = gova.getByRole('img', { name: /Panel de inicio de Gova/ })
+    const gova = page.locator('#productos .gova-tour')
+    await expect(gova.locator('.product-head .status-badge')).toHaveText('MVP en validación')
+    // Gova: capturas reales del MVP, rotuladas como datos de ejemplo
+    await expect(gova.getByText('Capturas del MVP de Gova · datos de ejemplo')).toBeVisible()
+    const shot = gova.getByRole('img', { name: /Catálogo de productos y servicios en Gova/ }).filter({ visible: true })
+    await shot.scrollIntoViewIfNeeded()
     await expect(shot).toBeVisible()
-    expect(await shot.evaluate(img => img.naturalWidth)).toBe(1440)
+    // 1x (1240 px) o 2x (2480 px) según la densidad de la pantalla
+    await expect.poll(() => shot.evaluate(img => img.naturalWidth)).toBeGreaterThanOrEqual(1240)
 
-    const miga = cards.filter({ hasText: 'Miga' })
+    const miga = page.locator('#productos .miga-card')
     await expect(miga.locator('.status-badge')).toHaveText('En desarrollo')
-    await expect(miga.getByText('Ilustración conceptual')).toBeVisible()
+    // Miga: captura real de su primera versión local, rotulada con datos de ejemplo
+    await expect(miga.getByText('Captura de Miga en desarrollo · datos de ejemplo')).toBeVisible()
+    const migaShot = miga.getByRole('img', { name: /Miga en desarrollo/ })
+    await migaShot.scrollIntoViewIfNeeded()
+    await expect.poll(() => migaShot.evaluate(img => img.naturalWidth)).toBeGreaterThanOrEqual(1000)
 
-    await miga.getByRole('link', { name: /Descubrir Miga/ }).click()
+    await miga.getByRole('link', { name: /Ver Miga/ }).click()
     await expect(page).toHaveURL(/\/productos\/miga$/)
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Miga')
   })
@@ -90,7 +94,7 @@ test.describe('Home', () => {
     const menu = page.locator(isMobile ? '#nav-mobile-menu' : '.nav__links')
     await menu.getByRole('link', { name: 'InDaxion Open' }).click()
     await expect(page).toHaveURL(/\/open$/)
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText('El conocimiento crece cuando se comparte.')
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('InDaxion Open')
     if (!isMobile) {
       await expect(page.locator('.nav__links').getByRole('link', { name: 'InDaxion Open' })).toHaveAttribute('aria-current', 'page')
     }
@@ -109,6 +113,14 @@ test.describe('Páginas de producto', () => {
     const next = page.locator('.product-detail__panel').filter({ hasText: 'Próxima evolución' })
     await expect(next.locator('.status-badge')).toHaveText('Próximamente')
     await expect(next).toContainText('Todavía no está disponible')
+  })
+
+  test('Miga muestra una captura real de su versión en desarrollo', async ({ page }) => {
+    await page.goto('/productos/miga')
+    const hero = page.locator('.product-detail__hero')
+    await expect(hero.getByRole('img', { name: /Miga en desarrollo/ })).toBeVisible()
+    await expect(hero.getByText('Captura de Miga en desarrollo · datos de ejemplo')).toBeVisible()
+    await expect(hero.locator('.product-detail__status')).toContainText('revisión interna')
   })
 
   test('el CTA del producto preselecciona el interés en el formulario', async ({ page }) => {
@@ -152,7 +164,7 @@ test.describe('Rutas anteriores', () => {
 
     await page.getByRole('link', { name: /Volver al inicio/ }).click()
     await expect(page).toHaveURL(/\/$/)
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Tecnología inteligente para negocios que quieren crecer.')
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Tu negocio es único. Tu software también puede serlo.')
     // Al salir de la 404 se retira el noindex
     await expect(page.locator('meta[name="robots"]')).toHaveCount(0)
   })

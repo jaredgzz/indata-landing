@@ -1,7 +1,8 @@
 import { Link, useParams } from 'react-router-dom'
 import StatusBadge from '../StatusBadge/StatusBadge'
 import Icon from '../Icon/Icon'
-import ProductIllustration from './ProductIllustration'
+import ProductStage from '../ProductStage/ProductStage'
+import ProductShot from './ProductShot'
 import NotFound from '../NotFound/NotFound'
 import { getProduct, productsData } from './productsData'
 import { content } from '../../content'
@@ -18,15 +19,17 @@ export default function ProductDetail() {
   const { detail } = text
   const other = productsData.find(p => p.id !== product.id)
   const contactPath = `/?interes=${product.id}#contacto`
+  // Gova: escena 3D con varias capturas; Miga: una captura
+  const hasStage = product.id === 'gova'
 
   return (
-    <main className={`product-detail tone-${product.tone}`}>
+    <main className={`product-detail tone-${product.id}`}>
       <section className="product-detail__hero">
-        <div className="product-detail__inner product-detail__hero-grid">
+        <div className={`product-detail__inner product-detail__hero-grid${hasStage ? ' product-detail__hero-grid--stage' : ''}`}>
           <div className="product-detail__intro">
             <Link to="/#productos" className="product-detail__back">{products.backToProducts}</Link>
-            <p className="product-detail__category">{text.category}</p>
             <h1 className="product-detail__name">{text.name}</h1>
+            <p className="product-detail__category">{text.category}</p>
             <p className="product-detail__lead">{detail.intro}</p>
             <div className="product-detail__status">
               <StatusBadge status={product.status} />
@@ -34,14 +37,16 @@ export default function ProductDetail() {
             </div>
             <div className="product-detail__ctas">
               <Link to={contactPath} className="btn btn--primary">
-                {detail.cta} <span aria-hidden="true">→</span>
+                {detail.cta}
               </Link>
-              <Link to={other.path} className="btn btn--secondary">
-                {products[other.id].cta}
+              <Link to={other.path} className="text-link">
+                {products[other.id].cta} <span aria-hidden="true">→</span>
               </Link>
             </div>
           </div>
-          <ProductIllustration id={product.id} />
+          {hasStage
+            ? <ProductStage variant="detail" className="product-detail__stage" />
+            : <ProductShot id={product.id} />}
         </div>
       </section>
 
@@ -87,12 +92,7 @@ export default function ProductDetail() {
           <h2 className="product-detail__section-title">{detail.benefitsTitle}</h2>
           <ul className="product-detail__benefits">
             {text.benefits.map(benefit => (
-              <li key={benefit} className="product-detail__benefit">
-                <span className="product-detail__benefit-icon">
-                  <Icon name="check" size={18} strokeWidth={2.25} />
-                </span>
-                {benefit}
-              </li>
+              <li key={benefit} className="product-detail__benefit">{benefit}</li>
             ))}
           </ul>
           <aside className="product-detail__tech">
@@ -103,11 +103,11 @@ export default function ProductDetail() {
       </section>
 
       <section className="product-detail__cta">
-        <div className="product-detail__cta-inner">
+        <div className="product-detail__inner">
           <h2 className="product-detail__cta-title">{detail.ctaTitle}</h2>
           <p className="product-detail__cta-text">{detail.ctaText}</p>
           <Link to={contactPath} className="btn btn--primary">
-            {detail.cta} <span aria-hidden="true">→</span>
+            {detail.cta}
           </Link>
         </div>
       </section>

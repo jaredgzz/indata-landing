@@ -24,7 +24,7 @@ export default function NotFound() {
         <p className="not-found__text">{notFound.text}</p>
         <div className="not-found__ctas">
           <Link to="/" className="btn btn--primary">
-            {notFound.home} <span aria-hidden="true">→</span>
+            {notFound.home}
           </Link>
           <Link to="/#productos" className="btn btn--secondary">
             {notFound.products}

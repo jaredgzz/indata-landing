@@ -1,0 +1,265 @@
+/* ── Gova paso a paso ─────────────────────────────────── */
+.gova-tour__track {
+  /* Scroll que dura cada paso cuando el recorrido está fijo */
+  --step-scroll: 50vh;
+  /* Sangría del texto de cada paso, después del número */
+  --step-indent: 24px;
+  margin-top: 40px;
+}
+
+.gova-tour__steps-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.gova-tour__label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-2);
+  padding-bottom: 12px;
+}
+
+.gova-tour__steps {
+  list-style: none;
+}
+
+.gova-tour__step {
+  position: relative;
+  padding: 28px 0;
+  border-top: 1px solid var(--border);
+}
+
+.gova-tour__title {
+  display: flex;
+  font-size: 22px;
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: var(--text);
+}
+
+.gova-tour__title,
+.gova-tour__trigger {
+  align-items: baseline;
+}
+
+.gova-tour__trigger {
+  display: flex;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.gova-tour__title-text {
+  text-wrap: balance;
+}
+
+.gova-tour__number {
+  flex-shrink: 0;
+  width: var(--step-indent);
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+  color: var(--tone-text);
+}
+
+/* La descripción se pliega con grid-template-rows (0fr ↔ 1fr) */
+.gova-tour__detail {
+  display: grid;
+  grid-template-rows: 1fr;
+}
+
+.gova-tour__detail-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.gova-tour__desc {
+  margin-top: 8px;
+  padding-left: var(--step-indent);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--text-2);
+  max-width: calc(42ch + var(--step-indent));
+}
+
+.gova-tour__shot {
+  display: block;
+  width: 100%;
+  max-width: 880px;
+  height: auto;
+  margin-top: 20px;
+  border-radius: 10px;
+  border: 1px solid var(--screen-border);
+  box-shadow: var(--shadow-2);
+}
+
+.gova-tour__shot--portrait {
+  max-width: 280px;
+}
+
+.gova-tour__foot {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  margin-top: 24px;
+}
+
+.gova-tour__note {
+  font-size: 13px;
+  color: var(--text-3);
+}
+
+/* ── Captura del paso activo ──────────────────────────── */
+.tour-visual {
+  align-self: start;
+  /* Más ancha que su columna, hacia la derecha, solo hasta donde hay margen libre */
+  margin-right: calc(-1 * clamp(0px, (100vw - var(--max-width)) / 2 - 24px, 96px));
+}
+
+.tour-visual__frame {
+  position: relative;
+  /* Cabe completa en pantalla, debajo del Nav fijo (68 px) y con aire */
+  width: min(100%, calc((100vh - 152px) * var(--frame-ratio)));
+  aspect-ratio: var(--frame-ratio);
+}
+
+.tour-visual__screen,
+.tour-visual__scrim,
+.tour-visual__doc {
+  position: absolute;
+  border-radius: 10px;
+}
+
+.tour-visual__screen,
+.tour-visual__scrim {
+  inset: 0;
+}
+
+.tour-visual__screen,
+.tour-visual__doc {
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--screen-border);
+  box-shadow: var(--shadow-screen);
+}
+
+.tour-visual__scrim {
+  z-index: 2;
+  background: color-mix(in srgb, var(--bg-alt) 72%, transparent);
+}
+
+.tour-visual__doc {
+  z-index: 3;
+}
+
+.tour-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+  user-select: none;
+}
+
+/* ── Escritorio: recorrido fijo (misma media query que GovaTour.jsx) ── */
+@media (min-width: 1180px) and (min-height: 600px) {
+  .gova-tour__pin {
+    position: sticky;
+    /* Centrado en el espacio bajo el Nav; --pin-height (alto de la captura) lo mide GovaTour.jsx */
+    top: max(92px, calc(50vh + 34px - var(--pin-height, 600px) / 2));
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 12fr);
+    gap: 56px;
+  }
+
+  .gova-tour__spacer {
+    height: calc(var(--steps) * var(--step-scroll));
+  }
+
+  .gova-tour__label {
+    padding-bottom: 16px;
+  }
+
+  /* Cada paso con su línea; se llena mientras dura su tramo de scroll */
+  .gova-tour__step {
+    padding: 12px 0 12px 20px;
+    border-top: 0;
+  }
+
+  .gova-tour__step::before,
+  .gova-tour__rail {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 2px;
+  }
+
+  .gova-tour__step::before {
+    background: var(--border);
+  }
+
+  .gova-tour__rail {
+    background: var(--tone);
+    transform-origin: top;
+  }
+
+  .gova-tour__title {
+    font-size: 18px;
+    color: var(--text-2);
+    transition: color 200ms ease;
+  }
+
+  .gova-tour__step.is-active .gova-tour__title,
+  .gova-tour__trigger:hover {
+    color: var(--text);
+  }
+
+  .gova-tour__detail {
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 350ms ease;
+  }
+
+  .gova-tour__step.is-active .gova-tour__detail {
+    grid-template-rows: 1fr;
+  }
+
+  .gova-tour__desc {
+    font-size: 16px;
+  }
+
+  .gova-tour__foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .gova-tour__title {
+    font-size: 20px;
+  }
+
+  .gova-tour__desc {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gova-tour__title,
+  .gova-tour__detail {
+    transition: none;
+  }
+}

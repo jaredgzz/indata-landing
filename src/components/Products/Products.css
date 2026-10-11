@@ -1,8 +1,10 @@
 .products {
   padding: var(--section-padding);
   background: var(--bg-alt);
-  border-top: 1px solid rgba(255, 255, 255, 0.04);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  /* clip (no hidden) para no romper el recorrido fijo de Gova */
+  overflow-x: clip;
 }
 
 .products__inner {
@@ -10,133 +12,72 @@
   margin: 0 auto;
 }
 
-.products__header .section-header__subtitle {
-  max-width: 600px;
-}
-
-.products__grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 28px;
-}
-
-/* ── Tarjeta de producto ──────────────────────────────── */
-.product-card {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 26px;
-  padding: 18px 18px 30px;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 20px;
-  position: relative;
-  transition: border-color 260ms ease, box-shadow 260ms ease;
-}
-
-/* Acento superior con el tono del producto */
-.product-card::before {
-  content: '';
-  position: absolute;
-  top: -1px;
-  left: 32px;
-  right: 32px;
-  height: 2px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, transparent, var(--tone), transparent);
-}
-
-.product-card:hover {
-  border-color: var(--tone-border);
-  box-shadow: 0 0 40px var(--tone-soft);
-}
-
-.product-card__body {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  padding: 0 12px;
-}
-
-.product-card__head {
+/* ── Encabezado de producto ───────────────────────────── */
+.product-head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
   flex-wrap: wrap;
+  gap: 12px;
 }
 
-.product-card__name {
-  font-size: 30px;
-  font-weight: 800;
+.product-head__name {
+  font-size: 34px;
+  font-weight: 650;
+  line-height: 1.1;
   letter-spacing: -0.02em;
-  color: var(--text-primary);
+  color: var(--text);
 }
 
-.product-card__category {
+.product-head__category {
   margin-top: 6px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--tone-text);
 }
 
-.product-card__summary {
-  margin-top: 14px;
-  font-size: 15px;
-  color: var(--text-secondary);
-  line-height: 1.7;
+.product-head__summary {
+  margin-top: 12px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--text-2);
+  max-width: 52ch;
 }
 
-.product-card__benefits {
-  list-style: none;
-  margin: 20px 0 28px;
+/* ── Miga ──────────────────────────────────────────────── */
+.miga-card {
+  margin-top: 96px;
+  padding-top: 72px;
+  border-top: 1px solid var(--border);
   display: grid;
-  gap: 10px;
-  flex: 1;
-  align-content: start;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: 56px;
+  align-items: center;
 }
 
-.product-card__benefit {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 14px;
-  color: var(--text-link);
-  line-height: 1.5;
+.miga-card__benefits {
+  margin: 20px 0 24px;
+  padding-left: 18px;
+  display: grid;
+  gap: 6px;
+  font-size: 16px;
+  color: var(--text-2);
 }
 
-.product-card__check {
-  flex-shrink: 0;
-  margin-top: 2px;
+.miga-card__benefits li::marker {
   color: var(--tone);
 }
 
-.product-card__cta {
-  align-self: flex-start;
-}
-
 @media (max-width: 960px) {
-  .products__grid {
+  .miga-card {
     grid-template-columns: 1fr;
-    max-width: 640px;
-    margin: 0 auto;
+    gap: 32px;
+    margin-top: 64px;
+    padding-top: 56px;
   }
 }
 
 @media (max-width: 600px) {
-  .product-card {
-    padding: 12px 12px 24px;
-  }
-
-  .product-card__body {
-    padding: 0 8px;
-  }
-
-  .product-card__name {
-    font-size: 26px;
-  }
-
-  .product-card__cta {
-    align-self: stretch;
+  .product-head__name {
+    font-size: 30px;
   }
 }
