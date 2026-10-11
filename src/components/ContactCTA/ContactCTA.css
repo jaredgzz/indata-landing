@@ -99,7 +99,7 @@
 
 .contact-cta__select {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23667085' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-image: var(--select-arrow);
   background-repeat: no-repeat;
   background-position: right 14px center;
   padding-right: 40px;
@@ -125,7 +125,8 @@
 .contact-cta__select:focus,
 .contact-cta__textarea:focus {
   border-color: var(--accent);
-  background: var(--surface);
+  /* Solo el color: el atajo `background` borraría la flecha del select */
+  background-color: var(--surface);
   box-shadow: 0 0 0 3px var(--selection);
 }
 
