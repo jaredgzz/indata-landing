@@ -1,14 +1,7 @@
 import { getSupabase } from './supabaseClient'
-import { resolveLeadsMode } from './leadsMode'
 
-/** 'live' guarda en Supabase; 'test' simula el envío (ver leadsMode.js) */
-export const leadsMode = resolveLeadsMode({
-  prod: import.meta.env.PROD,
-  vercelEnv: import.meta.env.VERCEL_ENV,
-  override: import.meta.env.VITE_LEADS_MODE,
-})
-
-export const leadsAreLive = leadsMode === 'live'
+/** true solo en un build autorizado; lo decide vite.config.js (ver leadsMode.js) */
+export const leadsAreLive = import.meta.env.LEADS_LIVE === true
 
 /**
  * Guarda un lead en la tabla `leads`. En modo 'test' no se envía nada.

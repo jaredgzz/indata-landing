@@ -1,0 +1,14 @@
+// Cloudflare Workers con static assets. Producción: `npm run build:live && npx wrangler deploy`;
+// ramas: `npm run build && npx wrangler preview` (Worker Previews, Wrangler >= 4.135).
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "indaxion-landing",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    // Igual que el rewrite de vercel.json: toda ruta sin archivo sirve index.html
+    "not_found_handling": "single-page-application"
+  },
+  // Obligatorio para Worker Previews; vacío porque el sitio no usa variables ni bindings
+  "previews": {}
+}

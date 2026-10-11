@@ -8,6 +8,11 @@ test.beforeEach(async ({ page }) => {
   )
 })
 
+test('el build autorizado se identifica como leads=live', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.locator('meta[name="indaxion-build"]')).toHaveAttribute('content', /^leads=live;/)
+})
+
 for (const route of ROUTES) {
   test(`${route} carga sin errores de JS`, async ({ page }) => {
     const errors = []

@@ -16,7 +16,8 @@
 Proveedores que tratan esos datos por cuenta de InDaxion:
 
 - **Supabase**: base de datos donde se guardan los leads.
-- **Vercel**: hospedaje del sitio; registra datos técnicos como la IP.
+- **Cloudflare**: hospedaje del sitio; registra datos técnicos como la IP.
+- **Vercel**: hospedaje anterior, mientras dure la migración a Cloudflare.
 
 Terceros que intervienen solo si el visitante los usa o al cargar la página:
 
@@ -64,7 +65,7 @@ la descripción de tu necesidad. No recabamos datos personales sensibles.
 
 **Encargados y transferencias.** Tus datos se almacenan en servicios de
 infraestructura que los tratan por cuenta de InDaxion: Supabase (base de datos) y
-Vercel (hospedaje). No transferimos tus datos a terceros sin tu consentimiento, salvo
+Cloudflare (hospedaje). No transferimos tus datos a terceros sin tu consentimiento, salvo
 en los casos previstos por la ley. **[Confirmar ubicación de los servidores y si hay
 transferencias internacionales.]**
 
@@ -91,6 +92,6 @@ actualización.
 - [ ] Razón social, domicilio y correo de contacto para privacidad.
 - [ ] Revisión legal del texto completo y de la ley aplicable.
 - [ ] Confirmar las finalidades secundarias (por ejemplo, newsletter).
-- [ ] Confirmar la región de los servidores de Supabase y Vercel.
+- [ ] Confirmar la región de los servidores de Supabase y Cloudflare.
 - [ ] Implementar la página, el enlace del footer y los avisos cortos con el texto
       aprobado (todo el copy en `src/content/es.js`).
