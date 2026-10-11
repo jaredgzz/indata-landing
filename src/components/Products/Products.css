@@ -3,7 +3,7 @@
   background: var(--bg-alt);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
-  /* clip (no hidden) para no romper la escena fija del recorrido */
+  /* clip (no hidden) para no romper el recorrido fijo de Gova */
   overflow-x: clip;
 }
 
@@ -43,86 +43,6 @@
   max-width: 52ch;
 }
 
-/* ── Gova paso a paso ─────────────────────────────────── */
-.gova-tour__body {
-  display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
-  gap: 40px;
-  margin-top: 40px;
-}
-
-.gova-tour__label {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-2);
-  padding-bottom: 12px;
-}
-
-.gova-tour__steps {
-  list-style: none;
-}
-
-.gova-tour__step {
-  min-height: 64vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 40px 0;
-  border-top: 1px solid var(--border);
-  opacity: 0.4;
-  transition: opacity 300ms ease;
-}
-
-.gova-tour__step.is-active {
-  opacity: 1;
-}
-
-.gova-tour__number {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--tone-text);
-}
-
-.gova-tour__title {
-  margin-top: 6px;
-  font-size: 24px;
-  font-weight: 650;
-  line-height: 1.25;
-  letter-spacing: -0.015em;
-  color: var(--text);
-}
-
-.gova-tour__desc {
-  margin-top: 10px;
-  font-size: 17px;
-  line-height: 1.6;
-  color: var(--text-2);
-  max-width: 42ch;
-}
-
-.gova-tour__shot {
-  display: none;
-}
-
-.gova-tour__stage {
-  position: sticky;
-  top: max(84px, calc(50vh - 300px));
-  align-self: start;
-}
-
-.gova-tour__foot {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px 24px;
-  margin-top: 24px;
-}
-
-.gova-tour__note {
-  font-size: 13px;
-  color: var(--text-3);
-}
-
 /* ── Miga ──────────────────────────────────────────────── */
 .miga-card {
   margin-top: 96px;
@@ -148,35 +68,6 @@
 }
 
 @media (max-width: 960px) {
-  .gova-tour__body {
-    grid-template-columns: 1fr;
-    margin-top: 24px;
-  }
-
-  .gova-tour__stage {
-    display: none;
-  }
-
-  .gova-tour__step {
-    min-height: 0;
-    opacity: 1;
-    padding: 28px 0;
-  }
-
-  .gova-tour__shot {
-    display: block;
-    width: 100%;
-    height: auto;
-    margin-top: 20px;
-    border-radius: 10px;
-    border: 1px solid var(--screen-border);
-    box-shadow: var(--shadow-2);
-  }
-
-  .gova-tour__shot--portrait {
-    max-width: 280px;
-  }
-
   .miga-card {
     grid-template-columns: 1fr;
     gap: 32px;
@@ -188,9 +79,5 @@
 @media (max-width: 600px) {
   .product-head__name {
     font-size: 30px;
-  }
-
-  .gova-tour__title {
-    font-size: 21px;
   }
 }

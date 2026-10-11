@@ -18,10 +18,13 @@ function contrastOf(el) {
   return (hi + 0.05) / (lo + 0.05)
 }
 
-// Lleva el centro de un elemento al centro de la pantalla
-function centerInViewport(el) {
-  const rect = el.getBoundingClientRect()
-  window.scrollTo(0, window.scrollY + rect.top + rect.height / 2 - window.innerHeight / 2)
+// Lleva el scroll a la mitad del tramo del paso `step` del recorrido fijo de Gova
+function scrollToTourStep([step, steps]) {
+  const track = document.querySelector('.gova-tour__track')
+  const pin = document.querySelector('.gova-tour__pin')
+  const range = track.offsetHeight - pin.offsetHeight
+  const start = track.getBoundingClientRect().top + window.scrollY - parseFloat(getComputedStyle(pin).top)
+  window.scrollTo({ top: start + ((step + 0.5) / steps) * range, behavior: 'instant' })
 }
 
 const GOVA_TOUR = ['catalogo', 'cotizacion', 'documento', 'inicio']
@@ -83,21 +86,53 @@ test.describe('Diseño sin efectos de plantilla', () => {
     expect(await plane.evaluate(el => getComputedStyle(el).transform)).toBe(before)
   })
 
-  test('el recorrido de Gova lleva al frente la captura de cada paso', async ({ page, isMobile }) => {
+  test('el recorrido de Gova cambia de captura al hacer scroll', async ({ page, isMobile }) => {
     test.skip(isMobile, 'En pantallas angostas cada paso muestra su captura debajo del texto')
     await page.goto('/')
     const steps = page.locator('.gova-tour__step')
     await expect(steps).toHaveCount(GOVA_TOUR.length)
     for (const [i, id] of GOVA_TOUR.entries()) {
-      await steps.nth(i).evaluate(centerInViewport)
-      await expect(page.locator(`.product-stage--tour [data-screen="${id}"]`)).toHaveAttribute('data-active', 'true')
+      await page.evaluate(scrollToTourStep, [i, GOVA_TOUR.length])
+      await expect(page.locator(`.tour-visual [data-screen="${id}"]`)).toHaveAttribute('data-active', 'true')
+      await expect(steps.nth(i).getByRole('button')).toHaveAttribute('aria-current', 'step')
     }
+  })
+
+  test('cada paso del recorrido de Gova se elige con un clic', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'En pantallas angostas cada paso muestra su captura debajo del texto')
+    await page.goto('/')
+    await page.evaluate(scrollToTourStep, [0, GOVA_TOUR.length])
+    const steps = page.locator('.gova-tour__step')
+    for (const i of [2, 3, 0, 1]) {
+      await steps.nth(i).getByRole('button').click()
+      await expect(page.locator(`.tour-visual [data-screen="${GOVA_TOUR[i]}"]`)).toHaveAttribute('data-active', 'true')
+    }
+  })
+
+  test('la captura del recorrido se lee y queda alineada con los pasos', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'En pantallas angostas cada paso muestra su captura debajo del texto')
+    await page.goto('/')
+    await page.evaluate(scrollToTourStep, [0, GOVA_TOUR.length])
+    const shot = page.locator('.tour-visual [data-active="true"] img')
+    await expect(shot).toBeVisible()
+    const box = rect => rect.evaluate(el => el.getBoundingClientRect().toJSON())
+    // Al menos al 60 % de su tamaño real (1240 px), para que el texto de la app se lea
+    expect((await box(shot)).width).toBeGreaterThanOrEqual(0.6 * 1240)
+    // Arriba, el rótulo y la captura empiezan a la misma altura; abajo, el botón y la captura terminan juntos
+    const frame = await box(page.locator('.tour-visual__frame'))
+    const label = await box(page.locator('.gova-tour__label'))
+    const foot = await box(page.locator('.gova-tour__foot'))
+    expect(Math.abs(label.top - frame.top)).toBeLessThanOrEqual(1)
+    expect(Math.abs(foot.bottom - frame.bottom)).toBeLessThanOrEqual(1)
+    // Fija y completa en pantalla, debajo del Nav
+    expect(frame.top).toBeGreaterThanOrEqual(68)
+    expect(frame.bottom).toBeLessThanOrEqual(page.viewportSize().height)
   })
 
   test('en móvil, cada paso del recorrido muestra su captura', async ({ page, isMobile }) => {
     test.skip(!isMobile, 'En escritorio las capturas están en la escena fija')
     await page.goto('/')
-    await expect(page.locator('.product-stage--tour')).toBeHidden()
+    await expect(page.locator('.tour-visual')).toHaveCount(0)
     const shots = page.locator('.gova-tour__shot')
     await expect(shots).toHaveCount(GOVA_TOUR.length)
     for (let i = 0; i < GOVA_TOUR.length; i++) {

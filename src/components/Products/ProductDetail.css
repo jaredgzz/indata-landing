@@ -21,6 +21,20 @@
   align-items: center;
 }
 
+/* Escena 3D con capturas: mismas proporciones que el hero del home */
+.product-detail__hero-grid--stage {
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+}
+
+.product-detail__stage {
+  /* Más ancha que su columna, hacia la derecha, solo hasta donde hay margen libre */
+  margin-right: calc(-1 * clamp(0px, (100vw - var(--max-width)) / 2 - 24px, 96px));
+}
+
+.product-detail__stage .product-stage__caption {
+  margin-top: 0;
+}
+
 .product-detail__back {
   display: inline-block;
   font-size: 14px;
@@ -253,6 +267,10 @@
 
   .product-detail__hero-grid {
     gap: 40px;
+  }
+
+  .product-detail__stage {
+    margin: 0 -20px;
   }
 }
 

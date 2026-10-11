@@ -30,12 +30,6 @@
   transform-style: preserve-3d;
 }
 
-.product-stage__turn {
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-}
-
 .product-stage__screen {
   width: 100%;
   height: 100%;

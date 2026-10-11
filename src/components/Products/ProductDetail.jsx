@@ -19,11 +19,13 @@ export default function ProductDetail() {
   const { detail } = text
   const other = productsData.find(p => p.id !== product.id)
   const contactPath = `/?interes=${product.id}#contacto`
+  // Gova tiene capturas reales; Miga, una ilustración
+  const hasStage = product.id === 'gova'
 
   return (
     <main className={`product-detail tone-${product.id}`}>
       <section className="product-detail__hero">
-        <div className="product-detail__inner product-detail__hero-grid">
+        <div className={`product-detail__inner product-detail__hero-grid${hasStage ? ' product-detail__hero-grid--stage' : ''}`}>
           <div className="product-detail__intro">
             <Link to="/#productos" className="product-detail__back">{products.backToProducts}</Link>
             <h1 className="product-detail__name">{text.name}</h1>
@@ -42,8 +44,8 @@ export default function ProductDetail() {
               </Link>
             </div>
           </div>
-          {product.id === 'gova'
-            ? <ProductStage variant="tour" active="cotizacion" height={680} className="product-detail__stage" />
+          {hasStage
+            ? <ProductStage variant="detail" className="product-detail__stage" />
             : <ProductIllustration id={product.id} />}
         </div>
       </section>
