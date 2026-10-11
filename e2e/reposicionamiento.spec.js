@@ -189,7 +189,31 @@ test.describe('Rutas anteriores', () => {
   test('robots.txt publicado', async ({ request }) => {
     const res = await request.get('/robots.txt')
     expect(res.ok()).toBeTruthy()
-    expect(await res.text()).toContain('User-agent: *')
+    const text = await res.text()
+    expect(text).toContain('User-agent: *')
+    expect(text).toContain('Sitemap: https://indaxion.com/sitemap.xml')
+  })
+
+  test('sitemap.xml lista las rutas públicas con el dominio propio', async ({ request }) => {
+    const res = await request.get('/sitemap.xml')
+    expect(res.ok()).toBeTruthy()
+    expect(res.headers()['content-type']).toContain('xml')
+    const text = await res.text()
+    for (const path of ['/', '/productos/gova', '/productos/miga', '/open']) {
+      expect(text).toContain(`<loc>https://indaxion.com${path}</loc>`)
+    }
+  })
+
+  test('canonical apunta a indaxion.com en cada ruta y se retira en la 404', async ({ page }) => {
+    const canonical = page.locator('link[rel="canonical"]')
+    for (const path of ['/', '/productos/gova', '/productos/miga', '/open']) {
+      await page.goto(path)
+      await expect(canonical, path).toHaveAttribute('href', `https://indaxion.com${path}`)
+    }
+    await expect(page.locator('meta[property="og:url"]')).toHaveAttribute('content', 'https://indaxion.com/')
+    await page.goto('/pagina-que-no-existe')
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('No encontramos esta página.')
+    await expect(canonical).not.toHaveAttribute('href', /.+/)
   })
 })
 

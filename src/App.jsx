@@ -29,6 +29,9 @@ const PAGE_TITLES = {
   '/open':                    content.pages.open,
 }
 
+// Dominio canónico: las rutas conocidas apuntan aquí aunque se abran desde workers.dev
+const SITE_URL = 'https://indaxion.com'
+
 // Page-level content only — Nav and Footer are rendered outside AnimatePresence
 function HomeContent() {
   const [activeSection, setActiveSection] = useState('inicio')
@@ -82,6 +85,13 @@ function AppRoutes() {
   useEffect(() => {
     const path = location.pathname.replace(/\/+$/, '') || '/'
     document.title = PAGE_TITLES[path] ?? content.pages.notFound
+
+    // La 404 no lleva canonical (ya tiene noindex)
+    const canonical = document.querySelector('link[rel="canonical"]')
+    if (canonical) {
+      if (path in PAGE_TITLES) canonical.href = SITE_URL + (path === '/' ? '/' : path)
+      else canonical.removeAttribute('href')
+    }
   }, [location.pathname])
 
   return (
