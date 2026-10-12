@@ -19,6 +19,7 @@ const es = {
     gova: 'Gova · Gestión comercial y cotización | InDaxion',
     miga: 'Miga · Contenido y video asistidos por IA | InDaxion',
     open: 'InDaxion Open · Educación abierta y comunidad | InDaxion',
+    privacy: 'Aviso de privacidad | InDaxion',
     notFound: 'Página no encontrada | InDaxion',
   },
 
@@ -435,6 +436,9 @@ const es = {
     },
     requiredHint: 'obligatorio',
     submit: 'Enviar mensaje',
+    // Aviso corto bajo el botón; {link} se reemplaza por el enlace al aviso integral
+    privacyNotice: 'Usaremos tus datos solo para responder tu solicitud. Consulta nuestro {link}.',
+    privacyLink: 'Aviso de privacidad',
     // Envío muy rápido: no se rechaza, se pide confirmar
     confirm: {
       notice: 'Revisa que tus datos sean correctos y confirma el envío.',
@@ -475,7 +479,65 @@ const es = {
     email: 'Correo electrónico',
     // {year} se reemplaza en el componente
     copyright: '© {year} InDaxion. Todos los derechos reservados.',
+    privacy: 'Aviso de privacidad',
     cta: 'Escríbenos',
+  },
+
+  // Aviso de privacidad integral (/aviso-de-privacidad). Responsable: persona física
+  // (InDaxion es nombre comercial). Al cambiar datos, proveedores o finalidades,
+  // actualizar el texto y la fecha.
+  privacy: {
+    title: 'Aviso de privacidad',
+    updated: 'Última actualización: 11 de octubre de 2026',
+    intro:
+      'David Jared González Vásquez, persona física con actividad empresarial que opera con el nombre comercial InDaxion («InDaxion»), con domicilio en Escobedo, Nuevo León, México, es responsable del tratamiento de los datos personales que nos proporcionas a través de este sitio web, de acuerdo con la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.',
+    sections: [
+      {
+        title: 'Datos personales que recabamos',
+        paragraphs: [
+          'Cuando llenas el formulario de contacto recabamos tu nombre y tu correo electrónico y, si decides proporcionarlos, el nombre de tu empresa o negocio, tu teléfono, el producto o servicio de tu interés y la descripción de tu necesidad. Si nos escribes por correo electrónico o WhatsApp, tratamos los datos que nos compartas en esa conversación.',
+          'No recabamos datos personales sensibles.',
+        ],
+      },
+      {
+        title: 'Para qué usamos tus datos',
+        items: [
+          'Responder tus solicitudes de información.',
+          'Darte seguimiento comercial sobre la solicitud que nos hiciste.',
+        ],
+        paragraphs: [
+          'No usamos tus datos para finalidades distintas, no los vendemos y no te enviaremos publicidad sin tu consentimiento.',
+        ],
+      },
+      {
+        title: 'Proveedores que tratan tus datos',
+        paragraphs: [
+          'Para operar este sitio y responderte usamos proveedores de servicios que tratan tus datos solo por cuenta de InDaxion: Supabase (base de datos donde se guardan los mensajes del formulario), Cloudflare y Vercel (hospedaje del sitio) y Microsoft (correo electrónico). Sus servidores pueden estar ubicados fuera de México.',
+          'Al cargar el sitio, Google Fonts recibe tu dirección IP para entregar la tipografía. Si decides escribirnos por WhatsApp, esa conversación también se rige por el aviso de privacidad de WhatsApp.',
+          'No transferimos tus datos a terceros sin tu consentimiento, salvo en los casos previstos por la ley.',
+        ],
+      },
+      {
+        title: 'Tus derechos ARCO',
+        paragraphs: [
+          'Puedes acceder a tus datos, rectificarlos, cancelarlos u oponerte a su tratamiento (derechos ARCO), así como revocar tu consentimiento o limitar el uso de tus datos, enviando un correo a {email}.',
+          'Tu solicitud debe incluir tu nombre, un medio para responderte, un documento que acredite tu identidad (o la de tu representante) y una descripción clara de los datos y del derecho que quieres ejercer. Te responderemos por el mismo medio en los plazos que establece la ley.',
+        ],
+      },
+      {
+        title: 'Cookies y tecnologías de rastreo',
+        paragraphs: [
+          'Este sitio no utiliza cookies de analítica ni de publicidad. Los proveedores de hospedaje registran datos técnicos, como la dirección IP, para entregar el sitio y protegerlo.',
+        ],
+      },
+      {
+        title: 'Cambios a este aviso',
+        paragraphs: [
+          'Publicaremos cualquier cambio en esta página, con su fecha de actualización.',
+          'Si consideras que tu derecho a la protección de datos personales ha sido vulnerado, puedes acudir a la autoridad competente en la materia.',
+        ],
+      },
+    ],
   },
 }
 

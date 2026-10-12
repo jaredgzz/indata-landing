@@ -20,6 +20,7 @@ import { content } from './content'
 // Detail pages — lazy loaded to keep the home bundle small
 const ProductDetail       = lazy(() => import('./components/Products/ProductDetail'))
 const OpenPage            = lazy(() => import('./components/Open/OpenPage'))
+const PrivacyPage         = lazy(() => import('./components/Privacy/PrivacyPage'))
 
 // Tab title per known route; anything else renders the 404 page
 const PAGE_TITLES = {
@@ -27,6 +28,7 @@ const PAGE_TITLES = {
   '/productos/gova':          content.pages.gova,
   '/productos/miga':          content.pages.miga,
   '/open':                    content.pages.open,
+  '/aviso-de-privacidad':     content.pages.privacy,
 }
 
 // Dominio canónico: las rutas conocidas apuntan aquí aunque se abran desde workers.dev
@@ -123,6 +125,14 @@ function AppRoutes() {
               element={
                 <PageTransition>
                   <OpenPage />
+                </PageTransition>
+              }
+            />
+            <Route
+              path="/aviso-de-privacidad"
+              element={
+                <PageTransition>
+                  <PrivacyPage />
                 </PageTransition>
               }
             />

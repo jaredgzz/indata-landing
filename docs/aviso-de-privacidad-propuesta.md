@@ -1,10 +1,16 @@
-# Propuesta: aviso de privacidad
+# Aviso de privacidad
 
-> **Borrador para revisión legal. No publicar tal cual.** Los campos entre
-> corchetes deben completarse y un abogado debe validar el texto. En México, la
-> Ley Federal de Protección de Datos Personales en Posesión de los Particulares
-> vigente se publicó en el DOF el 20 de marzo de 2025 y sustituyó a la de 2010.
-> Confirmar con el asesor legal los requisitos y la autoridad aplicables.
+> **Publicado el 11 de octubre de 2026** en `/aviso-de-privacidad`, con enlace en
+> el pie de página y aviso corto bajo el formulario de contacto. El texto vive en
+> `src/content/es.js` (`privacy`). Responsable: David Jared González Vásquez,
+> persona física (RESICO) con nombre comercial InDaxion, domicilio publicado como
+> Escobedo, Nuevo León. Sigue pendiente la revisión de un abogado; al constituir
+> la empresa, cambiar el responsable y el domicilio.
+>
+> Ley aplicable: LFPDPPP publicada en el DOF el 20 de marzo de 2025; la autoridad
+> es la Secretaría Anticorrupción y Buen Gobierno.
+
+Lo que sigue es el borrador original y el análisis que lo acompañó.
 
 ## Qué datos recoge hoy el sitio
 
@@ -89,9 +95,9 @@ actualización.
 
 ## Pendientes antes de publicar
 
-- [ ] Razón social, domicilio y correo de contacto para privacidad.
+- [x] Responsable, domicilio (ciudad) y correo de privacidad (`contacto@indaxion.com`).
 - [ ] Revisión legal del texto completo y de la ley aplicable.
 - [ ] Confirmar las finalidades secundarias (por ejemplo, newsletter).
 - [ ] Confirmar la región de los servidores de Supabase y Cloudflare.
-- [ ] Implementar la página, el enlace del footer y los avisos cortos con el texto
-      aprobado (todo el copy en `src/content/es.js`).
+- [x] Página, enlace del footer y aviso corto del formulario (el modal de cursos
+      sigue oculto).

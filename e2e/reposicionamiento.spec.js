@@ -203,19 +203,35 @@ test.describe('Rutas anteriores', () => {
     }
   })
 
+  test('aviso de privacidad: página, enlace del pie y aviso corto del formulario', async ({ page }) => {
+    await page.goto('/')
+    await page.locator('footer').getByRole('link', { name: 'Aviso de privacidad' }).click()
+    await expect(page).toHaveURL(/\/aviso-de-privacidad$/)
+    await expect(page).toHaveTitle('Aviso de privacidad | InDaxion')
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Aviso de privacidad')
+    await expect(page.locator('main')).toContainText('David Jared González Vásquez')
+    await expect(page.locator('main')).toContainText('Escobedo, Nuevo León')
+    await expect(page.locator('main a[href="mailto:contacto@indaxion.com"]')).toBeVisible()
+    await expect(page.locator('meta[name="robots"]')).toHaveCount(0)
+
+    await page.goto('/#contacto')
+    await expect(page.locator('#contacto form').getByRole('link', { name: 'Aviso de privacidad' }))
+      .toHaveAttribute('href', '/aviso-de-privacidad')
+  })
+
   test('sitemap.xml lista las rutas públicas con el dominio propio', async ({ request }) => {
     const res = await request.get('/sitemap.xml')
     expect(res.ok()).toBeTruthy()
     expect(res.headers()['content-type']).toContain('xml')
     const text = await res.text()
-    for (const path of ['/', '/productos/gova', '/productos/miga', '/open']) {
+    for (const path of ['/', '/productos/gova', '/productos/miga', '/open', '/aviso-de-privacidad']) {
       expect(text).toContain(`<loc>https://indaxion.com${path}</loc>`)
     }
   })
 
   test('canonical apunta a indaxion.com en cada ruta y se retira en la 404', async ({ page }) => {
     const canonical = page.locator('link[rel="canonical"]')
-    for (const path of ['/', '/productos/gova', '/productos/miga', '/open']) {
+    for (const path of ['/', '/productos/gova', '/productos/miga', '/open', '/aviso-de-privacidad']) {
       await page.goto(path)
       await expect(canonical, path).toHaveAttribute('href', `https://indaxion.com${path}`)
     }

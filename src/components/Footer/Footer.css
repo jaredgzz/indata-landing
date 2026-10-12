@@ -82,6 +82,16 @@
   color: var(--footer-text-2);
 }
 
+.footer__legal {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer__legal:hover {
+  color: var(--footer-text);
+}
+
 .footer__cta {
   font-weight: 600;
   color: var(--footer-text);
