@@ -194,6 +194,15 @@ test.describe('Rutas anteriores', () => {
     expect(text).toContain('Sitemap: https://indaxion.com/sitemap.xml')
   })
 
+  test('el correo de contacto es el de la empresa en el pie y en Contacto', async ({ page }) => {
+    await page.goto('/')
+    const links = page.locator('a[href^="mailto:"]')
+    await expect(links).toHaveCount(2)
+    for (const link of await links.all()) {
+      await expect(link).toHaveAttribute('href', 'mailto:contacto@indaxion.com')
+    }
+  })
+
   test('sitemap.xml lista las rutas públicas con el dominio propio', async ({ request }) => {
     const res = await request.get('/sitemap.xml')
     expect(res.ok()).toBeTruthy()

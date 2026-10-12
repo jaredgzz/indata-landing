@@ -2,5 +2,5 @@
 export const contactInfo = {
   whatsappUrl: 'https://wa.me/528125670127',
   phone: '+52 81 2567 0127',
-  email: 'davidjared7@gmail.com',
+  email: 'contacto@indaxion.com',
 }
