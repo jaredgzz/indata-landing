@@ -78,6 +78,8 @@ export default function Footer() {
         <div className="footer__bottom">
           <span className="footer__copyright">
             {format(footer.copyright, { year: new Date().getFullYear() })}
+            {' · '}
+            <Link to="/aviso-de-privacidad" className="footer__legal">{footer.privacy}</Link>
           </span>
           <Link to="/#contacto" className="footer__link footer__cta">
             {footer.cta} <span aria-hidden="true">→</span>

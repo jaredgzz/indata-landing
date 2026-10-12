@@ -144,6 +144,18 @@
   gap: 10px;
 }
 
+.contact-cta__privacy {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+.contact-cta__privacy a {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* ── Spinner ─────────────────────────────────── */
 
 @keyframes spin {

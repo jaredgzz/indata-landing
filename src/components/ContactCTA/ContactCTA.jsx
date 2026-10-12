@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { saveLead, leadsAreLive } from '../../lib/leads'
 import { useAnimateIn } from '../../hooks/useAnimateIn'
 import { leadInterests, isLeadInterest, leadInterestValue } from '../../lib/leadOptions'
@@ -303,6 +303,12 @@ export default function ContactCTA() {
                 </>
               )}
             </button>
+
+            <p className="contact-cta__privacy">
+              {contact.privacyNotice.split('{link}')[0]}
+              <Link to="/aviso-de-privacidad">{contact.privacyLink}</Link>
+              {contact.privacyNotice.split('{link}')[1]}
+            </p>
           </form>
         )}
       </div>

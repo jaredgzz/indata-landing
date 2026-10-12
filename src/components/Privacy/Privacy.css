@@ -1,0 +1,73 @@
+/* ── Página /aviso-de-privacidad ─────────────────────────── */
+.privacy-page {
+  background: var(--bg);
+  padding: 152px 40px 96px;
+}
+
+.privacy-page__inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.privacy-page__title {
+  font-size: clamp(36px, 4.6vw, 52px);
+  font-weight: 650;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+
+.privacy-page__updated {
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--text-2);
+}
+
+.privacy-page__intro {
+  margin-top: 32px;
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+.privacy-page__section {
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+
+.privacy-page__heading {
+  font-size: 22px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.privacy-page__section p,
+.privacy-page__list {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-2);
+}
+
+.privacy-page__section p + p {
+  margin-top: 12px;
+}
+
+.privacy-page__list {
+  padding-left: 20px;
+  margin-bottom: 12px;
+}
+
+.privacy-page__section a {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .privacy-page {
+    padding: 120px 16px 72px;
+  }
+}
